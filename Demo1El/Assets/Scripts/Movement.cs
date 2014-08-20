@@ -8,6 +8,9 @@ public class Movement : MonoBehaviour {
 
 	public float numInLine;
 	public GameObject nextInLine;
+	public GameObject prevInLine;
+
+	public float yPosOnSwitch;
 
 	// Use this for initialization
 	void Start () 
@@ -63,11 +66,15 @@ public class Movement : MonoBehaviour {
 		//Input detects movement right.
 		if (Input.GetKeyDown("right"))
 		{
+
+			//Storing the y position on button press.
+			yPosOnSwitch = transform.position.y;
+
 			//first go to back
 			if (numInLine == 0)
 			{
 				//Move to back
-				transform.position = new Vector2 (transform.position.x - 2, transform.position.y);
+				transform.position = new Vector2 (transform.position.x - 2, nextInLine.GetComponent<Movement>().yPosOnSwitch);
 				numInLine = 2;
 				//now have a next in line... get it :/ nvm the order never changes
 				
@@ -76,7 +83,7 @@ public class Movement : MonoBehaviour {
 			else if (numInLine != 0)
 			{
 				//third keeps the same in front of it
-				transform.position = new Vector2 (transform.position.x + 1, transform.position.y);
+				transform.position = new Vector2 (transform.position.x + 1, nextInLine.GetComponent<Movement>().yPosOnSwitch);
 				numInLine -= 1;
 			}
 			
@@ -84,16 +91,19 @@ public class Movement : MonoBehaviour {
 		//Input movement left
 		if (Input.GetKeyDown("left"))
 		{
+			//Storing the y position on button press.
+			yPosOnSwitch = transform.position.y;
+
 			//move back one
 			if ((numInLine == 0) || (numInLine == 1))
 			{
-				transform.position = new Vector2 (transform.position.x - 1, transform.position.y);
+				transform.position = new Vector2 (transform.position.x - 1, prevInLine.GetComponent<Movement>().yPosOnSwitch);
 				numInLine += 1;
 			}
 			//last move to the front
 			else if (numInLine == 2)
 			{
-				transform.position = new Vector2 (transform.position.x + 2, transform.position.y);
+				transform.position = new Vector2 (transform.position.x + 2, prevInLine.GetComponent<Movement>().yPosOnSwitch);
 				numInLine = 0;
 			}
 			
