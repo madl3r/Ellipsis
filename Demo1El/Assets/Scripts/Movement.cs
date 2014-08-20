@@ -22,6 +22,12 @@ public class Movement : MonoBehaviour {
 		//~~~~~~~WITH this if taken out things will continue to move to the correct line even when order
 			// is switched mid move. THERE IS A JUMP THOUGH THAT IS DUE TO KEEPING THE SAME Y VALUE DURING A SWITCH
 			// THIS JUMP MIGHT BE FIXED THROUGH THE EVENTUAL LERPING... OR BY MAKING THE Y VALUE EQUAL TO WHOEVER IS INFRONT OF OR BEHIND DEPENDING ON THE SWITCH
+
+			//Maybe don't physically move them... instead on this movement just change the stats of each one including color. That might be weird with order of things...
+				//Probably better to just find out how to smooth out the jumping
+			//ACTUALLY PROBABLY DON'T MOVE THEM! WHENEVER DOING A SWITCH (L or R) send messages to each one so you know the order that it will happen in!!
+				//Don't do a move within the game, instead do an animation to black and then change colors.
+
 		//if (numInLine == 0)
 		//{
 			//If first in line update this one's theYPos to the next line

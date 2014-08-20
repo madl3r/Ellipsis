@@ -1,8 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../UnityProjects2014_15/SpriteAnimationDemo/Assets/Scripts/Movement.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Movement.cs">
     <Files>
-      <File FileName="../../../UnityProjects2014_15/SpriteAnimationDemo/Assets/Scripts/Movement.cs" Line="11" Column="16" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="106" Column="113" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
