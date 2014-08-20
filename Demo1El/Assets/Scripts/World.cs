@@ -47,6 +47,11 @@ public class World : MonoBehaviour {
 	
 	}
 
+	void printMessage()
+	{
+		Debug.Log("we have the world");
+	}
+
 //	void sortLinesForY(GameObject[] theLines)
 //	{
 //		//TODO A NICE SORTING BASED ON Y POSITION.
