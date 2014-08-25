@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Movement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/HammerEnemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/Movement.cs" Line="128" Column="6" />
-      <File FileName="Assets/Scripts/World.cs" Line="50" Column="12" />
-      <File FileName="Assets/Scripts/MoveHelperONCE.cs" Line="18" Column="37" />
+      <File FileName="Assets/Scripts/World.cs" Line="60" Column="66" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LineScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/HammerEnemy.cs" Line="11" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

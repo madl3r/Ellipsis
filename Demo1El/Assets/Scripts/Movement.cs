@@ -199,6 +199,16 @@ public class Movement : MonoBehaviour {
 			//Send message (calling this method) to next in Q
 			nextInQ.SendMessage("switchRight", attempt);
 		}
+
+		//Only want collisions with the first in line... or DO WE?!?
+		if (numInQ == 0)
+		{
+			collider2D.enabled = true;
+		}
+		else
+		{
+			collider2D.enabled = false;
+		}
 	}
 
 	void switchLeft (int attempt)
@@ -245,6 +255,15 @@ public class Movement : MonoBehaviour {
 			
 			//Send message (calling this method) to prev in Q
 			prevInQ.SendMessage("switchLeft", attempt);
+		}
+		//Only want collisions with the first in line... or DO WE?!?
+		if (numInQ == 0)
+		{
+			collider2D.enabled = true;
+		}
+		else
+		{
+			collider2D.enabled = false;
 		}
 	}
 }
