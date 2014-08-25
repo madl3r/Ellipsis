@@ -40,6 +40,7 @@
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_OSX
 'Assets/Scripts/LineScript.cs'
+'Assets/Scripts/MoveHelperONCE.cs'
 'Assets/Scripts/Movement.cs'
 'Assets/Scripts/World.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'

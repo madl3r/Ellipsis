@@ -5,11 +5,16 @@ public class LineScript : MonoBehaviour {
 
 	//Lines should only know about themselves and store info about themselves. And then give that info to the World.
 
-	private bool canEnter;
+	public bool canEnter;
 
 
 	// Use this for initialization
 	void Start () {
+		if (tag == "lines")
+			canEnter = true;
+		else
+			canEnter = true;
+
 	
 	}
 	

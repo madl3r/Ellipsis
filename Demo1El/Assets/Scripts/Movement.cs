@@ -57,6 +57,10 @@ public class Movement : MonoBehaviour {
 		}
 		//now getting it's index.
 		lineTargetIndex = theWorld.GetComponent<World>().lines.IndexOf(lineTarget);
+
+		//Telling the world where we start.
+		theWorld.SendMessage("updateCurrentLine", lineTarget);
+
 		//DebugCode
 		//Debug.Log("the lineTarget's position" + lineTarget.transform.position + "With Index at: " + lineTargetIndex);
 
@@ -73,15 +77,24 @@ public class Movement : MonoBehaviour {
 			//instead of manually changing up or down should get the next line up or down in the list of lines from world.
 			//if it's allowed to do that based on "World's" decision then set theYPos to that lines y pos.
 
-		//Up or down, then move theYPos for errone
-		if (Input.GetKeyDown("up") && theYPos < 4.0f)
+		//If detect up, and we're not at the last line, and we're allowed to move up... then move up!
+		if (Input.GetKeyDown("up") && (lineTargetIndex - 1) >= 0
+		    && theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)
 		{
-			theYPos += 2f;
+			//theYPos += 2f;
+			lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex - 1];
+			lineTargetIndex--;
+			theYPos = lineTarget.transform.position.y;
+			theWorld.SendMessage("updateCurrentLine", lineTarget);
 		}
-
-		if (Input.GetKeyDown("down") && theYPos > -4.0f)
+		//Same as above, but with down input.
+		if (Input.GetKeyDown("down") && (lineTargetIndex + 1) < theWorld.GetComponent<World>().lines.Count
+		    && theWorld.GetComponent<World>().lines[lineTargetIndex + 1].GetComponent<LineScript>().canEnter)
 		{
-			theYPos -= 2f;
+			lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex + 1];
+			lineTargetIndex++;
+			theYPos = lineTarget.transform.position.y;
+			theWorld.SendMessage("updateCurrentLine", lineTarget);
 		}
 
 		//Locking onto a line
@@ -95,7 +108,7 @@ public class Movement : MonoBehaviour {
 			{
 				leadIsFar = true;
 			}
-			else if (Mathf.Abs(transform.position.y - nextInQ.transform.position.y) < 0.01f)
+			else if (Mathf.Abs(transform.position.y - nextInQ.transform.position.y) < 0.05f)
 			{
 				leadIsFar = false;
 				//clicking onto the line and updating theYPos
@@ -103,17 +116,6 @@ public class Movement : MonoBehaviour {
 				//theYPos = transform.position.y; DON'T NEED THIS ANYMORE B/C THEYPOS WILL ALWAYS BE UPDATED
 			}
 		}
-
-//		//Switching right
-//		if (Input.GetKeyDown("right"))
-//		{
-//			Debug.Log("GETKEYDOWN TOO MUCH. Current First is: " + currentFirst);
-//		}
-//		//switchting left
-//		if (Input.GetKeyDown("left"))
-//		{
-//			Debug.Log("GETKEYDOWN TOO MUCH ~~~~~~ LLL " + currentFirst);
-//		}
 
 		//Switching right
 		//If we get right input, only do on the first in line, and make sure that this is only the first time detected (SEE MoveHelperONCE)
