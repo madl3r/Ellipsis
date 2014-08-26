@@ -44,6 +44,8 @@
 'Assets/Scripts/LineScript.cs'
 'Assets/Scripts/MoveHelperONCE.cs'
 'Assets/Scripts/Movement.cs'
+'Assets/Scripts/OffCameraLeftScript.cs'
 'Assets/Scripts/World.cs'
+'Assets/Scripts/playerStats.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Xml.Linq.dll'

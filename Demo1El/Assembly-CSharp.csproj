@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\OffCameraLeftScript.cs" />
      <Compile Include="Assets\Scripts\World.cs" />
+     <Compile Include="Assets\Scripts\playerStats.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
