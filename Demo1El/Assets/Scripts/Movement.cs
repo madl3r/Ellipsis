@@ -77,6 +77,12 @@ public class Movement : MonoBehaviour {
 			//instead of manually changing up or down should get the next line up or down in the list of lines from world.
 			//if it's allowed to do that based on "World's" decision then set theYPos to that lines y pos.
 
+		//Detecting shooting
+		if ((Input.GetKeyDown("z") || Input.GetKeyDown("space")) && numInQ == 0)
+		{
+			gameObject.SendMessage("attack");
+		}
+
 		//If detect up, and we're not at the last line, and we're allowed to move up... then move up!
 		if (Input.GetKeyDown("up") && (lineTargetIndex - 1) >= 0
 		    && theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)

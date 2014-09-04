@@ -6,16 +6,17 @@ public class playerStats : MonoBehaviour {
 	//This class keeps track of and updates the players stats (health and upgrades)
 		//This class is then also in charge of using the upgrades that are currently on it... for now.
 	private static int hp;
-
-
+	
 	//Attack type maybe for close range, shoot, and deflect... then add modifiers like spread and what not
-	public int attackType;
+	public GameObject attackType;
+	private int bonusDmg;
 
 	//Should include attack damage, and attack speed here as well too.
 
 	// Use this for initialization
 	void Start () {
 		hp = 5;
+		bonusDmg = 0;
 	}
 	
 	// Update is called once per frame
@@ -41,17 +42,8 @@ public class playerStats : MonoBehaviour {
 
 	void attack()
 	{
-		switch (attackType)
-		{
-		case 0:
-			//Blue
-			break;
-		case 1:
-			//Green
-			break;
-		case 2:
-			//Red
-			break;
-		}
+		Debug.Log("SHOOTING " + attackType);
+		GameObject b = Instantiate(attackType, transform.position, transform.rotation) as GameObject;
+		b.BroadcastMessage("setDamageBonus", bonusDmg);
 	}
 }
