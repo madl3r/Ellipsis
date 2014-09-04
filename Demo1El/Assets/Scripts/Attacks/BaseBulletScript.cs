@@ -14,9 +14,13 @@ public class BaseBulletScript : MonoBehaviour {
 	void Update () {
 	
 	}
+
 	protected virtual void dealDamage(GameObject theHit)
 	{
-		theHit.SendMessage("takeDamage", dmg);
+		if (theHit.tag == "player" || theHit.tag == "enemy")
+		{
+			theHit.SendMessage("takeDamage", dmg);
+		}
 		Destroy(gameObject);
 	}
 	

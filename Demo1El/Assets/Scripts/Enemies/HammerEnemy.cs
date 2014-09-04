@@ -39,7 +39,7 @@ public class HammerEnemy : BaseEnemy {
 //		Debug.Log("THE HAMMER JUST HIT SOMETHING!");
 //	}
 
-	void OnTriggerEnter2D(Collider2D other)
+	protected override void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "Player")
 		{

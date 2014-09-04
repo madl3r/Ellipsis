@@ -1,8 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Attacks/greenBounceScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Attacks/blueBulletScript.cs">
     <Files>
-      <File FileName="Assets/Scripts/Attacks/greenBounceScript.cs" Line="10" Column="17" />
+      <File FileName="Assets/Scripts/Enemies/BasicShootyEnemy.cs" Line="57" Column="96" />
+      <File FileName="Assets/Scripts/Enemies/HammerEnemy.cs" Line="52" Column="4" />
+      <File FileName="Assets/Scripts/Attacks/greenBounceScript.cs" Line="13" Column="61" />
+      <File FileName="Assets/Scripts/Attacks/blueBulletScript.cs" Line="13" Column="2" />
+      <File FileName="Assets/Scripts/Attacks/basicEnemyBulletScript.cs" Line="38" Column="59" />
+      <File FileName="Assets/Scripts/Attacks/BaseBulletScript.cs" Line="24" Column="23" />
+      <File FileName="Assets/Scripts/Enemies/BaseEnemy.cs" Line="19" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

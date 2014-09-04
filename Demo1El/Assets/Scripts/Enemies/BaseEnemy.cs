@@ -16,6 +16,15 @@ public class BaseEnemy : MonoBehaviour {
 	
 	}
 
+	protected virtual void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "bullet")
+		{
+			Debug.Log("HIT BY A BULLET");
+			other.gameObject.SendMessage("dealDamage", gameObject);
+		}
+	}
+
 	
 	
 	protected virtual void takeDamage(int dmg)
@@ -25,5 +34,7 @@ public class BaseEnemy : MonoBehaviour {
 		if (hp <= 0)
 			Destroy(gameObject);
 	}
+
+
 
 }
