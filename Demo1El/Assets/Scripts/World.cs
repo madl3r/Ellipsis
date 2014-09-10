@@ -83,7 +83,9 @@ public class World : MonoBehaviour {
 		{
 			//Round is over!
 			roundStarted = false;
-			Debug.Log("Round over!!");
+			Debug.Log("Round " + round + " survived!!");
+			StartCoroutine("waitThenNewRound");
+
 			//Wait for a little bit (maybe present a UI option to spawn the next round)
 		}
 
@@ -141,6 +143,7 @@ public class World : MonoBehaviour {
 
 	void newRound()
 	{
+		Debug.Log("Spawning");
 		roundStarted = true;
 		round++;
 		currentRoundEnemies = new GameObject[Random.Range(2,6)];
@@ -156,6 +159,13 @@ public class World : MonoBehaviour {
 	void enemyKilled()
 	{
 		enemiesKilledThisRound++;
+	}
+
+	IEnumerator waitThenNewRound()
+	{
+		//Debug.Log("IN THE NUMERBATOR");
+		yield return new WaitForSeconds(3.0f);
+		newRound();
 	}
 
 //	void sortLinesForY(GameObject[] theLines)
