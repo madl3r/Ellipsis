@@ -27,6 +27,14 @@ public class World : MonoBehaviour {
 	private bool upgradesUnlocked;
 	private bool bossUnlocked;
 
+	//Round and spawrning variables.
+	public List<GameObject> prefabEnemies;
+	public int round;
+	private bool roundStarted;
+	private int enemiesKilledThisRound;
+	private int enemiesSpawnedThisRound;
+	private GameObject[] currentRoundEnemies;
+
 	
 	// Use this for initialization
 	void Start () {
@@ -43,13 +51,24 @@ public class World : MonoBehaviour {
 //		for (int i = 0; i < foundLines.Length; i++)
 //		{
 //			Debug.Log(foundLines[i].transform.position.y);
-//		}
+//		}\
+
+		//For now the lines have just been put into descending Y order manually.
 		cameraYPos = 0.0f;
 		foreach (GameObject line in lines)
 		{
 			Debug.Log(line.transform.position.y);
 		}
+
+		//Get the line in the middle where the player starts. This can only be done with a magic number like this because the line order was put in manually. Should really be looking for the line with a y pos of 0.
 		currentLine = lines[4];
+
+		//Start at round 0
+		round = 0;
+		roundStarted = false;
+		enemiesKilledThisRound = 0;
+		enemiesSpawnedThisRound = 0;
+		newRound();
 
 	}
 	
@@ -59,6 +78,14 @@ public class World : MonoBehaviour {
 		//Locking camera into position.
 		if(Mathf.Abs(theCamera.transform.position.y - cameraYPos) < 0.3f)
 			theCamera.transform.position = new Vector3 (theCamera.transform.position.x, cameraYPos, -1.0f);
+
+		if (roundStarted && enemiesKilledThisRound == enemiesSpawnedThisRound)
+		{
+			//Round is over!
+			roundStarted = false;
+			Debug.Log("Round over!!");
+			//Wait for a little bit (maybe present a UI option to spawn the next round)
+		}
 
 
 	}
@@ -110,6 +137,25 @@ public class World : MonoBehaviour {
 		//Debug.Log("MOVING THE CAMERA " + theCamera.transform.position);
 
 
+	}
+
+	void newRound()
+	{
+		roundStarted = true;
+		round++;
+		currentRoundEnemies = new GameObject[Random.Range(2,6)];
+		enemiesKilledThisRound = 0;
+		enemiesSpawnedThisRound = currentRoundEnemies.Length;
+		for (int i = 0; i < currentRoundEnemies.Length; i++)
+		{
+			GameObject e = Instantiate(prefabEnemies[Random.Range(0, prefabEnemies.Count)], new Vector2(Random.Range(6, 9), Random.Range(-1, 3)*2), Quaternion.identity) as GameObject;
+			currentRoundEnemies[i] = e;
+		}
+	}
+
+	void enemyKilled()
+	{
+		enemiesKilledThisRound++;
 	}
 
 //	void sortLinesForY(GameObject[] theLines)

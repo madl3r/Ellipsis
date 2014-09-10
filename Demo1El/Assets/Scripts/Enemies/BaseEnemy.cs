@@ -32,7 +32,11 @@ public class BaseEnemy : MonoBehaviour {
 		hp -= dmg;
 		
 		if (hp <= 0)
+		{
+			//Tell the world that you died.
+			GameObject.FindWithTag("theWorld").SendMessage("enemyKilled");
 			Destroy(gameObject);
+		}
 	}
 
 

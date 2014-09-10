@@ -39,10 +39,15 @@
 -define:ENABLE_PROFILER
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_OSX
+'Assets/Scripts/Attacks/BaseBulletScript.cs'
 'Assets/Scripts/Attacks/attackTypeScript.cs'
+'Assets/Scripts/Attacks/basicEnemyBulletScript.cs'
 'Assets/Scripts/Attacks/blueBulletScript.cs'
+'Assets/Scripts/Attacks/greenBounceScript.cs'
+'Assets/Scripts/Attacks/greenBulletScript.cs'
 'Assets/Scripts/Attacks/redSlashParent.cs'
 'Assets/Scripts/Attacks/redSlashScript.cs'
+'Assets/Scripts/Enemies/BaseEnemy.cs'
 'Assets/Scripts/Enemies/BasicShootyEnemy.cs'
 'Assets/Scripts/Enemies/HammerEnemy.cs'
 'Assets/Scripts/LineScript.cs'

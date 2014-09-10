@@ -13,7 +13,7 @@ public class LineScript : MonoBehaviour {
 		if (tag == "lines")
 			canEnter = true;
 		else
-			canEnter = true;
+			canEnter = false;
 
 	
 	}
