@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\OffCameraLeftScript.cs" />
      <Compile Include="Assets\Scripts\OffCameraRightScript.cs" />
      <Compile Include="Assets\Scripts\World.cs" />
+     <Compile Include="Assets\Scripts\displayHP.cs" />
      <Compile Include="Assets\Scripts\playerStats.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
