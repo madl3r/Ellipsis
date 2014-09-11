@@ -9,6 +9,7 @@ public class HammerEnemy : BaseEnemy {
 	void Start () {
 		hp = 3;
 		dmg = 2;
+		rigidbody2D.velocity = new Vector2 (-11.33f, 0);
 	}
 	
 	// Update is called once per frame
@@ -18,7 +19,7 @@ public class HammerEnemy : BaseEnemy {
 
 	void FixedUpdate()
 	{
-		transform.position = new Vector2 (transform.position.x - 0.2f, transform.position.y);
+		//transform.position = new Vector2 (transform.position.x - 0.2f, transform.position.y);
 	}
 
 	void OffCameraLeft()
@@ -48,7 +49,7 @@ public class HammerEnemy : BaseEnemy {
 		}
 		if (other.gameObject.tag == "bullet")
 		{
-			Debug.Log("HIT BY A BULLET");
+			//Debug.Log("HIT BY A BULLET");
 			other.gameObject.SendMessage("dealDamage", gameObject);
 		}
 		//if the game object has a tag of player... then deal damage!

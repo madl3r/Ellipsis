@@ -11,7 +11,7 @@ public class greenBounceScript : attackTypeScript{
 		lifeTime = 0.2f;
 		startTime = Time.time;
 		transform.position = new Vector2 (transform.position.x + 1, transform.position.y);
-		dmg = 3;
+		dmg = 2;
 	}
 	
 	// Update is called once per frame
@@ -27,8 +27,8 @@ public class greenBounceScript : attackTypeScript{
 		else if (theHit.tag == "enemyBullet")
 		{
 			//reflect bullet
-			Debug.Log("REFLECT BULLET");
-			GameObject b = Instantiate(greenReflection, transform.position, transform.rotation) as GameObject;
+			//Debug.Log("REFLECT BULLET");
+			Instantiate(greenReflection, transform.position, transform.rotation);
 		}
 
 		Destroy(gameObject);

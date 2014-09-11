@@ -43,6 +43,7 @@ public class BasicShootyEnemy : BaseEnemy {
 
 	void FixedUpdate()
 	{
+		//TODO Get enemy movement and player movement to be velocity based. NOT fixed update
 		if (transform.position.y < theYPos)
 			transform.position = new Vector2 (transform.position.x, transform.position.y + 0.2f);
 		else if (transform.position.y > theYPos)

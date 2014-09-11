@@ -6,6 +6,7 @@ public class greenBulletScript : blueBulletScript {
 	// Use this for initialization
 	void Start () {
 		dmg = 2;
+		rigidbody2D.velocity = new Vector2(13.0f, 0);
 	}
 	
 	// Update is called once per frame
