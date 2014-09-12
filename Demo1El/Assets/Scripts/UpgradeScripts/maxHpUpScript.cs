@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HealScript : BaseUpgrade {
+public class maxHpUpScript : BaseUpgrade {
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class HealScript : BaseUpgrade {
 
 	public override void giveUpgradeToPlayer (GameObject player)
 	{
-		player.GetComponent<playerStats>().addHP(1);
+		player.GetComponent<playerStats>().addBnsMaxHP(1);
 		Destroy(gameObject);
 	}
 }

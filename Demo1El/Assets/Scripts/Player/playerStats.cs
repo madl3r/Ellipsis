@@ -103,7 +103,7 @@ public class playerStats : MonoBehaviour {
 			if (canAttack)
 			{
 				lastAttack = Time.time;
-				//Debug.Log("SHOOTING " + attackType);
+				Debug.Log("SHOOTING " + attackType);
 				GameObject b = Instantiate(theBullet, transform.position, transform.rotation) as GameObject;
 				b.BroadcastMessage("addBonusDmg", bulBnsDmg);
 				b.BroadcastMessage("addBonusBulSpeed", bulBnsSpd);
@@ -117,32 +117,13 @@ public class playerStats : MonoBehaviour {
 		}
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "upgradeLines")
 		{
-
 			Debug.Log("GET THIS UPGRADE");
 			if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade != null)
 			{
 				theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject);
-				Destroy(theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade);
+				//Destroy(theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade);
+				//The upgrade should kill itself
 			}
-			//TODO Whenever you get an upgrade to attack type you should get your base attack speed updated to the defaultAttackSpeed of that attack.
-
-			//MIGHT NOT NEED AN IF.
-			//Should just be an upgrade script that when you get it call a method that gives this player the upgrade
-			//That should do whatever needs to without having to know what it is in this script!
-			if (false)
-			{
-				//give this player the upgrade
-				//then delete the upgrade
-			}
-			//else if it's an attack type
-			else if (false)
-			{
-				Destroy(attackType);
-				// attackType = theUpgardes attack type
-				attackType.GetComponent<attackTypeScript>().setBaseAttackSpeed(gameObject);
-				attackType.GetComponent<attackTypeScript>().givePlayerBullet(gameObject);
-			}
-			//destroy the upgrade
 		}
 	}
 
@@ -199,9 +180,21 @@ public class playerStats : MonoBehaviour {
 	//Help method that updates the time between attacks whenever attackSpeed is updated.
 	public void updateTimeBetweenAttacks()
 	{
-//		Debug.Log("baseAttackSpeed is: " + baseAttackSpd);
+		Debug.Log("baseAttackSpeed is: " + baseAttackSpd);
 		timeBetweenAttacks = 1.0f / (baseAttackSpd + bnsAttackSpd);
+		lastAttack = Time.time;
 //		Debug.Log("time between attacks is: " + timeBetweenAttacks + "for char " + gameObject);
+	}
+
+	public void setAttackType(GameObject aType)
+	{
+		Debug.Log("Upgrading the attack type");
+		Destroy(attackType);
+		attackType = Instantiate(aType, transform.position, transform.rotation) as GameObject;
+		attackType.GetComponent<attackTypeScript>().myPlayer = gameObject;
+		Debug.Log("After instantiate");
+//		attackType.GetComponent<attackTypeScript>().setBaseAttackSpeed(gameObject); // these seem to be running before the start of the attackTypeScript
+//		attackType.GetComponent<attackTypeScript>().givePlayerBullet(gameObject);
 	}
 
 	void setRoundStatus(bool round)

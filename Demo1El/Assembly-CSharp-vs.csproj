@@ -66,6 +66,8 @@
      <Compile Include="Assets\Scripts\Player\playerStats.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\BaseUpgrade.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\HealScript.cs" />
+     <Compile Include="Assets\Scripts\UpgradeScripts\colorRedUpgradeScript.cs" />
+     <Compile Include="Assets\Scripts\UpgradeScripts\maxHpUpScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\CountDownScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\LineScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\OffCameraLeftScript.cs" />

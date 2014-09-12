@@ -6,6 +6,7 @@ public class attackTypeScript : MonoBehaviour
 	//To be used for setting the default attack speed of the player that is currently using this attackType
 	protected float defaultAttackSpeed;// = 4.0f;
 	public GameObject bullet;
+	public GameObject myPlayer;
 
 	// Use this for initialization
 	void Start () {
