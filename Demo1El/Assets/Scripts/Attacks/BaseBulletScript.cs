@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseBulletScript : MonoBehaviour {
+public class BaseBulletScript : attackTypeScript{
 
-	protected int dmg;
+
 
 	// Use this for initialization
 	void Start () {

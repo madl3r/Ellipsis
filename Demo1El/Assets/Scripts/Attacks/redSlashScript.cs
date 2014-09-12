@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class redSlashScript : attackTypeScript {
+public class redSlashScript : BaseBulletScript {
 	
 
 

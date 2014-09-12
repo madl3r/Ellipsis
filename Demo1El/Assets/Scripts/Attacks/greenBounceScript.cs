@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class greenBounceScript : attackTypeScript{
+public class greenBounceScript : BaseBulletScript{
 	private float startTime;
 	private float lifeTime;
 	public GameObject greenReflection;

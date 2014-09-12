@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class blueBulletScript : attackTypeScript {
+public class blueBulletScript : BaseBulletScript {
 	
 	// Use this for initialization
 	void Start () {

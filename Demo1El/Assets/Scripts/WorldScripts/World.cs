@@ -10,6 +10,9 @@ public class World : MonoBehaviour {
 	//Finally this class also times out events (and keeps track of things that have happened in a single session) in the world throwing enemies at 
 	//player and timing when boss shows up
 
+	//Upgrade list
+	public GameObject[] upgradeList;
+
 	//this public list of lines in the scene is input into the object from top to bottom.
 	public List<GameObject> lines;
 	//For dynamically making upgrade lines as more upgrades come in... we'll see... but for now I think that I'll just have two upgrades max
