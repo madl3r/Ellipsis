@@ -6,7 +6,8 @@ public class basicEnemyBulletScript : BaseBulletScript {
 	// Use this for initialization
 	void Start () {
 		dmg = 1;
-		rigidbody2D.velocity = new Vector2 (-12f, 0.0f);
+		bulletSpeed = -12.0f;
+		rigidbody2D.velocity = new Vector2 (bulletSpeed, 0.0f);
 	}
 	
 	// Update is called once per frame

@@ -80,7 +80,7 @@ public class Movement : MonoBehaviour {
 		//Detecting shooting
 		if ((Input.GetKeyDown("z") || Input.GetKeyDown("space")) && numInQ == 0)
 		{
-			gameObject.SendMessage("attack");
+			gameObject.GetComponent<playerStats>().attack();
 		}
 
 		//If detect up, and we're not at the last line, and we're allowed to move up... then move up!

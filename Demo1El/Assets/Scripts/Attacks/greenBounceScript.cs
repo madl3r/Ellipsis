@@ -2,13 +2,12 @@
 using System.Collections;
 
 public class greenBounceScript : BaseBulletScript{
-	private float startTime;
-	private float lifeTime;
+
 	public GameObject greenReflection;
 	
 	// Use this for initialization
 	void Start () {
-		lifeTime = 0.2f;
+		duration = 0.2f;
 		startTime = Time.time;
 		transform.position = new Vector2 (transform.position.x + 1, transform.position.y);
 		dmg = 2;
@@ -16,7 +15,7 @@ public class greenBounceScript : BaseBulletScript{
 	
 	// Update is called once per frame
 	void Update () {
-		if (Time.time - startTime > lifeTime)
+		if (Time.time - startTime > duration)
 			Destroy(gameObject);
 	}
 

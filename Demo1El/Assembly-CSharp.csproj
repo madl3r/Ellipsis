@@ -46,8 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AttackTypes\attackTypeScript.cs" />
+     <Compile Include="Assets\Scripts\AttackTypes\blueAttackTypeScript.cs" />
+     <Compile Include="Assets\Scripts\AttackTypes\greenAttackTypeScript.cs" />
+     <Compile Include="Assets\Scripts\AttackTypes\redAttackTypeScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\BaseBulletScript.cs" />
-     <Compile Include="Assets\Scripts\Attacks\attackTypeScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\basicEnemyBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\blueBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\greenBounceScript.cs" />
