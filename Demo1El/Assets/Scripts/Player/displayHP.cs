@@ -32,6 +32,7 @@ public class displayHP : MonoBehaviour {
 			for (int i = 0; i < hearts.Length; i++)
 			{
 				hearts[i] = Instantiate(heartSprite, new Vector2(transform.position.x + i, transform.position.y), transform.rotation) as GameObject;
+				hearts[i].transform.parent = gameObject.transform.parent;
 			}
 		}
 	}

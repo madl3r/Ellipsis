@@ -115,9 +115,15 @@ public class playerStats : MonoBehaviour {
 			//count down to next round
 			theWorld.GetComponent<World>().decrementRoundCount();
 		}
-		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "upgradeLine")
+		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "upgradeLines")
 		{
+
 			Debug.Log("GET THIS UPGRADE");
+			if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade != null)
+			{
+				theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject);
+				Destroy(theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade);
+			}
 			//TODO Whenever you get an upgrade to attack type you should get your base attack speed updated to the defaultAttackSpeed of that attack.
 
 			//MIGHT NOT NEED AN IF.
@@ -175,11 +181,13 @@ public class playerStats : MonoBehaviour {
 		maxHP += bns;
 		//Also give the player that extra HP right now
 		hp += bns;
+		HPUI.GetComponent<displayHP>().showHearts(hp);
 	}
 
 	public void addHP(int heal)
 	{
 		hp += heal;
+		HPUI.GetComponent<displayHP>().showHearts(hp);
 	}
 	//~~~~
 
