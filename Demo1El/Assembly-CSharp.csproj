@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Player\Movement.cs" />
      <Compile Include="Assets\Scripts\Player\displayHP.cs" />
      <Compile Include="Assets\Scripts\Player\playerStats.cs" />
+     <Compile Include="Assets\Scripts\WorldScripts\CountDownScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\LineScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\OffCameraLeftScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\OffCameraRightScript.cs" />

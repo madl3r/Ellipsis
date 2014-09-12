@@ -7,6 +7,9 @@ public class playerStats : MonoBehaviour {
 		//This class is then also in charge of using the upgrades that are currently on it... for now.
 	private static int hp;
 	public static GameObject HPUI;
+	public static GameObject theWorld;
+	//Maybe swtich from this name to just wether not it's able to attack
+	private bool isInRound;
 
 	//Attack type maybe for close range, shoot, and deflect... then add modifiers like spread and what not
 	public GameObject attackType;
@@ -18,7 +21,8 @@ public class playerStats : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		HPUI = GameObject.Find("HPui");
-
+		theWorld = GameObject.FindGameObjectWithTag("theWorld");
+//		isInRound = false;
 		hp = 5;
 		//HPUI.GetComponent<displayHP>.hearts = new GameObject[hp];
 		HPUI.GetComponent<displayHP>().showHearts(hp);
@@ -54,8 +58,24 @@ public class playerStats : MonoBehaviour {
 
 	void attack()
 	{
-		//Debug.Log("SHOOTING " + attackType);
-		GameObject b = Instantiate(attackType, transform.position, transform.rotation) as GameObject;
-		b.BroadcastMessage("setDamageBonus", bonusDmg);
+		if (isInRound){
+			//Debug.Log("SHOOTING " + attackType);
+			GameObject b = Instantiate(attackType, transform.position, transform.rotation) as GameObject;
+			b.BroadcastMessage("setDamageBonus", bonusDmg);
+		}
+		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "lines")
+		{
+			//count down to next round
+			theWorld.GetComponent<World>().decrementRoundCount();
+		}
+		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "upgradeLine")
+		{
+			Debug.Log("GET THIS UPGRADE");
+		}
+	}
+
+	void setRoundStatus(bool round)
+	{
+		isInRound = round;
 	}
 }

@@ -55,7 +55,7 @@ public class BasicShootyEnemy : BaseEnemy {
 		prevShotTime = Time.time;
 		timeBetweenShot = Random.Range(0.1f, 1.0f);
 		//Debug.Log("ENEMY SHOOTING " + attackType);
-		GameObject b = Instantiate(attackType, transform.position, transform.rotation) as GameObject;
+		Instantiate(attackType, transform.position, transform.rotation);
 	}
 
 	protected virtual void move()

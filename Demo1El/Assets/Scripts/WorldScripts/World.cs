@@ -12,6 +12,11 @@ public class World : MonoBehaviour {
 
 	//this public list of lines in the scene is input into the object from top to bottom.
 	public List<GameObject> lines;
+	//For dynamically making upgrade lines as more upgrades come in... we'll see... but for now I think that I'll just have two upgrades max
+	// TODO Ultimately though... you should allow as many as you can to exist.
+	public GameObject upgradeLine;
+	public GameObject upgradeArrow;
+	public GameObject preBossArrow;
 	//The camera for the scene because this script will be controling it.
 	public GameObject theCamera;
 
@@ -30,10 +35,13 @@ public class World : MonoBehaviour {
 	//Round and spawrning variables.
 	public List<GameObject> prefabEnemies;
 	public int round;
+	public GameObject countDownObj;
 	private bool roundStarted;
 	private int enemiesKilledThisRound;
 	private int enemiesSpawnedThisRound;
 	private GameObject[] currentRoundEnemies;
+	private int timeBtwnRound;
+	private int timeLeftBtwnRound;
 
 	
 	// Use this for initialization
@@ -55,10 +63,10 @@ public class World : MonoBehaviour {
 
 		//For now the lines have just been put into descending Y order manually.
 		cameraYPos = 0.0f;
-		foreach (GameObject line in lines)
-		{
-			//Debug.Log(line.transform.position.y);
-		}
+//		foreach (GameObject line in lines)
+//		{
+//			//Debug.Log(line.transform.position.y);
+//		}
 
 		//Get the line in the middle where the player starts. This can only be done with a magic number like this because the line order was put in manually. Should really be looking for the line with a y pos of 0.
 		currentLine = lines[4];
@@ -70,6 +78,10 @@ public class World : MonoBehaviour {
 		enemiesSpawnedThisRound = 0;
 		newRound();
 
+		//Setting how many times the play needs to attack between rounds.
+		timeBtwnRound = 5;
+		timeLeftBtwnRound = timeBtwnRound;
+
 	}
 	
 	// Update is called once per frame
@@ -79,14 +91,53 @@ public class World : MonoBehaviour {
 		if(Mathf.Abs(theCamera.transform.position.y - cameraYPos) < 0.3f)
 			theCamera.transform.position = new Vector3 (theCamera.transform.position.x, cameraYPos, -1.0f);
 
+		//If all the enemies have been killed for this round... then end the round
 		if (roundStarted && enemiesKilledThisRound == enemiesSpawnedThisRound)
 		{
+			//Tell the player that the round is over
+			GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
+			foreach (GameObject player in thePlayers)
+			{
+				player.BroadcastMessage("setRoundStatus", false);
+			}
+
 			//Round is over!
 			roundStarted = false;
 			Debug.Log("Round " + round + " survived!!");
-			StartCoroutine("waitThenNewRound");
+			timeLeftBtwnRound = timeBtwnRound;
 
-			//Wait for a little bit (maybe present a UI option to spawn the next round)
+			//Display the number of hits before the next round
+			countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
+
+			//If the round is over and we have survived x rounds then a new upgrade is spawned
+
+			//When the round is over let the player enter the upgrade lines
+			upgradeArrow.renderer.enabled = true;
+			foreach (GameObject line in lines)
+			{
+				if (line.tag == "upgradeLines")
+				{
+					line.GetComponent<LineScript>().canEnter = true;
+				}
+			}
+		}
+		//Reset this variable whenever the player goes into the update area
+		if (timeLeftBtwnRound <= 0)
+		{
+			//Wait a second or two between the two rounds
+
+			//Kill the display thang
+
+			//StartCoroutine("waitThenNewRound");
+			newRound();
+			timeLeftBtwnRound = timeBtwnRound;
+		}
+
+		//If you move away from the main area then reset the counter for the round.
+		if (currentLine.tag != "lines")
+		{
+			timeLeftBtwnRound = timeBtwnRound;
+			setCounterInvisible();
 		}
 
 
@@ -111,7 +162,7 @@ public class World : MonoBehaviour {
 		//when we dynamically pick up lines this method will sort them by Y value.
 	}
 
-	void updateCurrentLine(GameObject newLine)
+	public void updateCurrentLine(GameObject newLine)
 	{
 		//if the newLine has a different tag than the current one that tells us to move the camera accordingly
 		if (currentLine != null && currentLine.tag != newLine.tag)
@@ -141,9 +192,30 @@ public class World : MonoBehaviour {
 
 	}
 
+
+	//Makes a new round
 	void newRound()
 	{
 		Debug.Log("Spawning new round");
+
+		//Letting players know that the round has begun
+		GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in thePlayers)
+		{
+			player.BroadcastMessage("setRoundStatus", true);
+		}
+
+		//Deleting all out of round UI
+		foreach (GameObject line in lines)
+		{
+			if (line.tag != "lines")
+			{
+				line.GetComponent<LineScript>().canEnter = false;
+			}
+		}
+		upgradeArrow.renderer.enabled = false;
+
+		//Round things
 		roundStarted = true;
 		round++;
 		currentRoundEnemies = new GameObject[Random.Range(2,6)];
@@ -161,10 +233,47 @@ public class World : MonoBehaviour {
 		enemiesKilledThisRound++;
 	}
 
+	public void decrementRoundCount()
+	{
+		//Set the current one invisible
+		countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = false;
+		//decrement
+		timeLeftBtwnRound--;
+		//if we can set this one to visible
+		if (timeLeftBtwnRound >= 0)
+			countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
+		//At end get rid of counter
+		if (timeLeftBtwnRound <= 0)
+		{
+			setCounterInvisible();
+		}
+
+
+		Debug.Log(timeLeftBtwnRound + " hits left before next round");
+		//display the smaller number
+	}
+
+	//Makes the counter thin invisible
+	void setCounterInvisible()
+	{
+		foreach (GameObject number in countDownObj.GetComponent<CountDownScript>().nums)
+		{
+			number.renderer.enabled = false;
+		}
+	}
+
+	public GameObject getCurrentLine()
+	{
+		return currentLine;
+	}
+
+	//TODO dont wait for a new round (in seconds)... just let the player choose. wait for the player to attack some amount of times
 	IEnumerator waitThenNewRound()
 	{
-		//Debug.Log("IN THE NUMERBATOR");
-		yield return new WaitForSeconds(3.0f);
+		Debug.Log("IN THE NUMERBATOR");
+		//When the round is over let the player enter the upgrade lines
+
+		yield return new WaitForSeconds(2.0f);
 		newRound();
 	}
 

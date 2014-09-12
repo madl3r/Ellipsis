@@ -59,7 +59,7 @@ public class Movement : MonoBehaviour {
 		lineTargetIndex = theWorld.GetComponent<World>().lines.IndexOf(lineTarget);
 
 		//Telling the world where we start.
-		theWorld.SendMessage("updateCurrentLine", lineTarget);
+		theWorld.GetComponent<World>().updateCurrentLine(lineTarget);//theWorld.SendMessage("updateCurrentLine", lineTarget);
 
 		//DebugCode
 		//Debug.Log("the lineTarget's position" + lineTarget.transform.position + "With Index at: " + lineTargetIndex);
@@ -91,7 +91,7 @@ public class Movement : MonoBehaviour {
 			lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex - 1];
 			lineTargetIndex--;
 			theYPos = lineTarget.transform.position.y;
-			theWorld.SendMessage("updateCurrentLine", lineTarget);
+			theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
 		}
 		//Same as above, but with down input.
 		if (Input.GetKeyDown("down") && (lineTargetIndex + 1) < theWorld.GetComponent<World>().lines.Count
@@ -100,7 +100,7 @@ public class Movement : MonoBehaviour {
 			lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex + 1];
 			lineTargetIndex++;
 			theYPos = lineTarget.transform.position.y;
-			theWorld.SendMessage("updateCurrentLine", lineTarget);
+			theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
 		}
 
 		//Locking onto a line
