@@ -11,8 +11,8 @@ public class blueBulletScript : BaseBulletScript {
 
 	// Use this for initialization
 	void Start () {
-		dmg = 1;
-		bulletSpeed = 17.0f;
+		dmg = 1 + bnsDmg;
+		bulletSpeed = 17.0f + bnsBulletSpeed;
 		//duration = 0.5f;
 		startTime = Time.time;
 		//defaultAttackSpeed = 4.0f;

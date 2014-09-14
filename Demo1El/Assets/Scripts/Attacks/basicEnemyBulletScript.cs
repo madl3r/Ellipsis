@@ -5,8 +5,8 @@ public class basicEnemyBulletScript : BaseBulletScript {
 
 	// Use this for initialization
 	void Start () {
-		dmg = 1;
-		bulletSpeed = -12.0f;
+		dmg = 1 + bnsDmg;
+		bulletSpeed = -12.0f + bnsBulletSpeed;
 		rigidbody2D.velocity = new Vector2 (bulletSpeed, 0.0f);
 	}
 	

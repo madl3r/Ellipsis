@@ -7,10 +7,10 @@ public class greenBounceScript : BaseBulletScript{
 	
 	// Use this for initialization
 	void Start () {
-		duration = 0.2f;
+		dmg = 2 + bnsDmg;
+		duration = 0.2f + bnsDuration;
 		startTime = Time.time;
 		transform.position = new Vector2 (transform.position.x + 1, transform.position.y);
-		dmg = 2;
 	}
 	
 	// Update is called once per frame

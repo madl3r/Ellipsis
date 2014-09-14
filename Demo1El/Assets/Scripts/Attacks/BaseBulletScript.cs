@@ -9,6 +9,10 @@ public class BaseBulletScript : MonoBehaviour{
 	protected float duration; // divide time by the speed for ranged and that way you get distance
 	protected float startTime;
 
+	protected int bnsDmg = 0;
+	protected float bnsBulletSpeed = 0;
+	protected float bnsDuration = 0;
+
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time;
@@ -24,23 +28,24 @@ public class BaseBulletScript : MonoBehaviour{
 	//Will need to have a separate method for each bullet bonus type (three)
 	protected void addBonusDmg (int bonus)
 	{
-		dmg += bonus;
+		bnsDmg += bonus;
 	}
 	
 	protected void addBonusBulSpeed(int bonus)
 	{
-		bulletSpeed += bonus;
+		bnsBulletSpeed += bonus;
 	}
 	
 	protected void addBonusDuration (float bonus)
 	{
-		duration += bonus;
+		bnsDuration += bonus;
 	}
 
 	protected virtual void dealDamage(GameObject theHit)
 	{
 		if (theHit.tag == "player" || theHit.tag == "enemy")
 		{
+			Debug.Log("DEALING " + dmg + " DAMAGE");
 			theHit.SendMessage("takeDamage", dmg);
 		}
 		Destroy(gameObject);

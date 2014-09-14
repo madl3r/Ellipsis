@@ -9,7 +9,6 @@ public class redAttackTypeScript : attackTypeScript {
 		defaultAttackSpeed = 3.0f;
 		if (myPlayer != null)
 		{		
-
 			myPlayer.GetComponent<playerStats>().setBaseAttackSpd(defaultAttackSpeed);
 			myPlayer.GetComponent<playerStats>().setBullet(bullet);
 			myPlayer.GetComponent<SpriteRenderer>().color = new Color (255f, 0f, 0f);

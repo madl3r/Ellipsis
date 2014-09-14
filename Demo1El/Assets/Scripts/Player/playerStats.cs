@@ -51,6 +51,7 @@ public class playerStats : MonoBehaviour {
 
 		attackType.GetComponent<attackTypeScript>().setBaseAttackSpeed(gameObject);
 		attackType.GetComponent<attackTypeScript>().givePlayerBullet(gameObject);
+		attackType.GetComponent<attackTypeScript>().myPlayer = gameObject;
 		//attackType.SendMessage("setBaseAttackSpeed", gameObject);
 
 		//bonusDmg = 0;
@@ -103,7 +104,7 @@ public class playerStats : MonoBehaviour {
 			if (canAttack)
 			{
 				lastAttack = Time.time;
-				Debug.Log("SHOOTING " + attackType);
+				//Debug.Log("SHOOTING " + attackType);
 				GameObject b = Instantiate(theBullet, transform.position, transform.rotation) as GameObject;
 				b.BroadcastMessage("addBonusDmg", bulBnsDmg);
 				b.BroadcastMessage("addBonusBulSpeed", bulBnsSpd);
@@ -117,7 +118,7 @@ public class playerStats : MonoBehaviour {
 		}
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "upgradeLines")
 		{
-			Debug.Log("GET THIS UPGRADE");
+//			Debug.Log("GET THIS UPGRADE");
 			if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade != null)
 			{
 				theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject);
