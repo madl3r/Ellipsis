@@ -45,7 +45,7 @@ public class BaseBulletScript : MonoBehaviour{
 	{
 		if (theHit.tag == "player" || theHit.tag == "enemy")
 		{
-			Debug.Log("DEALING " + dmg + " DAMAGE");
+			//Debug.Log("DEALING " + dmg + " DAMAGE");
 			theHit.SendMessage("takeDamage", dmg);
 		}
 		Destroy(gameObject);

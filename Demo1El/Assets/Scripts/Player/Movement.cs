@@ -35,8 +35,8 @@ public class Movement : MonoBehaviour {
 	//temp vars for switching
 	public Vector2 posOnSwitch;
 	public float theYPosOnSwitch;
-
-	// Use this for initialization
+	
+	//TODO might need to put all of this into a separate method to be called by the world when a new level is loaded.
 	void Start () 
 	{
 		//getting this dots original position in the Q.

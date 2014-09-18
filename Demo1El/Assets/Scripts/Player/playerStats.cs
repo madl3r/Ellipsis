@@ -32,8 +32,12 @@ public class playerStats : MonoBehaviour {
 
 	//Should include attack damage, and attack speed here as well too.
 
-	// Use this for initialization
+	//TODO gonna have to do interesting stuff here for when loading into new levels
 	void Start () {
+
+		//Making the player stay between rounds always
+		DontDestroyOnLoad(gameObject);
+
 		HPUI = GameObject.Find("HPui");
 		theWorld = GameObject.FindGameObjectWithTag("theWorld");
 //		isInRound = false;
@@ -99,6 +103,7 @@ public class playerStats : MonoBehaviour {
 
 	public void attack()
 	{
+		//Actually Attacking
 		if (isInRound)
 		{
 			if (canAttack)
@@ -111,11 +116,13 @@ public class playerStats : MonoBehaviour {
 				b.BroadcastMessage("addBonusDuration", bulBnsDuration);
 			}
 		}
+		//Counting down to next round
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "lines")
 		{
 			//count down to next round
 			theWorld.GetComponent<World>().decrementRoundCount();
 		}
+		//getting upgrade
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "upgradeLines")
 		{
 //			Debug.Log("GET THIS UPGRADE");

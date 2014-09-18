@@ -10,14 +10,15 @@ public class World : MonoBehaviour {
 	//Finally this class also times out events (and keeps track of things that have happened in a single session) in the world throwing enemies at 
 	//player and timing when boss shows up
 
-	//Upgrade list
-	public GameObject[] upgradeList;
+
 
 	//this public list of lines in the scene is input into the object from top to bottom.
 	public List<GameObject> lines;
 	//For dynamically making upgrade lines as more upgrades come in... we'll see... but for now I think that I'll just have two upgrades max
+
 	// TODO Ultimately though... you should allow as many as you can to exist.
-	public GameObject upgradeLine;
+
+	//public GameObject upgradeLine;
 	public GameObject upgradeArrow;
 	public GameObject preBossArrow;
 	//The camera for the scene because this script will be controling it.
@@ -38,6 +39,15 @@ public class World : MonoBehaviour {
 	//Round and spawrning variables.
 	public List<GameObject> prefabEnemies;
 	public int round;
+
+	//Upgrade round information
+	int roundsToFirstUpgrade;
+	public GameObject[] upgradePrefabs;
+
+	//Boss area round info
+	int roundsToBossArea;
+
+	//Count down stuff
 	public GameObject countDownObj;
 	private bool roundStarted;
 	private int enemiesKilledThisRound;
@@ -47,7 +57,8 @@ public class World : MonoBehaviour {
 	private int timeLeftBtwnRound;
 
 	
-	// Use this for initialization
+	//Will need to look for the players and set up what they need to know on the beginning of a new level
+	//Also need to put the players onto the center line
 	void Start () {
 
 		//Gather all lines in the scene. Order them in decreasing Y position value.
@@ -85,6 +96,9 @@ public class World : MonoBehaviour {
 		timeBtwnRound = 5;
 		timeLeftBtwnRound = timeBtwnRound;
 
+		roundsToFirstUpgrade = Random.Range(1, 4);
+		Debug.Log("THE FIRST UPGRADE WILL APPEAR AFTER ROUND " + roundsToFirstUpgrade);
+	
 	}
 	
 	// Update is called once per frame
@@ -94,7 +108,7 @@ public class World : MonoBehaviour {
 		if(Mathf.Abs(theCamera.transform.position.y - cameraYPos) < 0.3f)
 			theCamera.transform.position = new Vector3 (theCamera.transform.position.x, cameraYPos, -1.0f);
 
-		//If all the enemies have been killed for this round... then end the round
+		//If we're currently in a round and all of the enemies have been killed for this round... then end the round
 		if (roundStarted && enemiesKilledThisRound == enemiesSpawnedThisRound)
 		{
 			//Tell the player that the round is over
@@ -115,12 +129,21 @@ public class World : MonoBehaviour {
 			//If the round is over and we have survived x rounds then a new upgrade is spawned
 
 			//When the round is over let the player enter the upgrade lines
-			upgradeArrow.renderer.enabled = true;
-			foreach (GameObject line in lines)
+
+			if (round >= roundsToFirstUpgrade)
 			{
-				if (line.tag == "upgradeLines")
+				//If this is when we first get to it then populate the upgrade lines
+				if (round == roundsToFirstUpgrade)
+					populateUpgradeLines();
+
+				//Always after that let the player enter the upgrade area between rounds
+				upgradeArrow.renderer.enabled = true;
+				foreach (GameObject line in lines)
 				{
-					line.GetComponent<LineScript>().canEnter = true;
+					if (line.tag == "upgradeLines")
+					{
+						line.GetComponent<LineScript>().canEnter = true;
+					}
 				}
 			}
 		}
@@ -268,6 +291,17 @@ public class World : MonoBehaviour {
 	public GameObject getCurrentLine()
 	{
 		return currentLine;
+	}
+
+	//Populates all of the base upgrade lines that start out there
+	void populateUpgradeLines()
+	{
+		foreach (GameObject uLine in GameObject.FindGameObjectsWithTag("upgradeLines"))
+		{
+			GameObject thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
+			uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
+			thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
+		}
 	}
 
 	//TODO dont wait for a new round (in seconds)... just let the player choose. wait for the player to attack some amount of times
