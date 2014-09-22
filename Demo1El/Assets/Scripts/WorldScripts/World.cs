@@ -96,10 +96,10 @@ public class World : MonoBehaviour {
 		timeBtwnRound = 5;
 		timeLeftBtwnRound = timeBtwnRound;
 
-		roundsToFirstUpgrade = Random.Range(1, 4);
+		roundsToFirstUpgrade = Random.Range(1, 2);
 		Debug.Log("THE FIRST UPGRADE WILL APPEAR AFTER ROUND " + roundsToFirstUpgrade);
 
-		roundsToBossArea = Random.Range(2, 10);
+		roundsToBossArea = Random.Range(2, 3);
 		Debug.Log("THE LEVEL WILL BE OVER AFTER ROUND " + roundsToBossArea);
 
 

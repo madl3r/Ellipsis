@@ -5,7 +5,6 @@ public class redAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("MAKING A RED DOOD");
 		defaultAttackSpeed = 3.0f;
 		if (myPlayer != null)
 		{		

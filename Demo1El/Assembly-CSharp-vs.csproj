@@ -49,12 +49,15 @@
      <Compile Include="Assets\Scripts\AttackTypes\attackTypeScript.cs" />
      <Compile Include="Assets\Scripts\AttackTypes\blueAttackTypeScript.cs" />
      <Compile Include="Assets\Scripts\AttackTypes\greenAttackTypeScript.cs" />
+     <Compile Include="Assets\Scripts\AttackTypes\magentaAttackTypeScript.cs" />
      <Compile Include="Assets\Scripts\AttackTypes\redAttackTypeScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\BaseBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\basicEnemyBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\blueBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\greenBounceScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\greenBulletScript.cs" />
+     <Compile Include="Assets\Scripts\Attacks\magentaBulletParent.cs" />
+     <Compile Include="Assets\Scripts\Attacks\magentaBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\redSlashParent.cs" />
      <Compile Include="Assets\Scripts\Attacks\redSlashScript.cs" />
      <Compile Include="Assets\Scripts\Enemies\BaseEnemy.cs" />
