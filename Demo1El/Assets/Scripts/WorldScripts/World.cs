@@ -83,7 +83,7 @@ public class World : MonoBehaviour {
 //		}
 
 		//Get the line in the middle where the player starts. This can only be done with a magic number like this because the line order was put in manually. Should really be looking for the line with a y pos of 0.
-		currentLine = lines[4];
+		currentLine = lines[5];
 
 		//Start at round 0
 		round = 0;
@@ -98,7 +98,21 @@ public class World : MonoBehaviour {
 
 		roundsToFirstUpgrade = Random.Range(1, 4);
 		Debug.Log("THE FIRST UPGRADE WILL APPEAR AFTER ROUND " + roundsToFirstUpgrade);
-	
+
+		roundsToBossArea = Random.Range(2, 10);
+		Debug.Log("THE LEVEL WILL BE OVER AFTER ROUND " + roundsToBossArea);
+
+
+		Debug.Log("Getting the players for this level");
+		//Giving each player the new world and setting the line target to where we want to be!
+
+		//Getting the camera
+		theCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
+		foreach (GameObject pChar in GameObject.FindGameObjectsWithTag("Player"))
+		{
+			pChar.GetComponent<Movement>().newLevelRestart(gameObject);
+		}
 	}
 	
 	// Update is called once per frame
@@ -129,7 +143,6 @@ public class World : MonoBehaviour {
 			//If the round is over and we have survived x rounds then a new upgrade is spawned
 
 			//When the round is over let the player enter the upgrade lines
-
 			if (round >= roundsToFirstUpgrade)
 			{
 				//If this is when we first get to it then populate the upgrade lines
@@ -145,6 +158,19 @@ public class World : MonoBehaviour {
 						line.GetComponent<LineScript>().canEnter = true;
 					}
 				}
+			}
+			if (round >= roundsToBossArea)
+			{
+				preBossArrow.renderer.enabled = true;
+
+				foreach (GameObject line in lines)
+				{
+					if (line.tag == "preBossLines")
+					{
+						line.GetComponent<LineScript>().canEnter = true;
+					}
+				}
+
 			}
 		}
 		//Reset this variable whenever the player goes into the update area

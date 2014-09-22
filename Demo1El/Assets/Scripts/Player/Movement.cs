@@ -274,4 +274,29 @@ public class Movement : MonoBehaviour {
 			collider2D.enabled = false;
 		}
 	}
+
+	public void newLevelRestart(GameObject world)
+	{
+		theWorld = world;
+
+		foreach (GameObject line in theWorld.GetComponent<World>().lines)
+		{
+			if (line.transform.position.y  == 0.0f)
+				lineTarget = line;
+		}
+		Debug.Log("The new line target is: " + lineTarget.transform.position);
+		theYPos = 0.0f;
+		lineTargetIndex = 5;
+		transform.position = new Vector2 (transform.position.x, 0.0f);
+
+
+		gameObject.GetComponent<playerStats>().newLvlWorld(theWorld);
+
+	}
+
+	public void setLineTarget(GameObject trgt)
+	{
+		lineTarget = trgt;
+	}
+
 }

@@ -133,6 +133,37 @@ public class playerStats : MonoBehaviour {
 				//The upgrade should kill itself
 			}
 		}
+		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "preBossLines")
+		{
+			//Load the next level!
+			//Set position to 0y and the current line to the middle line!
+			//starting the lineTarget to be the line that we're currently on.
+
+			Debug.Log("~~~~~~~~~~~~~~~~Loading a new level");
+
+			Application.LoadLevel("secondLevel");
+
+			Debug.Log("After lvl load");
+
+//			//Giving each player the new world and setting the line target to where we want to be!
+//			foreach (GameObject pChar in GameObject.FindGameObjectsWithTag("Player"))
+//			{
+//				pChar.GetComponent<Movement>().newLevelRestart();
+//			}
+//			//Finding our world!
+//			theWorld = GameObject.FindGameObjectWithTag("theWorld");
+
+
+			//Here call "getNewLvlLineTarget" on this guys movement script
+			//Also probably need to set all game objects (like theWorld) to new things for the new level
+
+//			foreach (GameObject line in GameObject.FindGameObjectWithTag("theWorld").GetComponent<World>().lines)
+//			{
+//				if (line.transform.position.y  == theYPos)
+//					lineTarget = line;
+//			}
+		}
+
 	}
 
 	//Setting base attack speed (to be done when the attack type is gotten)
@@ -209,4 +240,13 @@ public class playerStats : MonoBehaviour {
 	{
 		isInRound = round;
 	}
+
+	public void newLvlWorld(GameObject world)
+	{
+		theWorld = world;
+		HPUI = GameObject.FindGameObjectWithTag("HP");
+		HPUI.GetComponent<displayHP>().showHearts(hp);
+	}
+
+
 }
