@@ -90,7 +90,7 @@ public class World : MonoBehaviour {
 		roundStarted = false;
 		enemiesKilledThisRound = 0;
 		enemiesSpawnedThisRound = 0;
-		newRound();
+		//newRound();
 
 		//Setting how many times the play needs to attack between rounds.
 		timeBtwnRound = 5;
@@ -266,6 +266,7 @@ public class World : MonoBehaviour {
 			}
 		}
 		upgradeArrow.renderer.enabled = false;
+		preBossArrow.renderer.enabled = false;
 
 		//Round things
 		roundStarted = true;

@@ -40,11 +40,11 @@ public class playerStats : MonoBehaviour {
 
 		HPUI = GameObject.Find("HPui");
 		theWorld = GameObject.FindGameObjectWithTag("theWorld");
-//		isInRound = false;
+		isInRound = false;
 		maxHP = 5;
 		hp = maxHP;
 		//HPUI.GetComponent<displayHP>.hearts = new GameObject[hp];
-		HPUI.GetComponent<displayHP>().showHearts(hp);
+		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 		bnsAttackSpd = 0.0f;
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
@@ -83,7 +83,7 @@ public class playerStats : MonoBehaviour {
 	{
 		hp -= dmg;
 
-		HPUI.GetComponent<displayHP>().showHearts(hp);
+		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 
 		if (hp <= 0)
 		{
@@ -201,13 +201,13 @@ public class playerStats : MonoBehaviour {
 		maxHP += bns;
 		//Also give the player that extra HP right now
 		hp += bns;
-		HPUI.GetComponent<displayHP>().showHearts(hp);
+		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 	}
 
 	public void addHP(int heal)
 	{
 		hp += heal;
-		HPUI.GetComponent<displayHP>().showHearts(hp);
+		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 	}
 	//~~~~
 
@@ -245,7 +245,7 @@ public class playerStats : MonoBehaviour {
 	{
 		theWorld = world;
 		HPUI = GameObject.FindGameObjectWithTag("HP");
-		HPUI.GetComponent<displayHP>().showHearts(hp);
+		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 	}
 
 

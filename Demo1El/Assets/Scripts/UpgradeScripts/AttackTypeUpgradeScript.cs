@@ -16,7 +16,7 @@ public class AttackTypeUpgradeScript : BaseUpgrade {
 
 	public override void giveUpgradeToPlayer (GameObject player)
 	{
-		Debug.Log("WHAT THE FUUCCKK?");
+		//Debug.Log("WHAT THE FUUCCKK?");
 		player.GetComponent<playerStats>().setAttackType(attackTypeUp);
 		Destroy(gameObject);
 	}
