@@ -15,7 +15,7 @@ public class bulletSpeedUpgrade : BaseUpgrade {
 
 	public override void giveUpgradeToPlayer (GameObject player)
 	{
-		player.GetComponent<playerStats>().addBnsBulletSpeed(15);
+		player.GetComponent<playerStats>().addBnsBulletSpeed(2);
 		Destroy(gameObject);
 	}
 }

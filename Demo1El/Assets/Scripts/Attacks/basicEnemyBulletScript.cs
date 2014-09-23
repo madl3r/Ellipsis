@@ -16,11 +16,6 @@ public class basicEnemyBulletScript : BaseBulletScript {
 			Destroy(gameObject);
 	}
 
-	void FixedUpdate()
-	{
-		//transform.position = new Vector2 (transform.position.x - 0.3f, transform.position.y);
-	}
-	
 	void OffCameraLeft()
 	{
 		Destroy(gameObject);
@@ -38,7 +33,7 @@ public class basicEnemyBulletScript : BaseBulletScript {
 		{
 			//Destroy(other);
 			other.gameObject.SendMessage("dealDamage", gameObject);
-			Destroy(gameObject);
+			//Destroy(gameObject);
 		}
 		//if the game object has a tag of player... then deal damage!
 		//if the game object has the tag of a damage thingy (bullet we'll call them)... then take damage!

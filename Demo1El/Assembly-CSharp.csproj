@@ -51,6 +51,8 @@
      <Compile Include="Assets\Scripts\AttackTypes\greenAttackTypeScript.cs" />
      <Compile Include="Assets\Scripts\AttackTypes\magentaAttackTypeScript.cs" />
      <Compile Include="Assets\Scripts\AttackTypes\redAttackTypeScript.cs" />
+     <Compile Include="Assets\Scripts\AttackTypes\tealAttackTypeScript.cs" />
+     <Compile Include="Assets\Scripts\AttackTypes\yellowAttackTypeScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\BaseBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\basicEnemyBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\blueBulletScript.cs" />
@@ -60,6 +62,10 @@
      <Compile Include="Assets\Scripts\Attacks\magentaBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\redSlashParent.cs" />
      <Compile Include="Assets\Scripts\Attacks\redSlashScript.cs" />
+     <Compile Include="Assets\Scripts\Attacks\redSlashUpOrDown.cs" />
+     <Compile Include="Assets\Scripts\Attacks\tealBulletScript.cs" />
+     <Compile Include="Assets\Scripts\Attacks\yellowBounceScript.cs" />
+     <Compile Include="Assets\Scripts\Attacks\yellowBulletScript.cs" />
      <Compile Include="Assets\Scripts\Enemies\BaseEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\BasicShootyEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\HammerEnemy.cs" />

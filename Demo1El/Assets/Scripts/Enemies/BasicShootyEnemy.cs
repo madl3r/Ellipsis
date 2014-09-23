@@ -53,8 +53,7 @@ public class BasicShootyEnemy : BaseEnemy {
 	protected virtual void attack()
 	{
 		prevShotTime = Time.time;
-		timeBetweenShot = Random.Range(0.1f, 1.0f);
-		//Debug.Log("ENEMY SHOOTING " + attackType);
+		timeBetweenShot = Random.Range(0.5f, 1.0f);
 		Instantiate(attackType, transform.position, transform.rotation);
 	}
 

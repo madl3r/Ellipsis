@@ -41,6 +41,7 @@ public class BaseBulletScript : MonoBehaviour{
 		bnsDuration += bonus;
 	}
 
+	//Need to override this if you want the bullet to destroy bullets that come against you
 	protected virtual void dealDamage(GameObject theHit)
 	{
 		if (theHit.tag == "player" || theHit.tag == "enemy")

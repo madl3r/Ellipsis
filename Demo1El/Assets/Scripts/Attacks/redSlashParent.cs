@@ -10,7 +10,7 @@ public class redSlashParent : attackTypeScript {
 	void Start () {
 //		lifeTime = 10f;
 //		startTime = Time.time;
-		transform.position = new Vector2 (transform.position.x + 2, transform.position.y);
+		transform.position = new Vector2 (transform.position.x + 1, transform.position.y);
 	}
 	
 	// Update is called once per frame

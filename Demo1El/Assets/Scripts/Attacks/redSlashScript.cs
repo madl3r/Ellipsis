@@ -9,9 +9,9 @@ public class redSlashScript : BaseBulletScript {
 	void Start () {
 		startTime = Time.time;
 		dmg = 2 + bnsDmg;
-		bulletSpeed = 1.42f + bnsBulletSpeed;
+		bulletSpeed = 1.25f + bnsBulletSpeed;
 		duration = 0.5f + bnsDuration;
-		rigidbody2D.velocity = new Vector2 (0, bulletSpeed);
+		rigidbody2D.velocity = new Vector2 (bulletSpeed, 0);
 	}
 	
 	// Update is called once per frame
@@ -28,5 +28,21 @@ public class redSlashScript : BaseBulletScript {
 	{
 		//transform.position = new Vector2 (transform.position.x, transform.position.y + 0.025f);
 	}
+
+
+	protected override void dealDamage(GameObject theHit)
+	{
+		if (theHit.tag == "enemy")
+		{
+			theHit.SendMessage("takeDamage", dmg);
+			Destroy(gameObject);
+		}
+		else if (theHit.tag == "enemyBullet")
+		{
+			//Destory the bullet
+			Destroy(theHit);
+		}
+	}
+
 
 }
