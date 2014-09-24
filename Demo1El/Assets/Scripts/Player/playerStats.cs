@@ -9,6 +9,7 @@ public class playerStats : MonoBehaviour {
 	//UI Stuff
 	public static GameObject HPUI;
 	public static GameObject theWorld;
+	private static int levelNumber = 0;
 
 	//Maybe swtich from this name to just wether not it's able to attack
 	private bool isInRound;
@@ -87,11 +88,8 @@ public class playerStats : MonoBehaviour {
 
 		if (hp <= 0)
 		{
-			Debug.Log ("HP is lower than 0 GG");
-			GameObject.Find("GameOverScreen").renderer.enabled = true;
-			Time.timeScale = 0;
-			//Pause the game and show a game over screen
-			//Run death animation
+			//Tell the world that we died
+			theWorld.GetComponent<World>().gameOver();
 		}
 
 	}
@@ -133,17 +131,13 @@ public class playerStats : MonoBehaviour {
 				//The upgrade should kill itself
 			}
 		}
+		//If we're on the pre boss lines and we attack then... Load the next level!
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "preBossLines")
 		{
-			//Load the next level!
-			//Set position to 0y and the current line to the middle line!
-			//starting the lineTarget to be the line that we're currently on.
-
-			Debug.Log("~~~~~~~~~~~~~~~~Loading a new level");
-
+		
+			upLevelNumber();
+			Debug.Log("Level number is: " + levelNumber);
 			Application.LoadLevel("secondLevel");
-
-			Debug.Log("After lvl load");
 
 //			//Giving each player the new world and setting the line target to where we want to be!
 //			foreach (GameObject pChar in GameObject.FindGameObjectsWithTag("Player"))
@@ -246,6 +240,16 @@ public class playerStats : MonoBehaviour {
 		theWorld = world;
 		HPUI = GameObject.FindGameObjectWithTag("HP");
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
+	}
+
+	public void upLevelNumber()
+	{
+		levelNumber++;
+	}
+
+	public int getLevelNumber()
+	{
+		return levelNumber;
 	}
 
 

@@ -56,7 +56,7 @@ public class World : MonoBehaviour {
 	private int timeBtwnRound;
 	private int timeLeftBtwnRound;
 
-	
+
 	//Will need to look for the players and set up what they need to know on the beginning of a new level
 	//Also need to put the players onto the center line
 	void Start () {
@@ -93,7 +93,7 @@ public class World : MonoBehaviour {
 		//newRound();
 
 		//Setting how many times the play needs to attack between rounds.
-		timeBtwnRound = 5;
+		timeBtwnRound = 7;
 		timeLeftBtwnRound = timeBtwnRound;
 
 		roundsToFirstUpgrade = Random.Range(1, 7);
@@ -246,6 +246,8 @@ public class World : MonoBehaviour {
 
 
 	//Makes a new round
+	//TODO When we have more enemies and stuff:
+		// Get the LVL number from playerStats and then spawn the correct rounds accordingly
 	void newRound()
 	{
 		Debug.Log("Spawning new round");
@@ -329,6 +331,21 @@ public class World : MonoBehaviour {
 			uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
 			thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
 		}
+	}
+
+	//For when the player dies
+	//Kill the players, and then reset to the main menu
+	public void gameOver()
+	{
+		Debug.Log ("HP is lower than 0 GG");
+		GameObject.Find("GameOverScreen").renderer.enabled = true;
+		//Kill all the players
+		foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
+		{
+			Destroy(p);
+		}
+
+		Application.LoadLevel("MainMenu");
 	}
 
 	//TODO dont wait for a new round (in seconds)... just let the player choose. wait for the player to attack some amount of times

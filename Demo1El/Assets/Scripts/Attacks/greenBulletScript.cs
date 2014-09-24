@@ -6,7 +6,7 @@ public class greenBulletScript : blueBulletScript {
 	// Use this for initialization
 	void Start () {
 		dmg = 2 + bnsDmg;
-		bulletSpeed = 10.0f + bnsBulletSpeed;
+		bulletSpeed = 18.0f + bnsBulletSpeed;
 		rigidbody2D.velocity = new Vector2(bulletSpeed, 0);
 	}
 	
