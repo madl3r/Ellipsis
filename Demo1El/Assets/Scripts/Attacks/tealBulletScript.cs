@@ -13,7 +13,7 @@ public class tealBulletScript : BaseBulletScript {
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
 		if (transform.position.x > 30)
 			Destroy(gameObject);
@@ -31,6 +31,12 @@ public class tealBulletScript : BaseBulletScript {
 			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 		}
+		else if (theHit.tag == "enemyBullet")
+		{
+			//Destory the bullet
+			Destroy(theHit);
+		}
+		Destroy(gameObject);
 		
 	}
 

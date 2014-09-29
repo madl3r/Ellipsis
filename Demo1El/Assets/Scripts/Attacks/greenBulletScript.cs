@@ -22,6 +22,11 @@ public class greenBulletScript : blueBulletScript {
 			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 		}
+		else if (theHit.tag == "enemyBullet")
+		{
+			//Destory the bullet
+			Destroy(theHit);
+		}
 
 	}
 

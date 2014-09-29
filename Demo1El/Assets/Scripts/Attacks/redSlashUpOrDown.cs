@@ -10,7 +10,7 @@ public class redSlashUpOrDown : BaseBulletScript {
 	void Start () {
 		startTime = Time.time;
 		dmg = 2 + bnsDmg;
-		bulletSpeed = 2.5f + bnsBulletSpeed;
+		bulletSpeed = 5f + bnsBulletSpeed;
 		duration = 0.5f + bnsDuration;
 		rigidbody2D.velocity = new Vector2 (0, (bulletSpeed * upOrDown));
 	}
@@ -19,7 +19,7 @@ public class redSlashUpOrDown : BaseBulletScript {
 	void Update () {
 		if (Time.time - startTime > duration)
 		{
-			Destroy(transform.parent.gameObject);
+			//Destroy(transform.parent.gameObject);
 			Destroy(gameObject);
 		}
 		

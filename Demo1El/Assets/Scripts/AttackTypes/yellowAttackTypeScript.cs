@@ -5,7 +5,7 @@ public class yellowAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 1.0f;
+		defaultAttackSpeed = 2.0f;
 		if (myPlayer != null)
 		{		
 			myPlayer.GetComponent<playerStats>().setBaseAttackSpd(defaultAttackSpeed);

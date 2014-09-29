@@ -48,7 +48,13 @@ public class BaseBulletScript : MonoBehaviour{
 		{
 			//Debug.Log("DEALING " + dmg + " DAMAGE");
 			theHit.SendMessage("takeDamage", dmg);
+			Destroy(gameObject);
 		}
+		//Destroy(gameObject);
+	}
+
+	void OffCameraRight()
+	{
 		Destroy(gameObject);
 	}
 

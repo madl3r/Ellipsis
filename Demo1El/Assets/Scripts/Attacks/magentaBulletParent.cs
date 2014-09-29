@@ -6,8 +6,8 @@ public class magentaBulletParent : attackTypeScript {
 	// Use this for initialization
 	void Start () {
 
-		//Will need to give a velocity to each of its children
-		//TODO need to kill evenetually
+		//TODO need to kill evenetually (I think is already done by the bullets)
+		transform.position = new Vector2 (transform.position.x + 0.5f, transform.position.y);
 
 	
 	}

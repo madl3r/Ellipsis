@@ -9,8 +9,8 @@ public class redSlashScript : BaseBulletScript {
 	void Start () {
 		startTime = Time.time;
 		dmg = 2 + bnsDmg;
-		bulletSpeed = 1.25f + bnsBulletSpeed;
-		duration = 0.5f + bnsDuration;
+		bulletSpeed = 7 + bnsBulletSpeed;
+		duration = 3f + bnsDuration;
 		rigidbody2D.velocity = new Vector2 (bulletSpeed, 0);
 	}
 	
@@ -37,11 +37,12 @@ public class redSlashScript : BaseBulletScript {
 			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 		}
-		else if (theHit.tag == "enemyBullet")
-		{
-			//Destory the bullet
-			Destroy(theHit);
-		}
+//		else if (theHit.tag == "enemyBullet")
+//		{
+//			//Destory the bullet
+//			Destroy(theHit);
+//		}
+		Destroy(gameObject);
 	}
 
 

@@ -8,7 +8,7 @@ public class magentaBulletScript : BaseBulletScript {
 		
 		dmg = 1 + bnsDmg;
 		bulletSpeed = 8.0f + bnsBulletSpeed;
-		duration = 1f + bnsDuration;
+		duration = 4f + bnsDuration;
 		startTime = Time.time;
 		//defaultAttackSpeed = 4.0f;
 
@@ -54,16 +54,11 @@ public class magentaBulletScript : BaseBulletScript {
 		{
 			theHit.SendMessage("takeDamage", dmg);
 		}
-		else if (theHit.tag == "enemyBullet")
-		{
-			//Destory the bullet
-			Destroy(theHit);
-		}
-		Destroy(gameObject);
-	}
-	
-	void OffCameraRight()
-	{
+//		else if (theHit.tag == "enemyBullet")
+//		{
+//			//Destory the bullet
+//			Destroy(theHit);
+//		}
 		Destroy(gameObject);
 	}
 }
