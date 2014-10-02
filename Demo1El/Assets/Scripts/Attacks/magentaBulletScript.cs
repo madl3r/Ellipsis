@@ -13,7 +13,6 @@ public class magentaBulletScript : BaseBulletScript {
 		//defaultAttackSpeed = 4.0f;
 
 		//abs(v) = sqrt(x^2 + y^2);
-
 		// v^2 = (x^2 + y^2)
 		// sqrt(v^2 - x^2) = sqrt(y^2)
 

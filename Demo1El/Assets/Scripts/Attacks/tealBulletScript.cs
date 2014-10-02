@@ -7,7 +7,7 @@ public class tealBulletScript : BaseBulletScript {
 	void Start () 
 	{
 		dmg = 1 + bnsDmg;
-		bulletSpeed = 13.0f + bnsBulletSpeed;
+		bulletSpeed = 19.0f + bnsBulletSpeed;
 		startTime = Time.time;
 		rigidbody2D.velocity = new Vector2(bulletSpeed, 0);
 	}

@@ -172,22 +172,37 @@ public class playerStats : MonoBehaviour {
 	public void addBnsAttackSpd(float bns)
 	{
 		bnsAttackSpd += bns;
+		bulBnsDuration = 0;
+		bulBnsDmg = 0;
+		bulBnsSpd = 0;
 		updateTimeBetweenAttacks();
 	}
 
 	public void addBnsBulletDamage(int bns)
 	{
 		bulBnsDmg += bns;
+		bnsAttackSpd = 0;
+		bulBnsDuration = 0;
+		bulBnsSpd = 0;
+		updateTimeBetweenAttacks();
 	}
 
 	public void addBnsBulletSpeed(float bns)
 	{
 		bulBnsSpd += bns;
+		bnsAttackSpd = 0;
+		bulBnsDuration = 0;
+		bulBnsDmg = 0;
+		updateTimeBetweenAttacks();
 	}
 
 	public void addBnsBulletDuration(int bns)
 	{
 		bulBnsDuration += bns;
+		bnsAttackSpd = 0;
+		bulBnsDmg = 0;
+		bulBnsSpd = 0;
+		updateTimeBetweenAttacks();
 	}
 
 	public void addBnsMaxHP(int bns)
