@@ -23,14 +23,17 @@ public class playerStats : MonoBehaviour {
 
 	private static int maxHP;
 	private static int hp;
+
 	//Bonuses/upgrades
 	public GameObject attackType;
+	public GameObject potion;
 	private GameObject theBullet;
 	private int bulBnsDmg;
 	private float bulBnsSpd;
 	private float bulBnsDuration; // divide time by the speed for ranged and that way you get distance
 	private float bnsAttackSpd;
 	private bool hasShield;
+	private bool isHeartShape;
 
 	public Sprite defaultShape;
 
@@ -54,6 +57,7 @@ public class playerStats : MonoBehaviour {
 		bulBnsSpd = 0;
 		bulBnsDuration = 0.0f;
 		hasShield = false;
+		isHeartShape = false;
 
 		//Make sure that you can attack from the start.
 		lastAttack = -4.0f;
@@ -176,6 +180,11 @@ public class playerStats : MonoBehaviour {
 
 	}
 
+	public void usePotion()
+	{
+		Debug.Log("USING POTION");
+	}
+
 	//Setting base attack speed (to be done when the attack type is gotten)
 	public void setBaseAttackSpd(float spd)
 	{
@@ -195,6 +204,9 @@ public class playerStats : MonoBehaviour {
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
 		updateTimeBetweenAttacks();
+		//if we were a heart before this upgrade then take away the extra hp and make us not a heart anymore
+		if (isHeartShape)
+			subBnsMaxHP();
 	}
 
 	public void addBnsBulletDamage(int bns)
@@ -207,6 +219,9 @@ public class playerStats : MonoBehaviour {
 		bulBnsDuration = 0;
 		bulBnsSpd = 0;
 		updateTimeBetweenAttacks();
+		//if we were a heart before this upgrade then take away the extra hp and make us not a heart anymore
+		if (isHeartShape)
+			subBnsMaxHP();
 	}
 
 	public void addSquareUpgrade()
@@ -219,6 +234,9 @@ public class playerStats : MonoBehaviour {
 		bulBnsDuration = 0;
 		bulBnsSpd = 0;
 		updateTimeBetweenAttacks();
+		//if we were a heart before this upgrade then take away the extra hp and make us not a heart anymore
+		if (isHeartShape)
+			subBnsMaxHP();
 	}
 
 	public void addThinUpgrade()
@@ -232,6 +250,9 @@ public class playerStats : MonoBehaviour {
 		bulBnsDuration = 0;
 		bulBnsSpd = 0;
 		updateTimeBetweenAttacks();
+		//if we were a heart before this upgrade then take away the extra hp and make us not a heart anymore
+		if (isHeartShape)
+			subBnsMaxHP();
 	}
 
 	//Depricated
@@ -257,11 +278,28 @@ public class playerStats : MonoBehaviour {
 	}
 
 	//I don't think that we should have this... MAAAYYYBE
-	public void addBnsMaxHP(int bns)
+	public void addBnsMaxHP()
 	{
-		maxHP += bns;
-		//Also give the player that extra HP right now
-		hp += bns;
+
+		bnsAttackSpd = 0;
+		hasShield = false;
+		gameObject.GetComponent<CircleCollider2D>().enabled = true;
+		gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		bulBnsDuration = 0;
+		bulBnsDmg = 0;
+		bulBnsSpd = 0;
+
+		isHeartShape = true;
+		maxHP += 1;
+		//Also give the player that extra HP right now (TODO maybe not give the extra now)
+		hp += 1;
+		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
+	}
+
+	public void subBnsMaxHP()
+	{
+		isHeartShape = false;
+		maxHP -= 1;
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 	}
 

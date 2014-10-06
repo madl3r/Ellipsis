@@ -15,7 +15,8 @@ public class maxHpUpScript : BaseUpgrade {
 
 	public override void giveUpgradeToPlayer (GameObject player)
 	{
-		player.GetComponent<playerStats>().addBnsMaxHP(1);
+		player.GetComponent<playerStats>().addBnsMaxHP();
+		player.GetComponent<SpriteRenderer>().sprite = upgradeSprite;
 		Destroy(gameObject);
 	}
 }

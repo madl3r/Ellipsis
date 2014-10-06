@@ -125,10 +125,13 @@ public class Movement : MonoBehaviour {
 
 		//Switching right
 		//If we get right input, only do on the first in line, and make sure that this is only the first time detected (SEE MoveHelperONCE)
-		if (Input.GetKeyDown("right") && numInQ == 0 && origNumInQ == currentFirst)
+
+		//Switching this now to use potion
+		if (Input.GetKeyDown("right") && numInQ == 0)// && numInQ == 0 && origNumInQ == currentFirst)
 		{
 			//Debug.Log("GETKEYDOWN TOO MUCH. Current First is: " + currentFirst);
-			switchRight(0);
+			//switchRight(0);
+			gameObject.GetComponent<playerStats>().usePotion();
 		}
 		//Same as above, but for switching left
 		if (Input.GetKeyDown("left") && numInQ == 0 && origNumInQ == currentFirst)
