@@ -84,6 +84,8 @@
      <Compile Include="Assets\Scripts\UpgradeScripts\dmgUpScript.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\durationUpScript.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\maxHpUpScript.cs" />
+     <Compile Include="Assets\Scripts\UpgradeScripts\squareUpgradeScript.cs" />
+     <Compile Include="Assets\Scripts\UpgradeScripts\thinUpgradeScripte.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\CountDownScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\LineScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\MainMenuGUI.cs" />

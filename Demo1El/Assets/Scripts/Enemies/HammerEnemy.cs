@@ -3,10 +3,13 @@ using System.Collections;
 
 public class HammerEnemy : BaseEnemy {
 
-
-
+	private bool recentlyDamaged;
+	private float attackTime;
+	private float timeBtwnAttacks;
 	// Use this for initialization
 	void Start () {
+		recentlyDamaged = false;
+		timeBtwnAttacks = 0.5f;
 		hp = 3;
 		dmg = 2;
 		rigidbody2D.velocity = new Vector2 (-11.33f, 0);
@@ -14,7 +17,9 @@ public class HammerEnemy : BaseEnemy {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (recentlyDamaged && (Time.time - attackTime) > timeBtwnAttacks)
+			recentlyDamaged = false;
+
 	}
 
 	void FixedUpdate()
@@ -42,9 +47,15 @@ public class HammerEnemy : BaseEnemy {
 
 	protected override void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "Player")
+		//if we're hitting a player, and we haven't recently damaged them then deal damage.
+		if (other.gameObject.tag == "Player" && !recentlyDamaged)
 		{
+			Debug.Log("Hitting player");
+			recentlyDamaged = true;
 			other.gameObject.SendMessage("takeDamage", dmg);
+			//wait half a second before being able to deal damage again
+
+			attackTime = Time.time;
 			//Make noise and some effect
 		}
 		if (other.gameObject.tag == "bullet")

@@ -3,9 +3,6 @@ using System.Collections;
 
 public class dmgUpScript : BaseUpgrade {
 
-
-	public Sprite upgradeSprite;
-
 	// Use this for initialization
 	void Start () {
 	

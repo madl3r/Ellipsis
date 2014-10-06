@@ -30,6 +30,9 @@ public class playerStats : MonoBehaviour {
 	private float bulBnsSpd;
 	private float bulBnsDuration; // divide time by the speed for ranged and that way you get distance
 	private float bnsAttackSpd;
+	private bool hasShield;
+
+	public Sprite defaultShape;
 
 	//Should include attack damage, and attack speed here as well too.
 
@@ -50,6 +53,7 @@ public class playerStats : MonoBehaviour {
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
 		bulBnsDuration = 0.0f;
+		hasShield = false;
 
 		//Make sure that you can attack from the start.
 		lastAttack = -4.0f;
@@ -82,7 +86,19 @@ public class playerStats : MonoBehaviour {
 
 	void takeDamage (int dmg)
 	{
-		hp -= dmg;
+		// if we have a shield then take no damage and get rid of the upgrade
+		if (hasShield)
+		{
+			//no damage taken
+			hasShield = false;
+			//Reset the shape back to circle
+			//gameObject.SpriteRenderer.sprite  = defaultShape;
+			gameObject.GetComponent<SpriteRenderer>().sprite = defaultShape;
+		}
+		//otherwise proceed as normal
+		else
+			hp -= dmg;
+
 
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 
@@ -172,6 +188,9 @@ public class playerStats : MonoBehaviour {
 	public void addBnsAttackSpd(float bns)
 	{
 		bnsAttackSpd += bns;
+		hasShield = false;
+		gameObject.GetComponent<CircleCollider2D>().enabled = true;
+		gameObject.GetComponent<BoxCollider2D>().enabled = false;
 		bulBnsDuration = 0;
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
@@ -181,30 +200,63 @@ public class playerStats : MonoBehaviour {
 	public void addBnsBulletDamage(int bns)
 	{
 		bulBnsDmg += bns;
+		hasShield = false;
+		gameObject.GetComponent<CircleCollider2D>().enabled = true;
+		gameObject.GetComponent<BoxCollider2D>().enabled = false;
 		bnsAttackSpd = 0;
 		bulBnsDuration = 0;
 		bulBnsSpd = 0;
 		updateTimeBetweenAttacks();
 	}
 
+	public void addSquareUpgrade()
+	{
+		hasShield = true;
+		gameObject.GetComponent<CircleCollider2D>().enabled = true;
+		gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		bulBnsDmg = 0;
+		bnsAttackSpd = 0;
+		bulBnsDuration = 0;
+		bulBnsSpd = 0;
+		updateTimeBetweenAttacks();
+	}
+
+	public void addThinUpgrade()
+	{
+		//updating the hitbox accordingly
+		gameObject.GetComponent<CircleCollider2D>().enabled = false;
+		gameObject.GetComponent<BoxCollider2D>().enabled = true;
+		hasShield = false;
+		bulBnsDmg = 0;
+		bnsAttackSpd = 0;
+		bulBnsDuration = 0;
+		bulBnsSpd = 0;
+		updateTimeBetweenAttacks();
+	}
+
+	//Depricated
 	public void addBnsBulletSpeed(float bns)
 	{
 		bulBnsSpd += bns;
+		hasShield = false;
 		bnsAttackSpd = 0;
 		bulBnsDuration = 0;
 		bulBnsDmg = 0;
 		updateTimeBetweenAttacks();
 	}
 
+	//Depricated
 	public void addBnsBulletDuration(int bns)
 	{
 		bulBnsDuration += bns;
+		hasShield = false;
 		bnsAttackSpd = 0;
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
 		updateTimeBetweenAttacks();
 	}
 
+	//I don't think that we should have this... MAAAYYYBE
 	public void addBnsMaxHP(int bns)
 	{
 		maxHP += bns;

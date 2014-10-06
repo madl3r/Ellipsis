@@ -16,6 +16,7 @@ public class attackSpeedUpSript : BaseUpgrade {
 	public override void giveUpgradeToPlayer (GameObject player)
 	{
 		player.GetComponent<playerStats>().addBnsAttackSpd(1);
+		player.GetComponent<SpriteRenderer>().sprite = upgradeSprite;
 		Destroy(gameObject);
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class BaseUpgrade : MonoBehaviour {
 
 	public GameObject upgradeLine;
+	public Sprite upgradeSprite;
 
 	// Use this for initialization
 	void Start () {

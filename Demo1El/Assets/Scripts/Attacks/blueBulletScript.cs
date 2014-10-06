@@ -27,7 +27,7 @@ public class blueBulletScript : BaseBulletScript {
 	}
 
 	//Need to override this if you want the bullet to destroy bullets that come against you
-	protected virtual void dealDamage(GameObject theHit)
+	protected override void dealDamage(GameObject theHit)
 	{
 		if (theHit.tag == "player" || theHit.tag == "enemy")
 		{

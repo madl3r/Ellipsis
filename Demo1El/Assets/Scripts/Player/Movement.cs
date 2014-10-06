@@ -161,6 +161,8 @@ public class Movement : MonoBehaviour {
 
 	//Switch attempt things with magic numbers to edge cases in a list of the number of dots
 		//This way we get to have dynamic Q size
+
+	//Potentially get rid of. Right input will be fore using potions
 	void switchRight (int attempt)
 	{
 
