@@ -247,7 +247,9 @@ public class World : MonoBehaviour {
 
 	//Makes a new round
 	//TODO When we have more enemies and stuff:
-		// Get the LVL number from playerStats and then spawn the correct rounds accordingly
+		//Get the LVL number from playerStats and then spawn the correct rounds accordingly
+		//Maybe have this passed a base difficulty which will modify certain stats of spawning
+		//Also depending on the level we will have the world be given a different list of enemy prefabs (maybe similar enemies but different stats)
 	void newRound()
 	{
 		Debug.Log("Spawning new round");

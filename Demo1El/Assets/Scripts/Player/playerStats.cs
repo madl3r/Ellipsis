@@ -161,6 +161,7 @@ public class playerStats : MonoBehaviour {
 		
 			upLevelNumber();
 			Debug.Log("Level number is: " + levelNumber);
+			//TODO will need to switch this to more than just second level as we start making different levels
 			Application.LoadLevel("secondLevel");
 
 //			//Giving each player the new world and setting the line target to where we want to be!
@@ -266,7 +267,7 @@ public class playerStats : MonoBehaviour {
 	//Depricated
 	public void addBnsBulletSpeed(float bns)
 	{
-		bulBnsSpd = bns;
+		bulBnsSpd  = bns;
 		hasShield = false;
 		bnsAttackSpd = 0;
 		bulBnsDuration = 0;

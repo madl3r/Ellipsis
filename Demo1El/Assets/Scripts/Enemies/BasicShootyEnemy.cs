@@ -15,7 +15,7 @@ public class BasicShootyEnemy : BaseEnemy {
 	// Use this for initialization
 	void Start () {
 		theYPos = transform.position.y;
-		hp = 2;
+		hp = 1;
 		dmg = 1;
 		prevMoveTime = Time.time;
 		prevShotTime = Time.time;
@@ -23,13 +23,13 @@ public class BasicShootyEnemy : BaseEnemy {
 	
 	// Update is called once per frame
 	void Update () {
-		//Every now and again shoot
+		//Every now and again move
 		if (Time.time - prevMoveTime > timeBetweenMove)
 		{
 			move ();
 		}
 
-		//Every now and again move
+		//Every now and again attack
 		if (Time.time - prevShotTime > timeBetweenShot)
 		{
 			attack ();
@@ -60,7 +60,7 @@ public class BasicShootyEnemy : BaseEnemy {
 	protected virtual void move()
 	{
 		prevMoveTime = Time.time;
-		timeBetweenMove = Random.Range(0.5f, 1.0f);
+		timeBetweenMove = Random.Range(0.75f, 1.0f);
 
 		if (Random.Range(0, 2) == 0)
 		{
