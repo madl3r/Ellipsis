@@ -34,6 +34,7 @@ public class playerStats : MonoBehaviour {
 	private float bnsAttackSpd;
 	private bool hasShield;
 	private bool isHeartShape;
+	private bool isThin;
 
 	public Sprite defaultShape;
 
@@ -58,6 +59,9 @@ public class playerStats : MonoBehaviour {
 		bulBnsDuration = 0.0f;
 		hasShield = false;
 		isHeartShape = false;
+		isThin = false;
+		gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
 
 		//Make sure that you can attack from the start.
 		lastAttack = -4.0f;
@@ -196,10 +200,11 @@ public class playerStats : MonoBehaviour {
 	//Bonus adding methods
 	public void addBnsAttackSpd(float bns)
 	{
-		bnsAttackSpd += bns;
+		bnsAttackSpd = bns;
 		hasShield = false;
-		gameObject.GetComponent<CircleCollider2D>().enabled = true;
-		gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		isThin = false;
+		gameObject.GetComponent<CircleCollider2D>().enabled = !isThin;
+		gameObject.GetComponent<BoxCollider2D>().enabled = isThin;
 		bulBnsDuration = 0;
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
@@ -211,10 +216,11 @@ public class playerStats : MonoBehaviour {
 
 	public void addBnsBulletDamage(int bns)
 	{
-		bulBnsDmg += bns;
+		bulBnsDmg = bns;
 		hasShield = false;
-		gameObject.GetComponent<CircleCollider2D>().enabled = true;
-		gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		isThin = false;
+		gameObject.GetComponent<CircleCollider2D>().enabled = !isThin;
+		gameObject.GetComponent<BoxCollider2D>().enabled = isThin;
 		bnsAttackSpd = 0;
 		bulBnsDuration = 0;
 		bulBnsSpd = 0;
@@ -227,8 +233,9 @@ public class playerStats : MonoBehaviour {
 	public void addSquareUpgrade()
 	{
 		hasShield = true;
-		gameObject.GetComponent<CircleCollider2D>().enabled = true;
-		gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		isThin = false;
+		gameObject.GetComponent<CircleCollider2D>().enabled = !isThin;
+		gameObject.GetComponent<BoxCollider2D>().enabled = isThin;
 		bulBnsDmg = 0;
 		bnsAttackSpd = 0;
 		bulBnsDuration = 0;
@@ -242,8 +249,9 @@ public class playerStats : MonoBehaviour {
 	public void addThinUpgrade()
 	{
 		//updating the hitbox accordingly
-		gameObject.GetComponent<CircleCollider2D>().enabled = false;
-		gameObject.GetComponent<BoxCollider2D>().enabled = true;
+		isThin = true;
+		gameObject.GetComponent<CircleCollider2D>().enabled = !isThin;
+		gameObject.GetComponent<BoxCollider2D>().enabled = isThin;
 		hasShield = false;
 		bulBnsDmg = 0;
 		bnsAttackSpd = 0;
@@ -258,7 +266,7 @@ public class playerStats : MonoBehaviour {
 	//Depricated
 	public void addBnsBulletSpeed(float bns)
 	{
-		bulBnsSpd += bns;
+		bulBnsSpd = bns;
 		hasShield = false;
 		bnsAttackSpd = 0;
 		bulBnsDuration = 0;
@@ -269,7 +277,7 @@ public class playerStats : MonoBehaviour {
 	//Depricated
 	public void addBnsBulletDuration(int bns)
 	{
-		bulBnsDuration += bns;
+		bulBnsDuration = bns;
 		hasShield = false;
 		bnsAttackSpd = 0;
 		bulBnsDmg = 0;
@@ -280,18 +288,21 @@ public class playerStats : MonoBehaviour {
 	//I don't think that we should have this... MAAAYYYBE
 	public void addBnsMaxHP()
 	{
+		if (!isHeartShape)
+		{
+			bnsAttackSpd = 0;
+			hasShield = false;
+			isThin = false;
+			gameObject.GetComponent<CircleCollider2D>().enabled = !isThin;
+			gameObject.GetComponent<BoxCollider2D>().enabled = isThin;
+			bulBnsDuration = 0;
+			bulBnsDmg = 0;
+			bulBnsSpd = 0;
 
-		bnsAttackSpd = 0;
-		hasShield = false;
-		gameObject.GetComponent<CircleCollider2D>().enabled = true;
-		gameObject.GetComponent<BoxCollider2D>().enabled = false;
-		bulBnsDuration = 0;
-		bulBnsDmg = 0;
-		bulBnsSpd = 0;
-
-		isHeartShape = true;
-		maxHP += 1;
-		//Also give the player that extra HP right now (TODO maybe not give the extra now)
+			isHeartShape = true;
+			maxHP += 1;
+		}
+		//Even if it's already a heart always give at least HP
 		hp += 1;
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 	}
@@ -313,6 +324,23 @@ public class playerStats : MonoBehaviour {
 	public void setBullet(GameObject b)
 	{
 		theBullet = b;
+	}
+
+	//Called for when the player switches from the first spot in the Queue
+	public void onCollider(bool on)
+	{
+		//if we want the collider on, then turn on the correct one.
+		if (on)
+		{
+			gameObject.GetComponent<CircleCollider2D>().enabled = !isThin;
+			gameObject.GetComponent<BoxCollider2D>().enabled = isThin;
+		}
+		//else just turn them both off
+		else
+		{
+			gameObject.GetComponent<CircleCollider2D>().enabled = false;
+			gameObject.GetComponent<BoxCollider2D>().enabled = false;
+		}
 	}
 
 	//Help method that updates the time between attacks whenever attackSpeed is updated.

@@ -83,6 +83,12 @@ public class Movement : MonoBehaviour {
 			gameObject.GetComponent<playerStats>().attack();
 		}
 
+
+		if (Input.GetKeyDown("right") && numInQ == 0)
+		{
+			gameObject.GetComponent<playerStats>().usePotion();
+		}
+
 		//If detect up, and we're not at the last line, and we're allowed to move up... then move up!
 		if (Input.GetKeyDown("up") && (lineTargetIndex - 1) >= 0
 		    && theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)
@@ -123,16 +129,6 @@ public class Movement : MonoBehaviour {
 			}
 		}
 
-		//Switching right
-		//If we get right input, only do on the first in line, and make sure that this is only the first time detected (SEE MoveHelperONCE)
-
-		//Switching this now to use potion
-		if (Input.GetKeyDown("right") && numInQ == 0)// && numInQ == 0 && origNumInQ == currentFirst)
-		{
-			//Debug.Log("GETKEYDOWN TOO MUCH. Current First is: " + currentFirst);
-			//switchRight(0);
-			gameObject.GetComponent<playerStats>().usePotion();
-		}
 		//Same as above, but for switching left
 		if (Input.GetKeyDown("left") && numInQ == 0 && origNumInQ == currentFirst)
 		{
@@ -272,11 +268,13 @@ public class Movement : MonoBehaviour {
 		//Only want collisions with the first in line... or DO WE?!?
 		if (numInQ == 0)
 		{
-			collider2D.enabled = true;
+			//collider2D.enabled = true;
+			gameObject.GetComponent<playerStats>().onCollider(true);
 		}
 		else
 		{
-			collider2D.enabled = false;
+			//collider2D.enabled = false;
+			gameObject.GetComponent<playerStats>().onCollider(false);
 		}
 	}
 
