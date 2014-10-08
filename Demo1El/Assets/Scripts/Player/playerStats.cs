@@ -10,6 +10,7 @@ public class playerStats : MonoBehaviour {
 	public static GameObject HPUI;
 	public static GameObject theWorld;
 	private static int levelNumber = 0;
+	private static string nextLvl;
 
 	//Maybe swtich from this name to just wether not it's able to attack
 	private bool isInRound;
@@ -162,7 +163,7 @@ public class playerStats : MonoBehaviour {
 			upLevelNumber();
 			Debug.Log("Level number is: " + levelNumber);
 			//TODO will need to switch this to more than just second level as we start making different levels
-			Application.LoadLevel("secondLevel");
+			Application.LoadLevel(nextLvl);
 
 //			//Giving each player the new world and setting the line target to where we want to be!
 //			foreach (GameObject pChar in GameObject.FindGameObjectsWithTag("Player"))
@@ -183,6 +184,11 @@ public class playerStats : MonoBehaviour {
 //			}
 		}
 
+	}
+
+	public static void setNextLvl(string newLvl)
+	{
+		nextLvl = newLvl;
 	}
 
 	public void usePotion()

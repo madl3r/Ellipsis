@@ -23,6 +23,7 @@ public class World : MonoBehaviour {
 	public GameObject preBossArrow;
 	//The camera for the scene because this script will be controling it.
 	public GameObject theCamera;
+	public string theNextLvl;
 
 	//probably want to actually do the lines dynamically eventually.
 	private GameObject[] foundLines;
@@ -75,6 +76,9 @@ public class World : MonoBehaviour {
 //			Debug.Log(foundLines[i].transform.position.y);
 //		}\
 
+
+
+
 		//For now the lines have just been put into descending Y order manually.
 		cameraYPos = 0.0f;
 //		foreach (GameObject line in lines)
@@ -109,10 +113,12 @@ public class World : MonoBehaviour {
 		//Getting the camera
 		theCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
+		playerStats.setNextLvl(theNextLvl);
 		foreach (GameObject pChar in GameObject.FindGameObjectsWithTag("Player"))
 		{
 			pChar.GetComponent<Movement>().newLevelRestart(gameObject);
 		}
+
 	}
 	
 	// Update is called once per frame
