@@ -20,9 +20,4 @@ public class blackBulletScript : BaseBulletScript {
 		if (transform.position.x > 30)
 			Destroy(gameObject);
 	}
-	
-	void OffCameraRight()
-	{
-		Destroy(gameObject);
-	}
 }

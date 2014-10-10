@@ -5,7 +5,7 @@ public class blueAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 8.0f;
+		defaultAttackSpeed = 4.0f;
 		if (myPlayer != null)
 		{		
 			myPlayer.GetComponent<playerStats>().setBaseAttackSpd(defaultAttackSpeed);

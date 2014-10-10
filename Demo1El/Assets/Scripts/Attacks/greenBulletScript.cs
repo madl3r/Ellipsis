@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class greenBulletScript : blueBulletScript {
+public class greenBulletScript : BaseBulletScript {
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +12,8 @@ public class greenBulletScript : blueBulletScript {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (transform.position.x > 30)
+			Destroy(gameObject);
 	}
 
 	protected override void dealDamage(GameObject theHit)

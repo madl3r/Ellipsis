@@ -20,9 +20,6 @@ public class BaseBulletScript : MonoBehaviour{
 	
 	// Update is called once per frame
 	void Update () {
-		if (Time.time - startTime > duration)
-			Destroy(gameObject);
-
 	}
 
 	//Will need to have a separate method for each bullet bonus type (three)

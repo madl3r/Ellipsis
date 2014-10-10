@@ -1,16 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Attacks/aimedEnemyBullet.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/playerStats.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="95" Column="27" />
+      <File FileName="Assets/Scripts/WorldScripts/backgroundColorScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="166" Column="33" />
       <File FileName="Assets/Scripts/Enemies/BaseEnemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemies/BasicShootyEnemy.cs" Line="32" Column="31" />
+      <File FileName="Assets/Scripts/Enemies/BasicShootyEnemy.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Enemies/HammerEnemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemies/AimShootyEnemy.cs" Line="42" Column="44" />
-      <File FileName="Assets/Scripts/Attacks/basicEnemyBulletScript.cs" Line="10" Column="58" />
-      <File FileName="Assets/Scripts/Attacks/magentaBulletScript.cs" Line="30" Column="3" />
+      <File FileName="Assets/Scripts/Enemies/AimShootyEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Attacks/basicEnemyBulletScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Attacks/magentaBulletScript.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Attacks/aimedEnemyBullet.cs" Line="14" Column="56" />
       <File FileName="Assets/Scripts/Attacks/BaseBulletScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/WorldScripts/World.cs" Line="116" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
