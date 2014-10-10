@@ -61,8 +61,9 @@
      <Compile Include="Assets\Scripts\Attacks\blueBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\greenBounceScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\greenBulletScript.cs" />
+     <Compile Include="Assets\Scripts\Attacks\magentaBladeBullet.cs" />
      <Compile Include="Assets\Scripts\Attacks\magentaBulletParent.cs" />
-     <Compile Include="Assets\Scripts\Attacks\magentaBulletScript.cs" />
+     <Compile Include="Assets\Scripts\Attacks\redBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\redSlashParent.cs" />
      <Compile Include="Assets\Scripts\Attacks\redSlashScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\redSlashUpOrDown.cs" />

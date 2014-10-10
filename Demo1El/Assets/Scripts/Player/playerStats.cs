@@ -159,7 +159,6 @@ public class playerStats : MonoBehaviour {
 		//If we're on the pre boss lines and we attack then... Load the next level!
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "preBossLines")
 		{
-		
 			upLevelNumber();
 			Debug.Log("Level number is: " + levelNumber);
 			//TODO will need to switch this to more than just second level as we start making different levels

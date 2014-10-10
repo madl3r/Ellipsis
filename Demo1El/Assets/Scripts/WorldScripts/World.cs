@@ -76,9 +76,6 @@ public class World : MonoBehaviour {
 //			Debug.Log(foundLines[i].transform.position.y);
 //		}\
 
-
-
-
 		//For now the lines have just been put into descending Y order manually.
 		cameraYPos = 0.0f;
 //		foreach (GameObject line in lines)
@@ -142,6 +139,14 @@ public class World : MonoBehaviour {
 			roundStarted = false;
 			Debug.Log("Round " + round + " survived!!");
 			timeLeftBtwnRound = timeBtwnRound;
+
+			//Destroys all bullets in the level so that player no longer needs to dodge.
+			GameObject[] levelBullets;
+			levelBullets = GameObject.FindGameObjectsWithTag("enemyBullet");
+			foreach (GameObject enBul in levelBullets)
+			{
+				Destroy(enBul);
+			}
 
 			//Display the number of hits before the next round
 			countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
@@ -258,8 +263,6 @@ public class World : MonoBehaviour {
 		//Also depending on the level we will have the world be given a different list of enemy prefabs (maybe similar enemies but different stats)
 	void newRound()
 	{
-		Debug.Log("Spawning new round");
-
 		//Letting players know that the round has begun
 		GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject player in thePlayers)
@@ -310,10 +313,6 @@ public class World : MonoBehaviour {
 		{
 			setCounterInvisible();
 		}
-
-
-		Debug.Log(timeLeftBtwnRound + " hits left before next round");
-		//display the smaller number
 	}
 
 	//Makes the counter thin invisible

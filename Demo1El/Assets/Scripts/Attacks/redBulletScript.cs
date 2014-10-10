@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class magentaBulletScript : BaseBulletScript {
+public class redBulletScript : BaseBulletScript {
 
 	// Use this for initialization
 	void Start () {
@@ -52,12 +52,13 @@ public class magentaBulletScript : BaseBulletScript {
 		if (theHit.tag == "enemy")
 		{
 			theHit.SendMessage("takeDamage", dmg);
+			Destroy(gameObject);
 		}
 //		else if (theHit.tag == "enemyBullet")
 //		{
 //			//Destory the bullet
 //			Destroy(theHit);
 //		}
-		Destroy(gameObject);
+
 	}
 }
