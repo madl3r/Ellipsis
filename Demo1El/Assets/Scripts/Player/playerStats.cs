@@ -12,6 +12,9 @@ public class playerStats : MonoBehaviour {
 	private static int levelNumber = 0;
 	private static string nextLvl;
 
+
+
+
 	//Maybe swtich from this name to just wether not it's able to attack
 	private bool isInRound;
 
@@ -36,10 +39,13 @@ public class playerStats : MonoBehaviour {
 	private bool hasShield;
 	private bool isHeartShape;
 	private bool isThin;
-
 	public Sprite defaultShape;
 
-	//Should include attack damage, and attack speed here as well too.
+	//Potion
+	private GameObject potionType;
+	
+	private static int coins;
+	private static int keys;
 
 	//TODO gonna have to do interesting stuff here for when loading into new levels
 	void Start () {
@@ -58,6 +64,8 @@ public class playerStats : MonoBehaviour {
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
 		bulBnsDuration = 0.0f;
+		coins = 0;
+		keys = 1;
 		hasShield = false;
 		isHeartShape = false;
 		isThin = false;

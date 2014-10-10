@@ -45,6 +45,8 @@ public class World : MonoBehaviour {
 	int roundsToFirstUpgrade;
 	public GameObject[] upgradePrefabs;
 
+	public GameObject[] minorPickups;
+
 	//Boss area round info
 	int roundsToBossArea;
 
@@ -147,6 +149,11 @@ public class World : MonoBehaviour {
 			{
 				Destroy(enBul);
 			}
+
+			//Spawn something
+			if (Random.Range(0, 4) > 0)
+				Instantiate(minorPickups[Random.Range(0, minorPickups.Length)], new Vector2(9.0f, 0.0f), Quaternion.identity);
+
 
 			//Display the number of hits before the next round
 			countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
@@ -268,6 +275,12 @@ public class World : MonoBehaviour {
 		foreach (GameObject player in thePlayers)
 		{
 			player.BroadcastMessage("setRoundStatus", true);
+		}
+
+		GameObject[] theMinUpgrades = GameObject.FindGameObjectsWithTag("minorPickup");
+		foreach (GameObject mU in theMinUpgrades)
+		{
+			Destroy(mU);
 		}
 
 		//Deleting all out of round UI
