@@ -151,7 +151,7 @@ public class World : MonoBehaviour {
 			}
 
 			//Spawn something
-			if (Random.Range(0, 4) > 0)
+			if (Random.Range(0, 4) > 1)
 				Instantiate(minorPickups[Random.Range(0, minorPickups.Length)], new Vector2(9.0f, 0.0f), Quaternion.identity);
 
 

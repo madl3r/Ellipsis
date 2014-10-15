@@ -99,7 +99,11 @@
      <Compile Include="Assets\Scripts\WorldScripts\pauseMenuGUI.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\upgradeLineScript.cs" />
      <Compile Include="Assets\Scripts\pickupScripts\basePickupScript.cs" />
+     <Compile Include="Assets\Scripts\pickupScripts\dimePickupScript.cs" />
      <Compile Include="Assets\Scripts\pickupScripts\hpPickupScript.cs" />
+     <Compile Include="Assets\Scripts\pickupScripts\keyPickupScript.cs" />
+     <Compile Include="Assets\Scripts\pickupScripts\nickelPickupScript.cs" />
+     <Compile Include="Assets\Scripts\pickupScripts\pennyPickupScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

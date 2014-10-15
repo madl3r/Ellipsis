@@ -127,10 +127,10 @@ public class playerStats : MonoBehaviour {
 
 	}
 
-	void addHp (int heal)
-	{
-		hp += heal;
-	}
+//	void addHp (int heal)
+//	{
+//		hp += heal;
+//	}
 
 	public void attack()
 	{
@@ -332,6 +332,20 @@ public class playerStats : MonoBehaviour {
 	{
 		hp += heal;
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
+	}
+
+	public void addKey (int keysAmt)
+	{
+		keys += keysAmt;
+		Debug.Log("There are now: " + keys + " keys");
+		//Here update the UI for the number of key's that we have
+	}
+
+	public void addCoins (int amt)
+	{
+		coins += amt;
+		Debug.Log("There are now " + coins + " coins");
+		//Here update the UI to the correct number of coins.
 	}
 	//~~~~
 
