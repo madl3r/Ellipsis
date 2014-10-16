@@ -54,11 +54,10 @@ public class redBulletScript : BaseBulletScript {
 			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 		}
-//		else if (theHit.tag == "enemyBullet")
-//		{
-//			//Destory the bullet
-//			Destroy(theHit);
-//		}
+		else if (theHit.tag == "enemyBullet")
+		{
+			Destroy(gameObject);
+		}
 
 	}
 }

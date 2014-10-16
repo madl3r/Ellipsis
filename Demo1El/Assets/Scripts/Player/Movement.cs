@@ -84,9 +84,16 @@ public class Movement : MonoBehaviour {
 		}
 
 
-		if (Input.GetKeyDown("right") && numInQ == 0)
+		if (Input.GetKeyDown("left") && numInQ == 0)
 		{
 			gameObject.GetComponent<playerStats>().usePotion();
+		}
+
+		//Same as above, but for switching left
+		if (Input.GetKeyDown("right") && numInQ == 0 && origNumInQ == currentFirst)
+		{
+			//Debug.Log("GETKEYDOWN TOO MUCH ~~~~~~ LLL " + currentFirst);
+			switchRight(0);
 		}
 
 		//If detect up, and we're not at the last line, and we're allowed to move up... then move up!
@@ -129,12 +136,7 @@ public class Movement : MonoBehaviour {
 			}
 		}
 
-		//Same as above, but for switching left
-		if (Input.GetKeyDown("left") && numInQ == 0 && origNumInQ == currentFirst)
-		{
-			//Debug.Log("GETKEYDOWN TOO MUCH ~~~~~~ LLL " + currentFirst);
-			switchLeft(0);
-		}
+	
 
 	}
 

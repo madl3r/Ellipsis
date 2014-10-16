@@ -1,12 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/displayKeys.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/Movement.cs">
     <Files>
       <File FileName="Assets/Scripts/Player/displayHP.cs" Line="14" Column="18" />
-      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="345" Column="54" />
+      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="12" Column="31" />
       <File FileName="Assets/Scripts/WorldScripts/World.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Player/displayKeys.cs" Line="6" Column="1" />
-      <File FileName="Assets/Scripts/Player/Movement.cs" Line="281" Column="21" />
+      <File FileName="Assets/Scripts/Player/displayKeys.cs" Line="27" Column="34" />
+      <File FileName="Assets/Scripts/Player/Movement.cs" Line="72" Column="65" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
