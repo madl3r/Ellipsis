@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\Player\displayHP.cs" />
      <Compile Include="Assets\Scripts\Player\displayKeys.cs" />
      <Compile Include="Assets\Scripts\Player\playerStats.cs" />
+     <Compile Include="Assets\Scripts\ShopItemScripts\BaseShopItem.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\AttackTypeUpgradeScript.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\BaseUpgrade.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\HealScript.cs" />
@@ -100,7 +101,7 @@
      <Compile Include="Assets\Scripts\WorldScripts\backgroundColorScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\pauseMenuGUI.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\shopEnterLineScript.cs" />
-     <Compile Include="Assets\Scripts\WorldScripts\shopLines.cs" />
+     <Compile Include="Assets\Scripts\WorldScripts\shopLinesScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\upgradeLineScript.cs" />
      <Compile Include="Assets\Scripts\pickupScripts\basePickupScript.cs" />
      <Compile Include="Assets\Scripts\pickupScripts\dimePickupScript.cs" />

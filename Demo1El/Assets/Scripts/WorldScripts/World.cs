@@ -46,6 +46,7 @@ public class World : MonoBehaviour {
 	//Upgrade round information
 	int roundsToFirstUpgrade;
 	public GameObject[] upgradePrefabs;
+	public GameObject[] shopItems;
 	public GameObject[] minorPickups;
 
 	//Boss area round info
@@ -89,8 +90,9 @@ public class World : MonoBehaviour {
 //			//Debug.Log(line.transform.position.y);
 //		}
 
-		//Get the line in the middle where the player starts. This can only be done with a magic number like this because the line order was put in manually. Should really be looking for the line with a y pos of 0.
-		currentLine = lines[5];
+		//Get the line in the middle where the player starts. This can only be done with a magic number like this because the line order was put in manually. 
+		//Should really be looking for the line with a y pos of 0.
+		currentLine = lines[7];
 
 		//Start at round 0
 		round = 0;
@@ -198,8 +200,24 @@ public class World : MonoBehaviour {
 			}
 			if (round >= roundsToShopArea)
 			{
+				if (round == roundsToShopArea)
+					populateShopLines();
+
 				shopArrow.renderer.enabled = true;
-				GameObject.FindGameObjectWithTag("shopEnterLine").GetComponent<LineScript>().canEnter = true;
+				GameObject theEntrance = GameObject.FindGameObjectWithTag("shopEnterLine");
+				theEntrance.GetComponent<LineScript>().canEnter = true;
+
+				//If the entrance is NOT locked then you can go to the shop lines
+				if (!theEntrance.GetComponent<shopEnterLineScript>().getIsLocked())
+				{
+					foreach (GameObject line in lines)
+					{
+						if (line.tag == "shopLines")
+						{
+							line.GetComponent<LineScript>().canEnter = true;
+						}
+					}
+				}
 			}
 		}
 		//Reset this variable whenever the player goes into the update area
@@ -304,6 +322,7 @@ public class World : MonoBehaviour {
 		}
 		upgradeArrow.renderer.enabled = false;
 		preBossArrow.renderer.enabled = false;
+		shopArrow.renderer.enabled = false;
 
 		//Round things
 		roundStarted = true;
@@ -356,26 +375,33 @@ public class World : MonoBehaviour {
 	//Populates all of the base upgrade lines that start out there
 	void populateUpgradeLines()
 	{
-//		foreach (GameObject uLine in GameObject.FindGameObjectsWithTag("upgradeLines"))
-//		{
-//			GameObject thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
-//			uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
-//			thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
-//		}
-
 		GameObject thisUpgrade;
 		GameObject uLine = GameObject.FindGameObjectWithTag("upgradeLines");
 
+		//Determine if it's locked
 		uLine.GetComponent<upgradeLineScript>().setIsLocked(Random.Range(0, 5) < 1);
+
+		//if it's locked then we put up a keyhole.
 		if (uLine.GetComponent<upgradeLineScript>().getIsLocked())
 			thisUpgrade = Instantiate(keyHolePrefab, uLine.transform.position, Quaternion.identity) as GameObject;//thisUpgrade Instantiate a lock. When locks are attacked by a key, they then disappear and either spawn an upgrade (if on an upgrade line)
-			 //or make the player be able to move past this line (if on a shop line).
+		//Otherwise just put the upgrade there.
 		else
 			thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
 
+		//Updating the things that they need to know.
 		thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
 		uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
 
+	}
+
+	void populateShopLines()
+	{
+		foreach (GameObject sLine in GameObject.FindGameObjectsWithTag("shopLines"))
+		{
+			GameObject thisItem = Instantiate (shopItems[Random.Range(0, shopItems.Length)], sLine.transform.position, Quaternion.identity) as GameObject;
+			thisItem.GetComponent<BaseShopItem>().theUpgrade.GetComponent<BaseUpgrade>().upgradeLine = sLine;
+			sLine.GetComponent<shopLinesScript>().theItem = thisItem; 
+		}
 	}
 
 	public void giveUpgradeLineUpgrade()

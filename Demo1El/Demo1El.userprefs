@@ -1,15 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/WorldScripts/upgradeLineScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ShopItemScripts/BaseShopItem.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player/displayHP.cs" Line="14" Column="18" />
-      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/WorldScripts/World.cs" Line="289" Column="1" />
+      <File FileName="Assets/Scripts/WorldScripts/World.cs" Line="390" Column="38" />
       <File FileName="Assets/Scripts/Player/displayKeys.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Player/Movement.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/WorldScripts/upgradeLineScript.cs" Line="22" Column="18" />
-      <File FileName="Assets/Scripts/WorldScripts/LineScript.cs" Line="22" Column="18" />
-      <File FileName="Assets/Scripts/WorldScripts/shopLines.cs" Line="16" Column="36" />
+      <File FileName="Assets/Scripts/WorldScripts/upgradeLineScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/WorldScripts/shopLinesScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ShopItemScripts/BaseShopItem.cs" Line="22" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

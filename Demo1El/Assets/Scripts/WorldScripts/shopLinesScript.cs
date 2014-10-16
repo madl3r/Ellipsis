@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class shopLines : LineScript {
+public class shopLinesScript : LineScript {
 
 	public GameObject theItem;
 	

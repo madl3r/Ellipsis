@@ -291,7 +291,7 @@ public class Movement : MonoBehaviour {
 		}
 		Debug.Log("The new line target is: " + lineTarget.transform.position);
 		theYPos = 0.0f;
-		lineTargetIndex = 5;
+		lineTargetIndex = 7;
 		transform.position = new Vector2 (transform.position.x, 0.0f);
 
 

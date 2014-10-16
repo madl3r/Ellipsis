@@ -188,6 +188,18 @@ public class playerStats : MonoBehaviour {
 			spendKey();
 			theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopEnterLineScript>().setIsLocked(false);
 		}
+		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "shopLines")
+		{
+			if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopLinesScript>().theItem != null)
+			{
+				if (coins >= theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopLinesScript>().theItem.GetComponent<BaseShopItem>().getCost())
+				{
+					spendCoins(theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopLinesScript>().theItem.GetComponent<BaseShopItem>().getCost());
+					theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopLinesScript>().theItem.GetComponent<BaseShopItem>().buyThis(gameObject);
+				}
+			}
+
+		}
 		//If we're on the pre boss lines and we attack then... Load the next level!
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "preBossLines")
 		{
@@ -376,6 +388,12 @@ public class playerStats : MonoBehaviour {
 	{
 		coins += amt;
 		Debug.Log("There are now " + coins + " coins");
+		coinUI.GetComponent<displayCoins>().showCoinAmt(coins);
+	}
+
+	public void spendCoins(int amt)
+	{
+		coins -= amt;
 		coinUI.GetComponent<displayCoins>().showCoinAmt(coins);
 	}
 	//~~~~
