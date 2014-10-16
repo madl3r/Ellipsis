@@ -99,6 +99,8 @@
      <Compile Include="Assets\Scripts\WorldScripts\World.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\backgroundColorScript.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\pauseMenuGUI.cs" />
+     <Compile Include="Assets\Scripts\WorldScripts\shopEnterLineScript.cs" />
+     <Compile Include="Assets\Scripts\WorldScripts\shopLines.cs" />
      <Compile Include="Assets\Scripts\WorldScripts\upgradeLineScript.cs" />
      <Compile Include="Assets\Scripts\pickupScripts\basePickupScript.cs" />
      <Compile Include="Assets\Scripts\pickupScripts\dimePickupScript.cs" />

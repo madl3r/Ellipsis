@@ -166,10 +166,27 @@ public class playerStats : MonoBehaviour {
 //			Debug.Log("GET THIS UPGRADE");
 			if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade != null)
 			{
-				theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject);
-				//Destroy(theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade);
-				//The upgrade should kill itself
+				//if it's locked... then unlock it and spawn a treat
+				if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().getIsLocked())
+				{
+					if (keys > 0)
+					{
+						spendKey();
+						theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().setIsLocked(false);
+						theWorld.GetComponent<World>().giveUpgradeLineUpgrade();
+					}
+				}
+				else
+					theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject);
 			}
+		}
+		//Else if we're on the shopEnter line, and it's locked and we have at least 1 key... then unlock it!
+		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "shopEnterLine" &&
+		         theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopEnterLineScript>().getIsLocked() &&
+		         keys > 0)
+		{
+			spendKey();
+			theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopEnterLineScript>().setIsLocked(false);
 		}
 		//If we're on the pre boss lines and we attack then... Load the next level!
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "preBossLines")
@@ -345,6 +362,13 @@ public class playerStats : MonoBehaviour {
 	{
 		keys += keysAmt;
 		Debug.Log("There are now: " + keys + " keys");
+		keyUI.GetComponent<displayKeys>().showKeyAmt(keys);
+	}
+
+	//This function should only be called if the player has at least 1 key
+	public void spendKey()
+	{
+		keys--;
 		keyUI.GetComponent<displayKeys>().showKeyAmt(keys);
 	}
 

@@ -21,6 +21,7 @@ public class World : MonoBehaviour {
 	//public GameObject upgradeLine;
 	public GameObject upgradeArrow;
 	public GameObject preBossArrow;
+	public GameObject shopArrow;
 	//The camera for the scene because this script will be controling it.
 	public GameObject theCamera;
 	public string theNextLvl;
@@ -36,6 +37,7 @@ public class World : MonoBehaviour {
 	//bools that keep track of which areas the player is allowed to go into.
 	private bool upgradesUnlocked;
 	private bool bossUnlocked;
+	private bool shopUnlocked;
 
 	//Round and spawrning variables.
 	public List<GameObject> prefabEnemies;
@@ -44,12 +46,14 @@ public class World : MonoBehaviour {
 	//Upgrade round information
 	int roundsToFirstUpgrade;
 	public GameObject[] upgradePrefabs;
-
 	public GameObject[] minorPickups;
 
 	//Boss area round info
 	int roundsToBossArea;
 
+	//Shop area round stuff
+	int roundsToShopArea;
+	public GameObject keyHolePrefab;
 	//Count down stuff
 	public GameObject countDownObj;
 	private bool roundStarted;
@@ -104,6 +108,8 @@ public class World : MonoBehaviour {
 
 		roundsToBossArea = Random.Range(1, 7);
 		Debug.Log("THE LEVEL WILL BE OVER AFTER ROUND " + roundsToBossArea);
+
+		roundsToShopArea = Random.Range(1, 7);
 
 
 		Debug.Log("Getting the players for this level");
@@ -189,6 +195,11 @@ public class World : MonoBehaviour {
 					}
 				}
 
+			}
+			if (round >= roundsToShopArea)
+			{
+				shopArrow.renderer.enabled = true;
+				GameObject.FindGameObjectWithTag("shopEnterLine").GetComponent<LineScript>().canEnter = true;
 			}
 		}
 		//Reset this variable whenever the player goes into the update area
@@ -345,12 +356,37 @@ public class World : MonoBehaviour {
 	//Populates all of the base upgrade lines that start out there
 	void populateUpgradeLines()
 	{
-		foreach (GameObject uLine in GameObject.FindGameObjectsWithTag("upgradeLines"))
-		{
-			GameObject thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
-			uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
-			thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
-		}
+//		foreach (GameObject uLine in GameObject.FindGameObjectsWithTag("upgradeLines"))
+//		{
+//			GameObject thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
+//			uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
+//			thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
+//		}
+
+		GameObject thisUpgrade;
+		GameObject uLine = GameObject.FindGameObjectWithTag("upgradeLines");
+
+		uLine.GetComponent<upgradeLineScript>().setIsLocked(Random.Range(0, 5) < 1);
+		if (uLine.GetComponent<upgradeLineScript>().getIsLocked())
+			thisUpgrade = Instantiate(keyHolePrefab, uLine.transform.position, Quaternion.identity) as GameObject;//thisUpgrade Instantiate a lock. When locks are attacked by a key, they then disappear and either spawn an upgrade (if on an upgrade line)
+			 //or make the player be able to move past this line (if on a shop line).
+		else
+			thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
+
+		thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
+		uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
+
+	}
+
+	public void giveUpgradeLineUpgrade()
+	{
+		GameObject thisUpgrade;
+		GameObject uLine = GameObject.FindGameObjectWithTag("upgradeLines");
+		uLine.GetComponent<upgradeLineScript>().setIsLocked(false);
+		Destroy(uLine.GetComponent<upgradeLineScript>().theUpgrade);
+		thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
+		thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
+		uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
 	}
 
 	//For when the player dies
