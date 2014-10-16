@@ -8,7 +8,10 @@ public class playerStats : MonoBehaviour {
 
 	//UI Stuff
 	public static GameObject HPUI;
+	public static GameObject keyUI;
+	public static GameObject coinUI;
 	public static GameObject theWorld;
+
 	private static int levelNumber = 0;
 	private static string nextLvl;
 
@@ -54,18 +57,22 @@ public class playerStats : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 
 		HPUI = GameObject.Find("HPui");
+		keyUI = GameObject.Find("keyDisplay");
+		coinUI = GameObject.Find("coinDisplay");
 		theWorld = GameObject.FindGameObjectWithTag("theWorld");
 		isInRound = false;
 		maxHP = 5;
 		hp = maxHP;
-		//HPUI.GetComponent<displayHP>.hearts = new GameObject[hp];
+		coins = 0;
+		keys = 1;
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
+		keyUI.GetComponent<displayKeys>().showKeyAmt(keys);
+		coinUI.GetComponent<displayCoins>().showCoinAmt(coins);
 		bnsAttackSpd = 0.0f;
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
 		bulBnsDuration = 0.0f;
-		coins = 0;
-		keys = 1;
+
 		hasShield = false;
 		isHeartShape = false;
 		isThin = false;
@@ -338,14 +345,14 @@ public class playerStats : MonoBehaviour {
 	{
 		keys += keysAmt;
 		Debug.Log("There are now: " + keys + " keys");
-		//Here update the UI for the number of key's that we have
+		keyUI.GetComponent<displayKeys>().showKeyAmt(keys);
 	}
 
 	public void addCoins (int amt)
 	{
 		coins += amt;
 		Debug.Log("There are now " + coins + " coins");
-		//Here update the UI to the correct number of coins.
+		coinUI.GetComponent<displayCoins>().showCoinAmt(coins);
 	}
 	//~~~~
 
@@ -396,11 +403,16 @@ public class playerStats : MonoBehaviour {
 		isInRound = round;
 	}
 
+	//Make sure to find the UI objects and to display the stats at the beginning of each new level.
 	public void newLvlWorld(GameObject world)
 	{
 		theWorld = world;
 		HPUI = GameObject.FindGameObjectWithTag("HP");
+		keyUI = GameObject.Find("keyDisplay");
+		coinUI = GameObject.Find("coinDisplay");
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
+		keyUI.GetComponent<displayKeys>().showKeyAmt(keys);
+		coinUI.GetComponent<displayCoins>().showCoinAmt(coins);
 	}
 
 	public void upLevelNumber()

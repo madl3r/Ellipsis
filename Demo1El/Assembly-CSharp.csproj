@@ -76,7 +76,9 @@
      <Compile Include="Assets\Scripts\Enemies\HammerEnemy.cs" />
      <Compile Include="Assets\Scripts\Player\MoveHelperONCE.cs" />
      <Compile Include="Assets\Scripts\Player\Movement.cs" />
+     <Compile Include="Assets\Scripts\Player\displayCoins.cs" />
      <Compile Include="Assets\Scripts\Player\displayHP.cs" />
+     <Compile Include="Assets\Scripts\Player\displayKeys.cs" />
      <Compile Include="Assets\Scripts\Player\playerStats.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\AttackTypeUpgradeScript.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\BaseUpgrade.cs" />

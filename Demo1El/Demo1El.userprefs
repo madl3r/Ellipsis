@@ -1,16 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/displayHP.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/displayKeys.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="348" Column="55" />
-      <File FileName="Assets/Scripts/pickupScripts/hpPickupScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/pickupScripts/basePickupScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/pickupScripts/keyPickupScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/pickupScripts/pennyPickupScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player/displayHP.cs" Line="14" Column="18" />
+      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="345" Column="54" />
       <File FileName="Assets/Scripts/WorldScripts/World.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/pickupScripts/nickelPickupScript.cs" Line="36" Column="2" />
-      <File FileName="Assets/Scripts/pickupScripts/dimePickupScript.cs" Line="25" Column="49" />
-      <File FileName="Assets/Scripts/Player/displayHP.cs" Line="7" Column="29" />
+      <File FileName="Assets/Scripts/Player/displayKeys.cs" Line="6" Column="1" />
+      <File FileName="Assets/Scripts/Player/Movement.cs" Line="281" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
