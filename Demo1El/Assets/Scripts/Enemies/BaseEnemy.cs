@@ -20,12 +20,9 @@ public class BaseEnemy : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "bullet")
 		{
-			//Debug.Log("HIT BY A BULLET");
 			other.gameObject.SendMessage("dealDamage", gameObject);
 		}
 	}
-
-	
 	
 	protected virtual void takeDamage(int dmg)
 	{

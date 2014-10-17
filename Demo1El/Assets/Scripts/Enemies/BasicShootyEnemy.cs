@@ -60,7 +60,7 @@ public class BasicShootyEnemy : BaseEnemy {
 	protected virtual void move()
 	{
 		prevMoveTime = Time.time;
-		timeBetweenMove = Random.Range(0.75f, 1.0f);
+		timeBetweenMove = Random.Range(1.0f, 1.6f);
 
 		if (Random.Range(0, 2) == 0)
 		{

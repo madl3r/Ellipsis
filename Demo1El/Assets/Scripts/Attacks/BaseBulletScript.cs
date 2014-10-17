@@ -2,13 +2,14 @@
 using System.Collections;
 
 public class BaseBulletScript : MonoBehaviour{
-
 	
-	protected int dmg;// = 1;
-	protected float bulletSpeed;// = 17.0f;
-	protected float duration; // divide time by the speed for ranged and that way you get distance
+	//Bullet Stats
+	protected int dmg;
+	protected float bulletSpeed;
+	protected float duration; //Duration is still necesarry for green and yellow attacks.
 	protected float startTime;
 
+	//Bonus damages
 	protected int bnsDmg = 0;
 	protected float bnsBulletSpeed = 0;
 	protected float bnsDuration = 0;
@@ -21,8 +22,7 @@ public class BaseBulletScript : MonoBehaviour{
 	// Update is called once per frame
 	void Update () {
 	}
-
-	//Will need to have a separate method for each bullet bonus type (three)
+	
 	protected void addBonusDmg (int bonus)
 	{
 		bnsDmg += bonus;
@@ -38,6 +38,7 @@ public class BaseBulletScript : MonoBehaviour{
 		bnsDuration += bonus;
 	}
 
+	//the basic dealDamage function of bullets only does damage to enemies and players by default
 	//Need to override this if you want the bullet to destroy bullets that come against you
 	protected virtual void dealDamage(GameObject theHit)
 	{
@@ -47,14 +48,17 @@ public class BaseBulletScript : MonoBehaviour{
 			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 		}
-		//Destroy(gameObject);
 	}
 
-	void OffCameraRight()
+	//Destroy when it goes off the to right.
+	protected void OffCameraRight()
 	{
 		Destroy(gameObject);
 	}
 
+	protected void OffCameraLeft()
+	{
+		Destroy(gameObject);
+	}
 
-	
 }

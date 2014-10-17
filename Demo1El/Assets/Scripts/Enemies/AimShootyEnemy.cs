@@ -26,8 +26,11 @@ public class AimShootyEnemy : BaseEnemy {
 	void Update () {
 
 		//Look at the player
-		transform.LookAt(playerToLookAt.transform.position);
-		transform.Rotate(eulerAngleOffset, Space.Self);
+		if (playerToLookAt != null)
+		{
+			transform.LookAt(playerToLookAt.transform.position);
+			transform.Rotate(eulerAngleOffset, Space.Self);
+		}
 
 		//Every now and again move
 		if (Time.time - prevShotTime > timeBetweenShot)
@@ -36,6 +39,7 @@ public class AimShootyEnemy : BaseEnemy {
 		}
 	}
 
+	//attacks the player and semi random intervals
 	protected virtual void attack()
 	{
 		prevShotTime = Time.time;

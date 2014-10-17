@@ -16,27 +16,21 @@ public class basicEnemyBulletScript : BaseBulletScript {
 			Destroy(gameObject);
 	}
 
-	void OffCameraLeft()
-	{
-		Destroy(gameObject);
-	}
-
+	//Checks for when enemy bullets hit things
 	void OnTriggerEnter2D(Collider2D other)
 	{
+		//If it hits the player then by default we'll deal damage by telling the player to take damage, and then destroy ourselves
 		if (other.gameObject.tag == "Player")
 		{
 			other.gameObject.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 			//Make noise and some effect
 		}
+		//If we hit another bullet we tell them to damage to us (this bullet). This might result in this bullet being destroyed.
 		if (other.gameObject.tag == "bullet")
 		{
-			//Destroy(other);
 			other.gameObject.SendMessage("dealDamage", gameObject);
-			//Destroy(gameObject);
 		}
-		//if the game object has a tag of player... then deal damage!
-		//if the game object has the tag of a damage thingy (bullet we'll call them)... then take damage!
 	}
 
 }

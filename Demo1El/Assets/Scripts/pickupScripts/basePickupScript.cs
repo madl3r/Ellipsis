@@ -3,7 +3,7 @@ using System.Collections;
 
 public class basePickupScript : MonoBehaviour {
 
-	protected float pickupSpeed;// = 17.0f;
+	protected float pickupSpeed;
 	
 	// Use this for initialization
 	void Start () {

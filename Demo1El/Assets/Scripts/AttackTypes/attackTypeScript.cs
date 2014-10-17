@@ -4,7 +4,7 @@ using System.Collections;
 public class attackTypeScript : MonoBehaviour
 {
 	//To be used for setting the default attack speed of the player that is currently using this attackType
-	protected float defaultAttackSpeed;// = 4.0f;
+	protected float defaultAttackSpeed;
 	public GameObject bullet;
 	public GameObject myPlayer;
 
@@ -18,10 +18,8 @@ public class attackTypeScript : MonoBehaviour
 	
 	}
 
-
 	public virtual void setBaseAttackSpeed(GameObject attacker)
 	{
-//		Debug.Log("Setting the attack speed of " + attacker);
 		attacker.GetComponent<playerStats>().setBaseAttackSpd(defaultAttackSpeed);
 	}
 

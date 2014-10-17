@@ -3,11 +3,14 @@ using System.Collections;
 
 public class magentaBladeBullet : BaseBulletScript {
 
+	//Camera vars
 	private GameObject theCamGameObj;
 	private Camera theCam;
 	Vector3 posOnScreen;
+	//timing vars
 	private float theStartTime;
 	private float playerDeadlyTime;
+	//vars for shotgun effect of this bullet
 	private float xSpeed;
 	private float ySpeed;
 	
@@ -29,7 +32,7 @@ public class magentaBladeBullet : BaseBulletScript {
 			negOrNot = -1;
 		else
 			negOrNot = 1;
-		
+		//Some vector math here
 		ySpeed = Mathf.Sqrt((bulletSpeed*bulletSpeed) - (xSpeed*xSpeed)) * negOrNot;
 		
 		rigidbody2D.velocity = new Vector2(xSpeed, ySpeed);
@@ -38,49 +41,39 @@ public class magentaBladeBullet : BaseBulletScript {
 	// Update is called once per frame
 	void Update () 
 	{
+		//Still might not be needed.
 		if (transform.position.x > 30)
 			Destroy(gameObject);
 
 		if (transform.position.x < -40)
-		{
-			Debug.Log("Destroying!");
 			Destroy(gameObject);
-		}
-		
+
+		//always tracking the bullets position on the screen.
 		posOnScreen = theCam.WorldToViewportPoint(gameObject.transform.position);
-		
+
+		//If we hit any edge of the screen then bounce off in a reasonable way and make it deadly to the player.
+		//Also speed up so that the player is freaking out more!
 		if (posOnScreen.x > 0.99f)
 		{
-			//Debug.Log("TIME TO BOUNCE BACK");
-			//transform.position = new Vector2 (transform.position.x - 0.1f, transform.position.y);
-			rigidbody2D.velocity = new Vector2 (xSpeed * -1.0f, ySpeed * -1.0f);
+			rigidbody2D.velocity = new Vector2 (xSpeed * -1.5f, ySpeed * -1.5f);
 			gameObject.GetComponent<Collider2D>().isTrigger = true;
 		}
 		if (posOnScreen.y > 0.99f)
 		{
-			rigidbody2D.velocity = new Vector2 (xSpeed, ySpeed * -1.0f);
+			rigidbody2D.velocity = new Vector2 (xSpeed * 1.5f, ySpeed * -1.5f);
 			gameObject.GetComponent<Collider2D>().isTrigger = true;
 		}
 		if (posOnScreen.y < 0.01f)
 		{
-			rigidbody2D.velocity = new Vector2 (xSpeed, ySpeed * -1.0f);
+			rigidbody2D.velocity = new Vector2 (xSpeed * 1.5f, ySpeed * -1.5f);
 			gameObject.GetComponent<Collider2D>().isTrigger = true;
 		}
 	}
 	
+	// rotate for coolness!
 	void FixedUpdate()
 	{
 		transform.RotateAround(transform.position, new Vector3 (0, 0, 1), 15f);
-	}
-	
-	void OffCameraRight()
-	{
-		Destroy(gameObject);
-	}
-	
-	void OffCameraLeft()
-	{
-		Destroy(gameObject);
 	}
 	
 	//Need to override this if you want the bullet to destroy bullets that come against you
@@ -88,7 +81,6 @@ public class magentaBladeBullet : BaseBulletScript {
 	{
 		if (theHit.tag == "player" || theHit.tag == "enemy")
 		{
-			//Debug.Log("DEALING " + dmg + " DAMAGE");
 			theHit.SendMessage("takeDamage", dmg);
 		}
 		Destroy(gameObject);
@@ -103,13 +95,11 @@ public class magentaBladeBullet : BaseBulletScript {
 			Destroy(gameObject);
 			//Make noise and some effect
 		}
-		//if we collided with a bullet, have the bullet deal damage to us.
+		//if we collided with a bullet, have the bullet deal damage to us and then die
 		if (other.gameObject.tag == "enemyBullet")
 		{
-			//Destroy(other);
 			other.gameObject.SendMessage("dealDamage", gameObject);
-			Debug.Log("KILLING THIS THANG");
-			//Destroy(gameObject);
+			Destroy(gameObject);
 		}
 	}
 }

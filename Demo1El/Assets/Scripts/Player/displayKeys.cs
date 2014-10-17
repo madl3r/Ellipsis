@@ -23,9 +23,9 @@ public class displayKeys : MonoBehaviour {
 		if (keyAmt > 99)
 			keyAmt = 99;
 
+		//Calculating what the digits should be and displaying them.
 		int tens = keyAmt / 10;
 		int ones = keyAmt - (tens * 10);
-
 		tensDigit.gameObject.GetComponent<SpriteRenderer>().sprite = numbers[tens].gameObject.GetComponent<SpriteRenderer>().sprite;
 		onesDigit.gameObject.GetComponent<SpriteRenderer>().sprite = numbers[ones].gameObject.GetComponent<SpriteRenderer>().sprite;
 	}

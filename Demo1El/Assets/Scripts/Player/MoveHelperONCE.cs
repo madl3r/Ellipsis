@@ -4,6 +4,7 @@ using System.Collections;
 public class MoveHelperONCE : MonoBehaviour {
 
 	//TODO NOTE!!
+
 	//It is very important that this script is executed AFTER the "Movement" script.
 
 	// Use this for initialization

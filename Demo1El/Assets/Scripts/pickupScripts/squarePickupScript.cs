@@ -7,7 +7,7 @@ public class squarePickupScript : basePickupScript {
 
 	// Use this for initialization
 	void Start () {
-		pickupSpeed = -6.0f;
+		pickupSpeed = -7.0f;
 		rigidbody2D.velocity = new Vector2 (pickupSpeed, 0);
 	}
 	

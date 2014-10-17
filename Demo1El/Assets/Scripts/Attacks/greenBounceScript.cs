@@ -3,6 +3,7 @@ using System.Collections;
 
 public class greenBounceScript : BaseBulletScript{
 
+	//The bullet that it shoots back.
 	public GameObject reflection;
 	
 	// Use this for initialization
@@ -19,14 +20,16 @@ public class greenBounceScript : BaseBulletScript{
 			Destroy(gameObject);
 	}
 
+	//Can still deal damage to enemies.
 	protected override void dealDamage(GameObject theHit)
 	{
+		//If it's an enemy damage it
 		if (theHit.tag == "enemy")
 			theHit.SendMessage("takeDamage", dmg);
-		else if (theHit.tag == "enemyBullet")
+		//If it's a bullet then reflect it.
+		else if (theHit.tag == "enemyBullet" || theHit.tag == "bullet")
 		{
 			//reflect bullet
-			//Debug.Log("REFLECT BULLET");
 			GameObject b = Instantiate(reflection, transform.position, transform.rotation) as GameObject;
 			//Broadcast here too because until now the bullet hasn't been created!
 			b.BroadcastMessage("addBonusDmg", bnsDmg);
@@ -35,7 +38,11 @@ public class greenBounceScript : BaseBulletScript{
 			Destroy(theHit);
 		}
 
-		Destroy(gameObject);
+		//Getting rid of this for now for slight buff.
+
+		//Keep testing this... it makes it so that the bounce stays there for the entire time no matter what and reflects everything that hits it... actually kinda cool!
+
+//		Destroy(gameObject);
 	}
 
 }

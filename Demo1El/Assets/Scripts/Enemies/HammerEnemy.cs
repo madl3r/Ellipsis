@@ -22,11 +22,6 @@ public class HammerEnemy : BaseEnemy {
 
 	}
 
-	void FixedUpdate()
-	{
-		//transform.position = new Vector2 (transform.position.x - 0.2f, transform.position.y);
-	}
-
 	void OffCameraLeft()
 	{
 		//Should maybe also choose a new line to go onto.
@@ -37,13 +32,6 @@ public class HammerEnemy : BaseEnemy {
 	{
 		;
 	}
-
-//	//Currently ONLY collides when theHammer isKinematic... wtf!?
-//	void OnCollisionEnter2D(Collision2D coll)
-//	{
-//		transform.position = new Vector2 (transform.position.x + 4, transform.position.y);
-//		Debug.Log("THE HAMMER JUST HIT SOMETHING!");
-//	}
 
 	protected override void OnTriggerEnter2D(Collider2D other)
 	{
@@ -63,8 +51,6 @@ public class HammerEnemy : BaseEnemy {
 			//Debug.Log("HIT BY A BULLET");
 			other.gameObject.SendMessage("dealDamage", gameObject);
 		}
-		//if the game object has a tag of player... then deal damage!
-		//if the game object has the tag of a damage thingy (bullet we'll call them)... then take damage!
 	}
 	
 

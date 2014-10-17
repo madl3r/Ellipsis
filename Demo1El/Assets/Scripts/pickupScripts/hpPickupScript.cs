@@ -5,7 +5,7 @@ public class hpPickupScript : basePickupScript {
 
 	// Use this for initialization
 	void Start () {
-		pickupSpeed = -6.0f;
+		pickupSpeed = -7.0f;
 		rigidbody2D.velocity = new Vector2 (pickupSpeed, 0);
 	}
 	
@@ -16,7 +16,6 @@ public class hpPickupScript : basePickupScript {
 
 	void OffCameraLeft()
 	{
-		//Should maybe also choose a new line to go onto.
 		transform.position = new Vector2 (10.0f, transform.position.y);
 	}
 

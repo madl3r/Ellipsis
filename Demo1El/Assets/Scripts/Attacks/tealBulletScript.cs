@@ -19,11 +19,6 @@ public class tealBulletScript : BaseBulletScript {
 			Destroy(gameObject);
 	}
 	
-	void OffCameraRight()
-	{
-		Destroy(gameObject);
-	}
-
 	protected override void dealDamage(GameObject theHit)
 	{
 		if (theHit.tag == "player" || theHit.tag == "enemy")
@@ -31,11 +26,13 @@ public class tealBulletScript : BaseBulletScript {
 			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 		}
+		//Destroys bullets that it hits, a defensive trait
 		else if (theHit.tag == "enemyBullet")
 		{
 			//Destory the bullet
 			Destroy(theHit);
 		}
+		//I think it's too OP if it just pierces bullets... so for now it always dies.
 		Destroy(gameObject);
 		
 	}

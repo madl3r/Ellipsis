@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//TODO Depricated script, not using anymore
 public class redSlashUpOrDown : BaseBulletScript {
 
 

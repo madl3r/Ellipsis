@@ -8,10 +8,9 @@ public class yellowBulletScript : BaseBulletScript {
 		bulletSpeed = 8.0f + bnsBulletSpeed;
 		duration = 4f + bnsDuration;
 		startTime = Time.time;
-		//defaultAttackSpeed = 4.0f;
-		
+
+		//TheMATH!
 		//abs(v) = sqrt(x^2 + y^2);
-	
 		// v^2 = (x^2 + y^2)
 		// sqrt(v^2 - x^2) = sqrt(y^2)
 		
@@ -47,8 +46,7 @@ public class yellowBulletScript : BaseBulletScript {
 	}
 
 
-
-
+	//Because it's hard to get this shot out the bullets are OP!
 	protected override void dealDamage(GameObject theHit)
 	{
 		if (theHit.tag == "enemy")
@@ -61,7 +59,6 @@ public class yellowBulletScript : BaseBulletScript {
 			//Destory the bullet
 			Destroy(theHit);
 		}
-		//Destroy(gameObject);
 	}
 
 }

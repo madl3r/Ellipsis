@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class tellowBounceScript : greenBounceScript {
+public class yellowBounceScript : greenBounceScript {
 
 	// Use this for initialization
 	void Start () {

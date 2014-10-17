@@ -8,9 +8,7 @@ public class blackBulletScript : BaseBulletScript {
 	{
 		dmg = 1 + bnsDmg;
 		bulletSpeed = 17.0f + bnsBulletSpeed;
-		//duration = 0.5f;
-		startTime = Time.time;
-		//defaultAttackSpeed = 4.0f;
+		startTime = Time.time; //TODO might get rid of.
 		rigidbody2D.velocity = new Vector2(bulletSpeed, 0);
 	}
 	

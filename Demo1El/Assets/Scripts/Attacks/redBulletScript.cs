@@ -10,8 +10,8 @@ public class redBulletScript : BaseBulletScript {
 		bulletSpeed = 8.0f + bnsBulletSpeed;
 		duration = 4f + bnsDuration;
 		startTime = Time.time;
-		//defaultAttackSpeed = 4.0f;
 
+		//The Math for it is here.
 		//abs(v) = sqrt(x^2 + y^2);
 		// v^2 = (x^2 + y^2)
 		// sqrt(v^2 - x^2) = sqrt(y^2)
@@ -28,7 +28,6 @@ public class redBulletScript : BaseBulletScript {
 		float ySpeed = Mathf.Sqrt((bulletSpeed*bulletSpeed) - (xSpeed*xSpeed)) * negOrNot;
 
 		rigidbody2D.velocity = new Vector2(xSpeed, ySpeed);
-		//transform.Rotate(new Vector3 (0, 0, Random.Range(-60f, 60.1f)));
 	}
 	
 	// Update is called once per frame
@@ -47,6 +46,7 @@ public class redBulletScript : BaseBulletScript {
 	
 	}
 
+	//This dies against everything that it hits
 	protected override void dealDamage(GameObject theHit)
 	{
 		if (theHit.tag == "enemy")

@@ -14,9 +14,7 @@ public class Movement : MonoBehaviour {
 	public GameObject prevInQ;
 	//the name
 	public string thisName;
-
-	
-
+		
 	//The position that it will follow towards.
 	private float theYPos;
 	//checks if the next in line is far enough away that it should start to follow.
@@ -46,9 +44,6 @@ public class Movement : MonoBehaviour {
 		//getting that empty GameObject
 		theWorld = GameObject.FindGameObjectWithTag("theWorld");
 
-		//DebugCode
-		//theWorld.SendMessage("printMessage");
-
 		//starting the lineTarget to be the line that we're currently on.
 		foreach (GameObject line in theWorld.GetComponent<World>().lines)
 		{
@@ -60,10 +55,6 @@ public class Movement : MonoBehaviour {
 
 		//Telling the world where we start.
 		theWorld.GetComponent<World>().updateCurrentLine(lineTarget);//theWorld.SendMessage("updateCurrentLine", lineTarget);
-
-		//DebugCode
-		//Debug.Log("the lineTarget's position" + lineTarget.transform.position + "With Index at: " + lineTargetIndex);
-
 	}
 	
 	// Update is called once per frame
@@ -72,10 +63,7 @@ public class Movement : MonoBehaviour {
 			//If first in line update this one's theYPos to the next line
 			//In the future it will NOT be a hard coded value. Instead will go to the next line up or down!!
 
-			//TODO Should do an axis for controllers... but for now will just do getKeyDown
-
-			//instead of manually changing up or down should get the next line up or down in the list of lines from world.
-			//if it's allowed to do that based on "World's" decision then set theYPos to that lines y pos.
+			//TODO Should do an axis for controllers and whatever is needed for touch screens but for now will just do getKeyDown
 
 		//Detecting shooting
 		if ((Input.GetKeyDown("z") || Input.GetKeyDown("space")) && numInQ == 0)
@@ -83,16 +71,15 @@ public class Movement : MonoBehaviour {
 			gameObject.GetComponent<playerStats>().attack();
 		}
 
-
+		//For using potions now! (not yet implemented)
 		if (Input.GetKeyDown("left") && numInQ == 0)
 		{
 			gameObject.GetComponent<playerStats>().usePotion();
 		}
 
-		//Same as above, but for switching left
+		//Switches the player to the right
 		if (Input.GetKeyDown("right") && numInQ == 0 && origNumInQ == currentFirst)
 		{
-			//Debug.Log("GETKEYDOWN TOO MUCH ~~~~~~ LLL " + currentFirst);
 			switchRight(0);
 		}
 
@@ -100,7 +87,6 @@ public class Movement : MonoBehaviour {
 		if (Input.GetKeyDown("up") && (lineTargetIndex - 1) >= 0
 		    && theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)
 		{
-			//theYPos += 2f;
 			lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex - 1];
 			lineTargetIndex--;
 			theYPos = lineTarget.transform.position.y;
@@ -132,7 +118,6 @@ public class Movement : MonoBehaviour {
 				leadIsFar = false;
 				//clicking onto the line and updating theYPos
 				transform.position = new Vector2 (transform.position.x, nextInQ.transform.position.y);
-				//theYPos = transform.position.y; DON'T NEED THIS ANYMORE B/C THEYPOS WILL ALWAYS BE UPDATED
 			}
 		}
 
@@ -140,6 +125,7 @@ public class Movement : MonoBehaviour {
 
 	}
 
+	//Errr... use velocity?
 	void FixedUpdate()
 	{
 		//Following "theYPos" This lets the thing move slowly, instead of teleporting.
@@ -160,17 +146,17 @@ public class Movement : MonoBehaviour {
 		}
 	}
 
-	//Switch attempt things with magic numbers to edge cases in a list of the number of dots
-		//This way we get to have dynamic Q size
+	//TODO
+	//Switch the "attempt" with magic numbers to edge cases in a list of the number of dots
+	//This way we get to have dynamic Q size... Not sure if I want that though...
 
 	//Potentially get rid of. Right input will be fore using potions
 	void switchRight (int attempt)
 	{
-
+		//base case
 		if (attempt > 2)
 		{
 			//set the temp position to null.
-			//Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			return;
 		}
 		else
@@ -267,7 +253,8 @@ public class Movement : MonoBehaviour {
 			//Send message (calling this method) to prev in Q
 			prevInQ.SendMessage("switchLeft", attempt);
 		}
-		//Only want collisions with the first in line... or DO WE?!?
+
+		//Only want collisions with the first in line!
 		if (numInQ == 0)
 		{
 			//collider2D.enabled = true;
@@ -280,25 +267,31 @@ public class Movement : MonoBehaviour {
 		}
 	}
 
+	//Used for going to the next level
 	public void newLevelRestart(GameObject world)
 	{
+		//The world that found us is the new world!
 		theWorld = world;
 
+		//Doing the lines thing again!
 		foreach (GameObject line in theWorld.GetComponent<World>().lines)
 		{
-			if (line.transform.position.y  == 0.0f)
+			if (line.transform.position.y == 0.0f)
 				lineTarget = line;
 		}
-		Debug.Log("The new line target is: " + lineTarget.transform.position);
+		//Start back in the middle
 		theYPos = 0.0f;
-		lineTargetIndex = 7;
+		//The index is important here ... make sure that it matches up with the line at 0.0y... actually I don't know why I'm not just looking like I do in start...
+		//lineTargetIndex = 7;
+		lineTargetIndex = theWorld.GetComponent<World>().lines.IndexOf(lineTarget);
 		transform.position = new Vector2 (transform.position.x, 0.0f);
 
-
+		//Also tell the stats that we're in a world
 		gameObject.GetComponent<playerStats>().newLvlWorld(theWorld);
 
 	}
 
+	//Manually set the line target... I don't think that this is being used...
 	public void setLineTarget(GameObject trgt)
 	{
 		lineTarget = trgt;
