@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\Player\displayKeys.cs" />
      <Compile Include="Assets\Scripts\Player\playerStats.cs" />
      <Compile Include="Assets\Scripts\ShopItemScripts\BaseShopItem.cs" />
+     <Compile Include="Assets\Scripts\ShopItemScripts\keyShopItem.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\AttackTypeUpgradeScript.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\BaseUpgrade.cs" />
      <Compile Include="Assets\Scripts\UpgradeScripts\HealScript.cs" />
@@ -109,6 +110,7 @@
      <Compile Include="Assets\Scripts\pickupScripts\keyPickupScript.cs" />
      <Compile Include="Assets\Scripts\pickupScripts\nickelPickupScript.cs" />
      <Compile Include="Assets\Scripts\pickupScripts\pennyPickupScript.cs" />
+     <Compile Include="Assets\Scripts\pickupScripts\squarePickupScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

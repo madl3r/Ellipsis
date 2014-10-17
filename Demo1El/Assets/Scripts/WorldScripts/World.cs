@@ -379,7 +379,8 @@ public class World : MonoBehaviour {
 		GameObject uLine = GameObject.FindGameObjectWithTag("upgradeLines");
 
 		//Determine if it's locked
-		uLine.GetComponent<upgradeLineScript>().setIsLocked(Random.Range(0, 5) < 1);
+		//About 1/3 chance of a drop after each round
+		uLine.GetComponent<upgradeLineScript>().setIsLocked(Random.Range(0, 9) < 3);
 
 		//if it's locked then we put up a keyhole.
 		if (uLine.GetComponent<upgradeLineScript>().getIsLocked())
@@ -399,7 +400,8 @@ public class World : MonoBehaviour {
 		foreach (GameObject sLine in GameObject.FindGameObjectsWithTag("shopLines"))
 		{
 			GameObject thisItem = Instantiate (shopItems[Random.Range(0, shopItems.Length)], sLine.transform.position, Quaternion.identity) as GameObject;
-			thisItem.GetComponent<BaseShopItem>().theUpgrade.GetComponent<BaseUpgrade>().upgradeLine = sLine;
+			if (thisItem.GetComponent<BaseShopItem>().theUpgrade != null)
+				thisItem.GetComponent<BaseShopItem>().theUpgrade.GetComponent<BaseUpgrade>().upgradeLine = sLine;
 			sLine.GetComponent<shopLinesScript>().theItem = thisItem; 
 		}
 	}

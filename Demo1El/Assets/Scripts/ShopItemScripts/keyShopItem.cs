@@ -1,21 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseShopItem : MonoBehaviour {
-
-	//base cost should be at least 2 always
-	public int costBase;
-	public GameObject theUpgrade;
-	protected int cost;
-	
-	public GameObject[] numbers;
-	public GameObject tensDigit;
-	public GameObject onesDigit;
+public class keyShopItem : BaseShopItem {
 
 	// Use this for initialization
 	void Start () {
 		cost = costBase + Random.Range(-1, 5);
-
+		
 		//Displaying the cost of the item
 		//Give a max to the number of keys that can be held
 		if (cost > 99)
@@ -33,14 +24,9 @@ public class BaseShopItem : MonoBehaviour {
 	
 	}
 
-	public virtual void buyThis(GameObject thePlayer)
+	public override void buyThis(GameObject thePlayer)
 	{
-		theUpgrade.gameObject.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(thePlayer);
+		thePlayer.GetComponent<playerStats>().addKey(1);
 		Destroy(gameObject);
-	}
-
-	public int getCost()
-	{
-		return cost;
 	}
 }
