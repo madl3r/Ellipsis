@@ -4,7 +4,12 @@ using System.Collections;
 public class playerStats : MonoBehaviour {
 
 	//This class keeps track of and updates the players stats (health and upgrades)
-		//This class is then also in charge of using the upgrades that are currently on it... for now.
+	//This class is then also in charge of using the upgrades that are currently on it
+
+	//Touch Control Variables
+	public float minSwipeDistY;
+	public float minSwipeDistX;	
+	private Vector2 startPos;
 
 	//UI Stuff
 	public static GameObject HPUI;
@@ -14,15 +19,11 @@ public class playerStats : MonoBehaviour {
 
 	private static int levelNumber = 0;
 	private static string nextLvl;
-
-
-
-
+	
 	//Maybe swtich from this name to just wether not it's able to attack
 	private bool isInRound;
 
 	//Stats
-	//Attack speed, although a separate stat from the attack type, will often be associate with which type of attack it has!
 	public float baseAttackSpd;
 	private bool canAttack;
 	private float lastAttack;
@@ -49,35 +50,41 @@ public class playerStats : MonoBehaviour {
 	
 	private static int coins;
 	private static int keys;
-
-	//TODO gonna have to do interesting stuff here for when loading into new levels
+	
 	void Start () {
 
 		//Making the player stay between rounds always
 		DontDestroyOnLoad(gameObject);
 
+		//Getting all of the UI objects
 		HPUI = GameObject.Find("HPui");
 		keyUI = GameObject.Find("keyDisplay");
 		coinUI = GameObject.Find("coinDisplay");
 		theWorld = GameObject.FindGameObjectWithTag("theWorld");
+
+		//starting outside of a round
 		isInRound = false;
+
+		//Setting default starting stats
 		maxHP = 5;
 		hp = maxHP;
 		coins = 0;
 		keys = 1;
+
+		//Displaying the stats into the UI
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 		keyUI.GetComponent<displayKeys>().showKeyAmt(keys);
 		coinUI.GetComponent<displayCoins>().showCoinAmt(coins);
+
+		//Setting Bonuses
 		bnsAttackSpd = 0.0f;
 		bulBnsDmg = 0;
 		bulBnsSpd = 0;
 		bulBnsDuration = 0.0f;
-
 		hasShield = false;
 		isHeartShape = false;
 		isThin = false;
 		gameObject.GetComponent<BoxCollider2D>().enabled = false;
-
 
 		//Make sure that you can attack from the start.
 		lastAttack = -4.0f;
@@ -85,20 +92,18 @@ public class playerStats : MonoBehaviour {
 		attackType.GetComponent<attackTypeScript>().setBaseAttackSpeed(gameObject);
 		attackType.GetComponent<attackTypeScript>().givePlayerBullet(gameObject);
 		attackType.GetComponent<attackTypeScript>().myPlayer = gameObject;
-		//attackType.SendMessage("setBaseAttackSpeed", gameObject);
-
-		//bonusDmg = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		//Checking if the player can attack again.
 		if (Time.time - lastAttack > timeBetweenAttacks)
 		{
-			//Debug.Log("CAN ATTACK NOW");
 			canAttack = true;
 			//If can attack is true make some thing indicating that you can shoot
 		}
+		//If can't attack again yet, then make sure the player knows it.
 		else
 		{
 			canAttack = false;
@@ -108,6 +113,7 @@ public class playerStats : MonoBehaviour {
 	
 	}
 
+	//Method for taking damage
 	void takeDamage (int dmg)
 	{
 		// if we have a shield then take no damage and get rid of the upgrade
@@ -116,16 +122,16 @@ public class playerStats : MonoBehaviour {
 			//no damage taken
 			hasShield = false;
 			//Reset the shape back to circle
-			//gameObject.SpriteRenderer.sprite  = defaultShape;
 			gameObject.GetComponent<SpriteRenderer>().sprite = defaultShape;
 		}
 		//otherwise proceed as normal
 		else
 			hp -= dmg;
 
-
+		//Redisplay the HP with new values.
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 
+		//if HP is less than or = zero... then gg
 		if (hp <= 0)
 		{
 			//Tell the world that we died
@@ -134,11 +140,8 @@ public class playerStats : MonoBehaviour {
 
 	}
 
-//	void addHp (int heal)
-//	{
-//		hp += heal;
-//	}
 
+	//Attack or action method. Depending on status of the game and what kind of line that we're on will do different things
 	public void attack()
 	{
 		//Actually Attacking
@@ -163,19 +166,22 @@ public class playerStats : MonoBehaviour {
 		//getting upgrade
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "upgradeLines")
 		{
-//			Debug.Log("GET THIS UPGRADE");
+			//If the upgrade isn't null
 			if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade != null)
 			{
 				//if it's locked... then unlock it and spawn a treat
 				if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().getIsLocked())
 				{
+					//Only if we have keys
 					if (keys > 0)
 					{
+						//Unlocking and spawning the upgrade
 						spendKey();
 						theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().setIsLocked(false);
 						theWorld.GetComponent<World>().giveUpgradeLineUpgrade();
 					}
 				}
+				//if not locked, then get the upgrade
 				else
 					theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject);
 			}
@@ -188,54 +194,43 @@ public class playerStats : MonoBehaviour {
 			spendKey();
 			theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopEnterLineScript>().setIsLocked(false);
 		}
+		//If we're in the shop itself then...
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "shopLines")
 		{
+			//make sure that there is an item on this line
 			if (theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopLinesScript>().theItem != null)
 			{
+				//Then check if we can aford it
 				if (coins >= theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopLinesScript>().theItem.GetComponent<BaseShopItem>().getCost())
 				{
+					//If we can then we get the item and spend the money here.
 					spendCoins(theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopLinesScript>().theItem.GetComponent<BaseShopItem>().getCost());
 					theWorld.GetComponent<World>().getCurrentLine().GetComponent<shopLinesScript>().theItem.GetComponent<BaseShopItem>().buyThis(gameObject);
 				}
 			}
 
 		}
-		//If we're on the pre boss lines and we attack then... Load the next level!
+		//If we're on the pre boss lines and we attack then... Load the next level! (TODO, in the future nothing will happend when attack in pre boss lines)
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "preBossLines")
 		{
 			upLevelNumber();
-			Debug.Log("Level number is: " + levelNumber);
-			//TODO will need to switch this to more than just second level as we start making different levels
+			Debug.Log("Level number is now: " + levelNumber);
 			Application.LoadLevel(nextLvl);
-
-//			//Giving each player the new world and setting the line target to where we want to be!
-//			foreach (GameObject pChar in GameObject.FindGameObjectsWithTag("Player"))
-//			{
-//				pChar.GetComponent<Movement>().newLevelRestart();
-//			}
-//			//Finding our world!
-//			theWorld = GameObject.FindGameObjectWithTag("theWorld");
-
-
-			//Here call "getNewLvlLineTarget" on this guys movement script
-			//Also probably need to set all game objects (like theWorld) to new things for the new level
-
-//			foreach (GameObject line in GameObject.FindGameObjectWithTag("theWorld").GetComponent<World>().lines)
-//			{
-//				if (line.transform.position.y  == theYPos)
-//					lineTarget = line;
-//			}
 		}
 
 	}
-
+	
+	//Used for setting the string that is the name of the next lvl. World gives this to us each time a new one is spawned (in each lvl). So each world will have to be given manually the next level that it wants to go to!
 	public static void setNextLvl(string newLvl)
 	{
 		nextLvl = newLvl;
 	}
 
+
+	//Right now does nothing. Will be used for expending potion in the inventory, and then doing something with it. (will be similar to attack)
 	public void usePotion()
 	{
+		//Call on the potion its "activate" (or w/e) method
 		Debug.Log("USING POTION");
 	}
 
@@ -247,7 +242,10 @@ public class playerStats : MonoBehaviour {
 	}
 
 	//~~~
+
 	//Bonus adding methods
+	//These bonuses methods set the bns that we got, and remove all other bonuses on this player (they don't stack)
+
 	public void addBnsAttackSpd(float bns)
 	{
 		bnsAttackSpd = bns;
@@ -313,7 +311,7 @@ public class playerStats : MonoBehaviour {
 			subBnsMaxHP();
 	}
 
-	//Depricated
+	//Depricated; no bonus for this
 	public void addBnsBulletSpeed(float bns)
 	{
 		bulBnsSpd  = bns;
@@ -324,7 +322,7 @@ public class playerStats : MonoBehaviour {
 		updateTimeBetweenAttacks();
 	}
 
-	//Depricated
+	//Depricated; no bonus for this
 	public void addBnsBulletDuration(int bns)
 	{
 		bulBnsDuration = bns;
@@ -335,7 +333,6 @@ public class playerStats : MonoBehaviour {
 		updateTimeBetweenAttacks();
 	}
 
-	//I don't think that we should have this... MAAAYYYBE
 	public void addBnsMaxHP()
 	{
 		if (!isHeartShape)
@@ -364,6 +361,8 @@ public class playerStats : MonoBehaviour {
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 	}
 
+	//~~~
+
 	public void addHP(int heal)
 	{
 		hp += heal;
@@ -373,7 +372,6 @@ public class playerStats : MonoBehaviour {
 	public void addKey (int keysAmt)
 	{
 		keys += keysAmt;
-		Debug.Log("There are now: " + keys + " keys");
 		keyUI.GetComponent<displayKeys>().showKeyAmt(keys);
 	}
 
@@ -387,7 +385,6 @@ public class playerStats : MonoBehaviour {
 	public void addCoins (int amt)
 	{
 		coins += amt;
-		Debug.Log("There are now " + coins + " coins");
 		coinUI.GetComponent<displayCoins>().showCoinAmt(coins);
 	}
 
@@ -396,8 +393,8 @@ public class playerStats : MonoBehaviour {
 		coins -= amt;
 		coinUI.GetComponent<displayCoins>().showCoinAmt(coins);
 	}
-	//~~~~
 
+	//Sets the bullet that we will be firing with attack. (set usually from attackType scripts)
 	public void setBullet(GameObject b)
 	{
 		theBullet = b;
@@ -426,18 +423,13 @@ public class playerStats : MonoBehaviour {
 		Debug.Log("baseAttackSpeed is: " + baseAttackSpd);
 		timeBetweenAttacks = 1.0f / (baseAttackSpd + bnsAttackSpd);
 		lastAttack = Time.time;
-//		Debug.Log("time between attacks is: " + timeBetweenAttacks + "for char " + gameObject);
 	}
 
 	public void setAttackType(GameObject aType)
 	{
-		Debug.Log("Upgrading the attack type");
 		Destroy(attackType);
 		attackType = Instantiate(aType, transform.position, transform.rotation) as GameObject;
 		attackType.GetComponent<attackTypeScript>().myPlayer = gameObject;
-		Debug.Log("After instantiate");
-//		attackType.GetComponent<attackTypeScript>().setBaseAttackSpeed(gameObject); // these seem to be running before the start of the attackTypeScript
-//		attackType.GetComponent<attackTypeScript>().givePlayerBullet(gameObject);
 	}
 
 	void setRoundStatus(bool round)

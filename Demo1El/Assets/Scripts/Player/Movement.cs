@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 public class Movement : MonoBehaviour {
 
+
+	
+	//Touch Control Variables
+	public static float minSwipeDistY = 50;
+	public static float minSwipeDistX = 50;
+	private Vector2 startPos;
+
 	//To avoid multiple activations of switches which would occur based on arbitrary exec order of dots movement scripts.
 	public static int currentFirst = 0;
 
@@ -60,6 +67,64 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		//#if UNITY_ANDROID
+		if (Input.touchCount > 0) 
+		{			
+			Touch touch = Input.touches[0];						
+			
+			switch (touch.phase) 				
+			{				
+			case TouchPhase.Began:				
+				startPos = touch.position;				
+				break;								
+				
+			case TouchPhase.Ended:				
+				float swipeDistVertical = (new Vector3(0, touch.position.y, 0) - new Vector3(0, startPos.y, 0)).magnitude;				
+				if (swipeDistVertical > minSwipeDistY) 					
+				{					
+					float swipeValue = Mathf.Sign(touch.position.y - startPos.y);
+					//Up Swipe
+					if (swipeValue > 0&& (lineTargetIndex - 1) >= 0
+					    && theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)
+					{
+						lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex - 1];
+						lineTargetIndex--;
+						theYPos = lineTarget.transform.position.y;
+						theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+					}
+						
+					//Down Swipe
+					else if (swipeValue < 0 && (lineTargetIndex + 1) < theWorld.GetComponent<World>().lines.Count
+					         && theWorld.GetComponent<World>().lines[lineTargetIndex + 1].GetComponent<LineScript>().canEnter)
+					{
+						lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex + 1];
+						lineTargetIndex++;
+						theYPos = lineTarget.transform.position.y;
+						theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+					}
+				}				
+				float swipeDistHorizontal = (new Vector3(touch.position.x,0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;				
+				if (swipeDistHorizontal > minSwipeDistX) 					
+				{					
+					float swipeValue = Mathf.Sign(touch.position.x - startPos.x);				
+					if (swipeValue > 0 && numInQ == 0 && origNumInQ == currentFirst) //Right Swipe
+					{
+						switchRight(0);
+					}
+					else if (swipeValue < 0 && numInQ == 0)//Left Swipe
+					{
+						gameObject.GetComponent<playerStats>().usePotion();
+					}		
+				}
+				//Tap Attack
+				if (swipeDistHorizontal <= minSwipeDistX && swipeDistVertical <= minSwipeDistY && numInQ == 0)
+				{
+					gameObject.GetComponent<playerStats>().attack();
+				}
+
+				break;
+			}
+		}
 			//If first in line update this one's theYPos to the next line
 			//In the future it will NOT be a hard coded value. Instead will go to the next line up or down!!
 
@@ -296,5 +361,11 @@ public class Movement : MonoBehaviour {
 	{
 		lineTarget = trgt;
 	}
+
+
+	//Mobile Android input:
+
+
+
 
 }
