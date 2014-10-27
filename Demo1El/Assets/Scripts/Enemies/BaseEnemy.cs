@@ -5,6 +5,7 @@ public class BaseEnemy : MonoBehaviour {
 
 	protected int hp;
 	protected int dmg;
+	protected GameObject dahWorld;
 
 	// Use this for initialization
 	void Start () {
@@ -31,11 +32,13 @@ public class BaseEnemy : MonoBehaviour {
 		if (hp <= 0)
 		{
 			//Tell the world that you died.
-			GameObject.FindWithTag("theWorld").SendMessage("enemyKilled");
+			dahWorld.GetComponent<World>().enemyKilled();
 			Destroy(gameObject);
 		}
 	}
 
-
-
+	public void setTheWorld(GameObject w)
+	{
+		dahWorld = w;
+	}
 }

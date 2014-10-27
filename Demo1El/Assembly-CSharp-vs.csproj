@@ -73,7 +73,11 @@
      <Compile Include="Assets\Scripts\Enemies\AimShootyEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\BaseEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\BasicShootyEnemy.cs" />
+     <Compile Include="Assets\Scripts\Enemies\BoltCarrier.cs" />
      <Compile Include="Assets\Scripts\Enemies\HammerEnemy.cs" />
+     <Compile Include="Assets\Scripts\Enemies\HammerSwitchLine.cs" />
+     <Compile Include="Assets\Scripts\Enemies\LightningBetweenEnemy.cs" />
+     <Compile Include="Assets\Scripts\Enemies\lightningParent.cs" />
      <Compile Include="Assets\Scripts\Player\MoveHelperONCE.cs" />
      <Compile Include="Assets\Scripts\Player\Movement.cs" />
      <Compile Include="Assets\Scripts\Player\displayCoins.cs" />

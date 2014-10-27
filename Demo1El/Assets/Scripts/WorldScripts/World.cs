@@ -14,9 +14,6 @@ public class World : MonoBehaviour {
 
 	//this public list of lines in the scene is input into the object from top to bottom.
 	public List<GameObject> lines;
-	//For dynamically making upgrade lines as more upgrades come in... we'll see... but for now I think that I'll just have two upgrades max
-
-	// TODO Ultimately though... you should allow as many as you can to exist.
 
 	//public GameObject upgradeLine;
 	public GameObject upgradeArrow;
@@ -68,29 +65,11 @@ public class World : MonoBehaviour {
 	//Will need to look for the players and set up what they need to know on the beginning of a new level
 	//Also need to put the players onto the center line
 	void Start () {
-
-		//Gather all lines in the scene. Order them in decreasing Y position value.
-			//Could add different tags to the lines making them inherently different
-			//like boss lines or upgrade lines.
-			//This would allow for dynamically created lines in the level.
-			//Also makes it so that I don't need to manually put these lines into world each time...
-//		foundLines = GameObject.FindGameObjectsWithTag("lines");
-//
-//		sortLinesForY(foundLines);
-//
-//		for (int i = 0; i < foundLines.Length; i++)
-//		{
-//			Debug.Log(foundLines[i].transform.position.y);
-//		}\
-
 		//For now the lines have just been put into descending Y order manually.
 		cameraYPos = 0.0f;
-//		foreach (GameObject line in lines)
-//		{
-//			//Debug.Log(line.transform.position.y);
-//		}
 
 		//Get the line in the middle where the player starts. This can only be done with a magic number like this because the line order was put in manually. 
+
 		//Should really be looking for the line with a y pos of 0.
 		currentLine = lines[7];
 
@@ -99,22 +78,21 @@ public class World : MonoBehaviour {
 		roundStarted = false;
 		enemiesKilledThisRound = 0;
 		enemiesSpawnedThisRound = 0;
-		//newRound();
 
 		//Setting how many times the play needs to attack between rounds.
 		timeBtwnRound = 7;
 		timeLeftBtwnRound = timeBtwnRound;
 
 		roundsToFirstUpgrade = Random.Range(1, 7);
-		Debug.Log("THE FIRST UPGRADE WILL APPEAR AFTER ROUND " + roundsToFirstUpgrade);
+//		Debug.Log("THE FIRST UPGRADE WILL APPEAR AFTER ROUND " + roundsToFirstUpgrade);
 
 		roundsToBossArea = Random.Range(1, 7);
-		Debug.Log("THE LEVEL WILL BE OVER AFTER ROUND " + roundsToBossArea);
+//		Debug.Log("THE LEVEL WILL BE OVER AFTER ROUND " + roundsToBossArea);
 
 		roundsToShopArea = Random.Range(1, 7);
 
 
-		Debug.Log("Getting the players for this level");
+//		Debug.Log("Getting the players for this level");
 		//Giving each player the new world and setting the line target to where we want to be!
 
 		//Getting the camera
@@ -136,8 +114,10 @@ public class World : MonoBehaviour {
 			theCamera.transform.position = new Vector3 (theCamera.transform.position.x, cameraYPos, -1.0f);
 
 		//If we're currently in a round and all of the enemies have been killed for this round... then end the round
-		if (roundStarted && enemiesKilledThisRound == enemiesSpawnedThisRound)
+		if (roundStarted && enemiesKilledThisRound >= enemiesSpawnedThisRound)
 		{
+			enemiesKilledThisRound = 0; //So that it only goes into this once
+
 			//Tell the player that the round is over
 			GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
 			foreach (GameObject player in thePlayers)
@@ -185,6 +165,7 @@ public class World : MonoBehaviour {
 					}
 				}
 			}
+			//If the player has survived enough rounds to go to the boss area, then open it up!
 			if (round >= roundsToBossArea)
 			{
 				preBossArrow.renderer.enabled = true;
@@ -198,6 +179,8 @@ public class World : MonoBehaviour {
 				}
 
 			}
+			//If the player has survived enough rounds to go to the shop area, then open it up!
+			//TODO let the player pass the upgrade area if it's not yet open.
 			if (round >= roundsToShopArea)
 			{
 				if (round == roundsToShopArea)
@@ -223,11 +206,6 @@ public class World : MonoBehaviour {
 		//Reset this variable whenever the player goes into the update area
 		if (timeLeftBtwnRound <= 0)
 		{
-			//Wait a second or two between the two rounds
-
-			//Kill the display thang
-
-			//StartCoroutine("waitThenNewRound");
 			newRound();
 			timeLeftBtwnRound = timeBtwnRound;
 		}
@@ -261,6 +239,7 @@ public class World : MonoBehaviour {
 		//when we dynamically pick up lines this method will sort them by Y value.
 	}
 
+	//Follows the position of the player and lets the camera know where the player is and if it should move
 	public void updateCurrentLine(GameObject newLine)
 	{
 		//if the newLine has a different tag than the current one that tells us to move the camera accordingly
@@ -272,6 +251,7 @@ public class World : MonoBehaviour {
 		currentLine = newLine;
 	}
 
+	//Moving the camera
 	void updateCameraPosition(GameObject newLine)
 	{
 		GameObject[] simLines;
@@ -282,13 +262,7 @@ public class World : MonoBehaviour {
 		{
 			total += line.transform.position.y;
 			cameraYPos = total / simLines.Length;
-			//theCamera.transform.position = new Vector3(theCamera.transform.position.x, total / simLines.Length, -1.0f);
 		}
-
-		//Move the camera to the middle of the new set of lines.
-		//Debug.Log("MOVING THE CAMERA " + theCamera.transform.position);
-
-
 	}
 
 
@@ -332,12 +306,13 @@ public class World : MonoBehaviour {
 		enemiesSpawnedThisRound = currentRoundEnemies.Length;
 		for (int i = 0; i < currentRoundEnemies.Length; i++)
 		{
-			GameObject e = Instantiate(prefabEnemies[Random.Range(0, prefabEnemies.Count)], new Vector2(Random.Range(6, 9), Random.Range(-1, 3)*2), Quaternion.identity) as GameObject;
+			GameObject e = Instantiate(prefabEnemies[Random.Range(0, prefabEnemies.Count)], new Vector2(Random.Range(6, 9), Random.Range(-2, 3)*2), Quaternion.identity) as GameObject;
+			e.GetComponent<BaseEnemy>().setTheWorld(gameObject);
 			currentRoundEnemies[i] = e;
 		}
 	}
 
-	void enemyKilled()
+	public void enemyKilled()
 	{
 		enemiesKilledThisRound++;
 	}
@@ -395,8 +370,10 @@ public class World : MonoBehaviour {
 
 	}
 
+	//Adds items to the shop lines
 	void populateShopLines()
 	{
+		//TODO... again maybe don't use the 'find' functions? could just look in the little one that we have here.
 		foreach (GameObject sLine in GameObject.FindGameObjectsWithTag("shopLines"))
 		{
 			GameObject thisItem = Instantiate (shopItems[Random.Range(0, shopItems.Length)], sLine.transform.position, Quaternion.identity) as GameObject;
@@ -406,11 +383,14 @@ public class World : MonoBehaviour {
 		}
 	}
 
+	//
 	public void giveUpgradeLineUpgrade()
 	{
 		GameObject thisUpgrade;
+		//TODO Maybe here instead of finding use a loop to go through the lines that we are already holding on to and look for the right tag.
 		GameObject uLine = GameObject.FindGameObjectWithTag("upgradeLines");
 		uLine.GetComponent<upgradeLineScript>().setIsLocked(false);
+		//Desetroying the current upgrade (in case of keyhole) and then giving a new upgrade to the line
 		Destroy(uLine.GetComponent<upgradeLineScript>().theUpgrade);
 		thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
 		thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
@@ -431,27 +411,5 @@ public class World : MonoBehaviour {
 
 		Application.LoadLevel("MainMenu");
 	}
-
-	//TODO dont wait for a new round (in seconds)... just let the player choose. wait for the player to attack some amount of times
-	IEnumerator waitThenNewRound()
-	{
-		Debug.Log("IN THE NUMERBATOR");
-		//When the round is over let the player enter the upgrade lines
-
-		yield return new WaitForSeconds(2.0f);
-		newRound();
-	}
-
-//	void sortLinesForY(GameObject[] theLines)
-//	{
-//		//TODO A NICE SORTING BASED ON Y POSITION.
-//		for (int i = 0; i < theLines.Length; i++)
-//		{
-//			for (int j = i + 1; j < theLines.Length; j++)
-//			{
-//				//
-//			}
-//		}
-//	}
 
 }

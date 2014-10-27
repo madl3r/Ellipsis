@@ -1,10 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/playerStats.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemies/LightningBetweenEnemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="425" Column="23" />
+      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/WorldScripts/World.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/UpgradeScripts/AttackTypeUpgradeScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Enemies/BaseEnemy.cs" Line="32" Column="15" />
+      <File FileName="Assets/Scripts/Enemies/LightningBetweenEnemy.cs" Line="29" Column="60" />
+      <File FileName="Assets/Scripts/Enemies/BoltCarrier.cs" Line="52" Column="3" />
+      <File FileName="Assets/Scripts/Enemies/HammerEnemy.cs" Line="25" Column="2" />
+      <File FileName="Assets/Scripts/Enemies/lightningParent.cs" Line="21" Column="33" />
+      <File FileName="Assets/Scripts/Attacks/blackBulletScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Attacks/BaseBulletScript.cs" Line="38" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

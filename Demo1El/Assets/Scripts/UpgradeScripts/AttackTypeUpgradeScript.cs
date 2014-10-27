@@ -3,6 +3,8 @@ using System.Collections;
 
 public class AttackTypeUpgradeScript : BaseUpgrade {
 
+	//sets the players attack type (different colors)
+
 	public GameObject attackTypeUp;
 
 	// Use this for initialization
@@ -16,7 +18,6 @@ public class AttackTypeUpgradeScript : BaseUpgrade {
 
 	public override void giveUpgradeToPlayer (GameObject player)
 	{
-		//Debug.Log("WHAT THE FUUCCKK?");
 		player.GetComponent<playerStats>().setAttackType(attackTypeUp);
 		Destroy(gameObject);
 	}

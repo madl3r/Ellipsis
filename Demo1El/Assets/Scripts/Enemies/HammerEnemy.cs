@@ -22,7 +22,7 @@ public class HammerEnemy : BaseEnemy {
 
 	}
 
-	void OffCameraLeft()
+	protected virtual void OffCameraLeft()
 	{
 		//Should maybe also choose a new line to go onto.
 		transform.position = new Vector2 (11.0f, transform.position.y);

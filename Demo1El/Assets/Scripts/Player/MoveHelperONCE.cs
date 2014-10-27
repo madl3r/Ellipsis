@@ -3,6 +3,12 @@ using System.Collections;
 
 public class MoveHelperONCE : MonoBehaviour {
 
+
+	//Touch Control Variables
+	public static float minSwipeDistY = 50;
+	public static float minSwipeDistX = 50;
+	private Vector2 startPos;
+
 	//TODO NOTE!!
 
 	//It is very important that this script is executed AFTER the "Movement" script.
@@ -20,6 +26,32 @@ public class MoveHelperONCE : MonoBehaviour {
 	
 		//NOTICE that the addition and subtraction is opposite of that in the switchR and L methods of Movement.
 		//That's because when you move 1 to 0 in movement you need to subtract. But here we had the orig at 0, and now the ID must be 1... so we add!
+
+		//Touch control got a right swipe input, so do the thing.
+		if (Input.touchCount > 0) 
+		{			
+			Touch touch = Input.touches[0];						
+			
+			switch (touch.phase) 				
+			{				
+			case TouchPhase.Began:				
+				startPos = touch.position;				
+				break;								
+				
+			case TouchPhase.Ended:				
+				float swipeDistHorizontal = (new Vector3(touch.position.x,0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;				
+				if (swipeDistHorizontal > minSwipeDistX) 					
+				{					
+					float swipeValue = Mathf.Sign(touch.position.x - startPos.x);				
+					if (swipeValue > 0) //Right Swipe
+					{
+						Movement.currentFirst = (Movement.currentFirst + 1) % 3;
+					}	
+				}
+				
+				break;
+			}
+		}
 
 		//Just took out this one because pushing right should now just be used for potions!
 		if (Input.GetKeyDown("right"))

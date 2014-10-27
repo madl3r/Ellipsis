@@ -23,9 +23,10 @@ public class keyShopItem : BaseShopItem {
 	void Update () {
 	
 	}
-
+	
 	public override void buyThis(GameObject thePlayer)
 	{
+		//In this just do the upgrade directly through this script since there is no upgrade for giving keys.
 		thePlayer.GetComponent<playerStats>().addKey(1);
 		Destroy(gameObject);
 	}

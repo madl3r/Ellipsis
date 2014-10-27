@@ -6,10 +6,6 @@ public class playerStats : MonoBehaviour {
 	//This class keeps track of and updates the players stats (health and upgrades)
 	//This class is then also in charge of using the upgrades that are currently on it
 
-	//Touch Control Variables
-	public float minSwipeDistY;
-	public float minSwipeDistX;	
-	private Vector2 startPos;
 
 	//UI Stuff
 	public static GameObject HPUI;

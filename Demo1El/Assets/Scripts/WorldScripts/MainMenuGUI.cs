@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class MainMenuGUI : MonoBehaviour {
-	
+
+	//TODO is there a way to rotate this?
+
 	public GUISkin menuSkin;
 	public int guiDepth = 0;
 	public Rect menuArea;

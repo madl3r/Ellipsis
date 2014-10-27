@@ -3,11 +3,12 @@ using System.Collections;
 
 public class BaseShopItem : MonoBehaviour {
 
-	//base cost should be at least 2 always
-	public int costBase;
-	public GameObject theUpgrade;
-	protected int cost;
-	
+
+	public int costBase; //base cost should be at least 2 always
+	public GameObject theUpgrade; //What we're giving the player
+	protected int cost; //The actual cost
+
+	//For displaying the cost
 	public GameObject[] numbers;
 	public GameObject tensDigit;
 	public GameObject onesDigit;
@@ -33,6 +34,7 @@ public class BaseShopItem : MonoBehaviour {
 	
 	}
 
+	//gives the player this upgrade, and then is used.
 	public virtual void buyThis(GameObject thePlayer)
 	{
 		theUpgrade.gameObject.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(thePlayer);
