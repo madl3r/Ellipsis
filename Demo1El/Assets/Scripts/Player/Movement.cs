@@ -79,8 +79,11 @@ public class Movement : MonoBehaviour {
 				break;								
 				
 			case TouchPhase.Ended:				
+				//Get the two swipe distance types at the same time
 				float swipeDistVertical = (new Vector3(0, touch.position.y, 0) - new Vector3(0, startPos.y, 0)).magnitude;				
-				if (swipeDistVertical > minSwipeDistY) 					
+				float swipeDistHorizontal = (new Vector3(touch.position.x,0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;	
+				//Swipe verticle if it betters our min swipe distance AND if it's larger than horizontal
+				if (swipeDistVertical > minSwipeDistY && swipeDistVertical > swipeDistHorizontal) 					
 				{					
 					float swipeValue = Mathf.Sign(touch.position.y - startPos.y);
 					//Up Swipe
@@ -103,8 +106,8 @@ public class Movement : MonoBehaviour {
 						theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
 					}
 				}				
-				float swipeDistHorizontal = (new Vector3(touch.position.x,0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;				
-				if (swipeDistHorizontal > minSwipeDistX) 					
+				//Again, make this move if it's more than the minimal distance... but then also only do the more intended one.
+				if (swipeDistHorizontal > minSwipeDistX && swipeDistHorizontal > swipeDistVertical) 					
 				{					
 					float swipeValue = Mathf.Sign(touch.position.x - startPos.x);				
 					if (swipeValue > 0 && numInQ == 0 && origNumInQ == currentFirst) //Right Swipe

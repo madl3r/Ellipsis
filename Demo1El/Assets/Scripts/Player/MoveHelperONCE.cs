@@ -39,8 +39,9 @@ public class MoveHelperONCE : MonoBehaviour {
 				break;								
 				
 			case TouchPhase.Ended:				
-				float swipeDistHorizontal = (new Vector3(touch.position.x,0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;				
-				if (swipeDistHorizontal > minSwipeDistX) 					
+				float swipeDistHorizontal = (new Vector3(touch.position.x,0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;
+				float swipeDistVertical = (new Vector3(0, touch.position.y, 0) - new Vector3(0, startPos.y, 0)).magnitude;				
+				if (swipeDistHorizontal > minSwipeDistX && swipeDistHorizontal > swipeDistVertical) 					
 				{					
 					float swipeValue = Mathf.Sign(touch.position.x - startPos.x);				
 					if (swipeValue > 0) //Right Swipe
