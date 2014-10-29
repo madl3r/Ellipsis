@@ -44,7 +44,7 @@ public class LightningBetweenEnemy : BaseEnemy {
 //		}
 	}
 
-	protected virtual void OffCameraLeft()
+	protected override void OffCameraLeft()
 	{
 		//Should maybe also choose a new line to go onto.
 				transform.position = new Vector2 (11.0f, transform.position.y);

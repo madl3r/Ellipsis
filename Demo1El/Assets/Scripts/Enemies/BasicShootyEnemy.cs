@@ -8,12 +8,17 @@ public class BasicShootyEnemy : BaseEnemy {
 	private float prevShotTime;
 	private float timeBetweenMove;
 	private float prevMoveTime;
-
+	private bool worldSpawned = true;
 	private float theYPos;
 
 
 	// Use this for initialization
 	void Start () {
+
+		//Spawn position start
+		if (worldSpawned)
+			transform.position = new Vector2(Random.Range(4.5f,8.0f), Random.Range(-2, 3)*2);
+
 		theYPos = transform.position.y;
 		hp = 1;
 		dmg = 1;
@@ -50,34 +55,44 @@ public class BasicShootyEnemy : BaseEnemy {
 			transform.position = new Vector2 (transform.position.x, transform.position.y - 0.2f);
 	}
 	
-	protected virtual void attack()
+	protected override void attack()
 	{
 		prevShotTime = Time.time;
-		timeBetweenShot = Random.Range(0.5f, 1.0f);
+		timeBetweenShot = Random.Range(0.75f, 1.25f);
 		Instantiate(attackType, transform.position, transform.rotation);
 	}
 
 	protected virtual void move()
 	{
 		prevMoveTime = Time.time;
-		timeBetweenMove = Random.Range(1.0f, 1.6f);
+		timeBetweenMove = Random.Range(1.5f, 2.0f);
 
 		if (Random.Range(0, 2) == 0)
 		{
 			//move up
 			theYPos += 2.0f;
+			//If going too high, then just move down
 			if (theYPos > 4.0f)
-				theYPos = 4.0f;
+				theYPos = 2.0f;
 		}
 		else
 		{
 			//move down
 			theYPos -= 2.0f;
+			//If we're going too low, then just move up
 			if (theYPos < -4.0f)
-				theYPos = -4.0f;
+				theYPos = -2.0f;
 		}
+	}
 
+	public void isWorldSpawned(bool b)
+	{
+		worldSpawned = b;
+	}
 
+	public void setPos(Vector2 thePos)
+	{
+		transform.position = thePos;
 	}
 	
 }

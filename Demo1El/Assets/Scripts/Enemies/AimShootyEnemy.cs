@@ -12,6 +12,8 @@ public class AimShootyEnemy : BaseEnemy {
 
 	// Use this for initialization
 	void Start () {
+		//Spawn position start
+		transform.position = new Vector2(Random.Range(7.0f,8.5f), Random.Range(-2, 3)*2);
 		hp = 2;
 		dmg = 1;
 		prevShotTime = Time.time;
@@ -40,7 +42,7 @@ public class AimShootyEnemy : BaseEnemy {
 	}
 
 	//attacks the player and semi random intervals
-	protected virtual void attack()
+	protected override void attack()
 	{
 		prevShotTime = Time.time;
 		timeBetweenShot = Random.Range(0.75f, 1.0f);

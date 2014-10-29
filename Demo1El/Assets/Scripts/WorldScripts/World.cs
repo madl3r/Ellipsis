@@ -306,7 +306,7 @@ public class World : MonoBehaviour {
 		enemiesSpawnedThisRound = currentRoundEnemies.Length;
 		for (int i = 0; i < currentRoundEnemies.Length; i++)
 		{
-			GameObject e = Instantiate(prefabEnemies[Random.Range(0, prefabEnemies.Count)], new Vector2(Random.Range(6, 9), Random.Range(-2, 3)*2), Quaternion.identity) as GameObject;
+			GameObject e = Instantiate(prefabEnemies[Random.Range(0, prefabEnemies.Count)], new Vector2(0, 0), Quaternion.identity) as GameObject;
 			e.GetComponent<BaseEnemy>().setTheWorld(gameObject);
 			currentRoundEnemies[i] = e;
 		}
@@ -315,6 +315,11 @@ public class World : MonoBehaviour {
 	public void enemyKilled()
 	{
 		enemiesKilledThisRound++;
+	}
+
+	public void enemySpawned()
+	{
+		enemiesKilledThisRound--;
 	}
 
 	public void decrementRoundCount()

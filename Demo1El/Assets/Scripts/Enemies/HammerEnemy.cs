@@ -8,11 +8,15 @@ public class HammerEnemy : BaseEnemy {
 	private float timeBtwnAttacks;
 	// Use this for initialization
 	void Start () {
+
+		//Spawn position start
+		transform.position = new Vector2(Random.Range(7.0f,9.5f), (float)(Random.Range(-2, 3)*2));
+
 		recentlyDamaged = false;
 		timeBtwnAttacks = 0.5f;
 		hp = 3;
 		dmg = 2;
-		rigidbody2D.velocity = new Vector2 (-11.33f, 0);
+		rigidbody2D.velocity = new Vector2 (Random.Range(-12.0f, -8.99f), 0);
 	}
 	
 	// Update is called once per frame
@@ -22,15 +26,10 @@ public class HammerEnemy : BaseEnemy {
 
 	}
 
-	protected virtual void OffCameraLeft()
+	protected override void OffCameraLeft()
 	{
 		//Should maybe also choose a new line to go onto.
 		transform.position = new Vector2 (11.0f, transform.position.y);
-	}
-
-	void OffCameraRight()
-	{
-		;
 	}
 
 	protected override void OnTriggerEnter2D(Collider2D other)

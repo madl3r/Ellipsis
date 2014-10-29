@@ -24,6 +24,11 @@ public class BaseEnemy : MonoBehaviour {
 			other.gameObject.SendMessage("dealDamage", gameObject);
 		}
 	}
+
+	protected virtual void attack()
+	{
+
+	}
 	
 	protected virtual void takeDamage(int dmg)
 	{
@@ -35,6 +40,18 @@ public class BaseEnemy : MonoBehaviour {
 			dahWorld.GetComponent<World>().enemyKilled();
 			Destroy(gameObject);
 		}
+	}
+
+
+	//by default do nothing when leaving the screen
+	protected virtual void OffCameraRight()
+	{
+		;
+	}
+	
+	protected virtual void OffCameraLeft()
+	{
+		;
 	}
 
 	public void setTheWorld(GameObject w)

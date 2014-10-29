@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\Attacks\tealBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\yellowBounceScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\yellowBulletScript.cs" />
+     <Compile Include="Assets\Scripts\Enemies\AimChargeEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\AimShootyEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\BaseEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\BasicShootyEnemy.cs" />
