@@ -87,23 +87,44 @@ public class Movement : MonoBehaviour {
 				{					
 					float swipeValue = Mathf.Sign(touch.position.y - startPos.y);
 					//Up Swipe
-					if (swipeValue > 0&& (lineTargetIndex - 1) >= 0
-					    && theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)
+					if (swipeValue > 0)//&& (lineTargetIndex - 1) >= 0
+//					    && theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)
 					{
-						lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex - 1];
-						lineTargetIndex--;
-						theYPos = lineTarget.transform.position.y;
-						theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+						//For each line above this line
+						for (int i = 1; (lineTargetIndex - i) >= 0; i++)
+						{
+							//If that is a line that we can enter... then enter it.
+							if ((lineTargetIndex - i) >= 0 && theWorld.GetComponent<World>().lines[lineTargetIndex - i].GetComponent<LineScript>().canEnter)
+							{
+								lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex - i];
+								lineTargetIndex -= i;
+								theYPos = lineTarget.transform.position.y;
+								theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+								//Break out if we were able to move to a line
+								break;
+							}
+						}
 					}
 						
 					//Down Swipe
-					else if (swipeValue < 0 && (lineTargetIndex + 1) < theWorld.GetComponent<World>().lines.Count
-					         && theWorld.GetComponent<World>().lines[lineTargetIndex + 1].GetComponent<LineScript>().canEnter)
+					if (swipeValue < 0)// && (lineTargetIndex + 1) < theWorld.GetComponent<World>().lines.Count
+//					         && theWorld.GetComponent<World>().lines[lineTargetIndex + 1].GetComponent<LineScript>().canEnter)
 					{
-						lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex + 1];
-						lineTargetIndex++;
-						theYPos = lineTarget.transform.position.y;
-						theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+						//For each line above this line
+						for (int i = 1; (lineTargetIndex + i) < theWorld.GetComponent<World>().lines.Count; i++)
+						{
+							//If that is a line that we can enter... then enter it skipping the lines that we're not allowed onto.
+							if ((lineTargetIndex + i) < theWorld.GetComponent<World>().lines.Count &&
+							    theWorld.GetComponent<World>().lines[lineTargetIndex + i].GetComponent<LineScript>().canEnter)
+							{
+								lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex + i];
+								lineTargetIndex += i;
+								theYPos = lineTarget.transform.position.y;
+								theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+								//Break out if we were able to move to a line
+								break;
+							}
+						}
 					}
 				}				
 				//Again, make this move if it's more than the minimal distance... but then also only do the more intended one.
@@ -152,22 +173,49 @@ public class Movement : MonoBehaviour {
 		}
 
 		//If detect up, and we're not at the last line, and we're allowed to move up... then move up!
-		if (Input.GetKeyDown("up") && (lineTargetIndex - 1) >= 0
-		    && theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)
+		if (Input.GetKeyDown("up"))// && (lineTargetIndex - 1) >= 0)
+		    //&& theWorld.GetComponent<World>().lines[lineTargetIndex - 1].GetComponent<LineScript>().canEnter)
 		{
-			lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex - 1];
-			lineTargetIndex--;
-			theYPos = lineTarget.transform.position.y;
-			theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+			//For each line above this line
+			for (int i = 1; (lineTargetIndex - i) >= 0; i++)
+			{
+				//If that is a line that we can enter... then enter it.
+				if ((lineTargetIndex - i) >= 0 && theWorld.GetComponent<World>().lines[lineTargetIndex - i].GetComponent<LineScript>().canEnter)
+				{
+					lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex - i];
+					lineTargetIndex -= i;
+					theYPos = lineTarget.transform.position.y;
+					theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+					//Break out if we were able to move to a line
+					break;
+				}
+			}
 		}
+
 		//Same as above, but with down input.
-		if (Input.GetKeyDown("down") && (lineTargetIndex + 1) < theWorld.GetComponent<World>().lines.Count
-		    && theWorld.GetComponent<World>().lines[lineTargetIndex + 1].GetComponent<LineScript>().canEnter)
+		if (Input.GetKeyDown("down"))
 		{
-			lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex + 1];
-			lineTargetIndex++;
-			theYPos = lineTarget.transform.position.y;
-			theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+			//For each line above this line
+			for (int i = 1; (lineTargetIndex + i) < theWorld.GetComponent<World>().lines.Count; i++)
+			{
+				//If that is a line that we can enter... then enter it skipping the lines that we're not allowed onto.
+				if ((lineTargetIndex + i) < theWorld.GetComponent<World>().lines.Count &&
+				    theWorld.GetComponent<World>().lines[lineTargetIndex + i].GetComponent<LineScript>().canEnter)
+				{
+					lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex + i];
+					lineTargetIndex += i;
+					theYPos = lineTarget.transform.position.y;
+					theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
+					//Break out if we were able to move to a line
+					break;
+				}
+			}
+
+
+//			lineTarget = theWorld.GetComponent<World>().lines[lineTargetIndex + 1];
+//			lineTargetIndex++;
+//			theYPos = lineTarget.transform.position.y;
+//			theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
 		}
 
 		//Locking onto a line

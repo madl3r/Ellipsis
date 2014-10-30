@@ -174,12 +174,16 @@ public class playerStats : MonoBehaviour {
 						//Unlocking and spawning the upgrade
 						spendKey();
 						theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().setIsLocked(false);
-						theWorld.GetComponent<World>().giveUpgradeLineUpgrade();
+						theWorld.GetComponent<World>().giveUpgradeLinesUpgrades();
 					}
 				}
 				//if not locked, then get the upgrade
 				else
+				{
 					theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject);
+					//then delete the upgrade that we didn't choose.
+					theWorld.GetComponent<World>().deleteRemainingUpgrades();
+				}
 			}
 		}
 		//Else if we're on the shopEnter line, and it's locked and we have at least 1 key... then unlock it!
@@ -207,7 +211,7 @@ public class playerStats : MonoBehaviour {
 
 		}
 		//If we're on the pre boss lines and we attack then... Load the next level! (TODO, in the future nothing will happend when attack in pre boss lines)
-		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "preBossLines")
+		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "bossLines")
 		{
 			upLevelNumber();
 			Debug.Log("Level number is now: " + levelNumber);

@@ -14,10 +14,12 @@ public class World : MonoBehaviour {
 
 	//this public list of lines in the scene is input into the object from top to bottom.
 	public List<GameObject> lines;
+	public GameObject[] upgradeLines;
 
 	//public GameObject upgradeLine;
 	public GameObject upgradeArrow;
 	public GameObject preBossArrow;
+	public GameObject bossSkull;
 	public GameObject shopArrow;
 	//The camera for the scene because this script will be controling it.
 	public GameObject theCamera;
@@ -169,10 +171,11 @@ public class World : MonoBehaviour {
 			if (round >= roundsToBossArea)
 			{
 				preBossArrow.renderer.enabled = true;
+				bossSkull.renderer.enabled = true;
 
 				foreach (GameObject line in lines)
 				{
-					if (line.tag == "preBossLines")
+					if (line.tag == "preBossLines" || line.tag == "bossLines")
 					{
 						line.GetComponent<LineScript>().canEnter = true;
 					}
@@ -180,7 +183,6 @@ public class World : MonoBehaviour {
 
 			}
 			//If the player has survived enough rounds to go to the shop area, then open it up!
-			//TODO let the player pass the upgrade area if it's not yet open.
 			if (round >= roundsToShopArea)
 			{
 				if (round == roundsToShopArea)
@@ -312,6 +314,11 @@ public class World : MonoBehaviour {
 		}
 	}
 
+	void newBossRound()
+	{
+		//Spawn the boss and restrict player movement to the boss lines.
+	}
+
 	public void enemyKilled()
 	{
 		enemiesKilledThisRound++;
@@ -356,22 +363,26 @@ public class World : MonoBehaviour {
 	void populateUpgradeLines()
 	{
 		GameObject thisUpgrade;
-		GameObject uLine = GameObject.FindGameObjectWithTag("upgradeLines");
+		bool locked;
 
 		//Determine if it's locked
 		//About 1/3 chance of a drop after each round
-		uLine.GetComponent<upgradeLineScript>().setIsLocked(Random.Range(0, 9) < 3);
+		locked = Random.Range(0,9) < 3;
 
-		//if it's locked then we put up a keyhole.
-		if (uLine.GetComponent<upgradeLineScript>().getIsLocked())
-			thisUpgrade = Instantiate(keyHolePrefab, uLine.transform.position, Quaternion.identity) as GameObject;//thisUpgrade Instantiate a lock. When locks are attacked by a key, they then disappear and either spawn an upgrade (if on an upgrade line)
-		//Otherwise just put the upgrade there.
-		else
-			thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
-
-		//Updating the things that they need to know.
-		thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
-		uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
+		foreach (GameObject line in upgradeLines)
+		{
+			line.GetComponent<upgradeLineScript>().setIsLocked(locked);
+			//if it's locked then we put up a keyhole.
+			if (line.GetComponent<upgradeLineScript>().getIsLocked())
+				thisUpgrade = Instantiate(keyHolePrefab, line.transform.position, Quaternion.identity) as GameObject;//thisUpgrade Instantiate a lock. When locks are attacked by a key, they then disappear and either spawn an upgrade (if on an upgrade line)
+			//Otherwise just put the upgrade there.
+			else
+				thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], line.transform.position, Quaternion.identity) as GameObject;
+	
+			//Updating the things that they need to know.
+			thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = line;
+			line.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
+		}
 
 	}
 
@@ -389,17 +400,26 @@ public class World : MonoBehaviour {
 	}
 
 	//
-	public void giveUpgradeLineUpgrade()
+	public void giveUpgradeLinesUpgrades()
 	{
-		GameObject thisUpgrade;
-		//TODO Maybe here instead of finding use a loop to go through the lines that we are already holding on to and look for the right tag.
-		GameObject uLine = GameObject.FindGameObjectWithTag("upgradeLines");
-		uLine.GetComponent<upgradeLineScript>().setIsLocked(false);
-		//Desetroying the current upgrade (in case of keyhole) and then giving a new upgrade to the line
-		Destroy(uLine.GetComponent<upgradeLineScript>().theUpgrade);
-		thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
-		thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
-		uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
+		foreach (GameObject uLine in upgradeLines)
+		{
+			GameObject thisUpgrade;
+			uLine.GetComponent<upgradeLineScript>().setIsLocked(false);
+			//Desetroying the current upgrade (in case of keyhole) and then giving a new upgrade to the line
+			Destroy(uLine.GetComponent<upgradeLineScript>().theUpgrade);
+			thisUpgrade = Instantiate (upgradePrefabs[Random.Range(0, upgradePrefabs.Length)], uLine.transform.position, Quaternion.identity) as GameObject;
+			thisUpgrade.GetComponent<BaseUpgrade>().upgradeLine = uLine;
+			uLine.GetComponent<upgradeLineScript>().theUpgrade = thisUpgrade;
+		}
+	}
+
+	public  void deleteRemainingUpgrades()
+	{
+		foreach (GameObject uLine in upgradeLines)
+		{
+			Destroy(uLine.GetComponent<upgradeLineScript>().theUpgrade);
+		}
 	}
 
 	//For when the player dies
