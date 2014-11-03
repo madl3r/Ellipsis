@@ -10,7 +10,8 @@ public class HammerEnemy : BaseEnemy {
 	void Start () {
 
 		//Spawn position start
-		transform.position = new Vector2(Random.Range(7.0f,9.5f), (float)(Random.Range(-2, 3)*2));
+		if (worldSpawned)
+			transform.position = new Vector2(Random.Range(7.0f,9.5f), (float)(Random.Range(-2, 3)*2));
 
 		recentlyDamaged = false;
 		timeBtwnAttacks = 0.5f;

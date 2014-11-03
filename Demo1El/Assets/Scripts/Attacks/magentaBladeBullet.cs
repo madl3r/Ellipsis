@@ -25,7 +25,7 @@ public class magentaBladeBullet : BaseBulletScript {
 		bulletSpeed = 13.0f + bnsBulletSpeed;
 
 		//Choosing a random speed for the xSpeed
-		xSpeed = Random.Range((11.0f/13.0f) * bulletSpeed, bulletSpeed);
+		xSpeed = Random.Range((12.0f/13.0f) * bulletSpeed, bulletSpeed);
 		//Now setting the ySpeed based on the random xSpeed (should also randomize if the y it pos or negative
 		float negOrNot;
 		if (Random.Range(0, 2) == 0)

@@ -8,7 +8,7 @@ public class BasicShootyEnemy : BaseEnemy {
 	private float prevShotTime;
 	private float timeBetweenMove;
 	private float prevMoveTime;
-	private bool worldSpawned = true;
+//	private bool worldSpawned = true;
 	private float theYPos;
 
 
@@ -85,10 +85,10 @@ public class BasicShootyEnemy : BaseEnemy {
 		}
 	}
 
-	public void isWorldSpawned(bool b)
-	{
-		worldSpawned = b;
-	}
+//	public void isWorldSpawned(bool b)
+//	{
+//		worldSpawned = b;
+//	}
 
 	public void setPos(Vector2 thePos)
 	{

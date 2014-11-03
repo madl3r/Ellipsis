@@ -22,7 +22,10 @@ public class AimChargeEnemy : BaseEnemy {
 	void Start () {
 
 		//Spawn position start
-		transform.position = new Vector2(Random.Range(7.0f,8.5f), Random.Range(-2, 3)*2);
+		if (worldSpawned)
+			transform.position = new Vector2(Random.Range(7.0f,8.5f), Random.Range(-2, 3)*2);
+
+
 		startingPos = transform.position;
 
 		//initializing the stuff

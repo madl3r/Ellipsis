@@ -149,8 +149,8 @@ public class playerStats : MonoBehaviour {
 				//Debug.Log("SHOOTING " + attackType);
 				GameObject b = Instantiate(theBullet, transform.position, transform.rotation) as GameObject;
 				b.BroadcastMessage("addBonusDmg", bulBnsDmg);
-				b.BroadcastMessage("addBonusBulSpeed", bulBnsSpd);
-				b.BroadcastMessage("addBonusDuration", bulBnsDuration);
+				//b.BroadcastMessage("addBonusBulSpeed", bulBnsSpd);
+				//b.BroadcastMessage("addBonusDuration", bulBnsDuration);
 			}
 		}
 		//Counting down to next round
@@ -211,11 +211,12 @@ public class playerStats : MonoBehaviour {
 
 		}
 		//If we're on the pre boss lines and we attack then... Load the next level! (TODO, in the future nothing will happend when attack in pre boss lines)
-		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "bossLines")
+		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "bossLines")// && !theWorld.GetComponent<World>().bossDefeated)
 		{
-			upLevelNumber();
-			Debug.Log("Level number is now: " + levelNumber);
-			Application.LoadLevel(nextLvl);
+			//upLevelNumber();
+			//Debug.Log("Level number is now: " + levelNumber);
+			//Application.LoadLevel(nextLvl);
+			theWorld.GetComponent<World>().decrementRoundCount();
 		}
 
 	}
@@ -452,6 +453,13 @@ public class playerStats : MonoBehaviour {
 	public void upLevelNumber()
 	{
 		levelNumber++;
+	}
+
+	public void playNewLevel()
+	{
+		upLevelNumber();
+		Debug.Log("Level number is now: " + levelNumber);
+		Application.LoadLevel(nextLvl);
 	}
 
 	public int getLevelNumber()

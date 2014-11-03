@@ -5,6 +5,7 @@ public class BaseEnemy : MonoBehaviour {
 
 	protected int hp;
 	protected int dmg;
+	protected bool worldSpawned = false;
 	protected GameObject dahWorld;
 
 	// Use this for initialization
@@ -52,6 +53,11 @@ public class BaseEnemy : MonoBehaviour {
 	protected virtual void OffCameraLeft()
 	{
 		;
+	}
+
+	public void isWorldSpawned(bool b)
+	{
+		worldSpawned = b;
 	}
 
 	public void setTheWorld(GameObject w)

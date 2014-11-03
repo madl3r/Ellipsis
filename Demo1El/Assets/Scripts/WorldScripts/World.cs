@@ -11,6 +11,7 @@ public class World : MonoBehaviour {
 	//player and timing when boss shows up
 
 
+	private GameObject[] thePlayers;
 
 	//this public list of lines in the scene is input into the object from top to bottom.
 	public List<GameObject> lines;
@@ -37,9 +38,11 @@ public class World : MonoBehaviour {
 	private bool upgradesUnlocked;
 	private bool bossUnlocked;
 	private bool shopUnlocked;
+	public bool bossDefeated;
 
 	//Round and spawrning variables.
 	public List<GameObject> prefabEnemies;
+	public List<GameObject> prefabBossEncounters;
 	public int round;
 
 	//Upgrade round information
@@ -56,7 +59,9 @@ public class World : MonoBehaviour {
 	public GameObject keyHolePrefab;
 	//Count down stuff
 	public GameObject countDownObj;
+	public GameObject bossCountDownObj;
 	private bool roundStarted;
+	private bool bossRoundStarted;
 	private int enemiesKilledThisRound;
 	private int enemiesSpawnedThisRound;
 	private GameObject[] currentRoundEnemies;
@@ -78,6 +83,7 @@ public class World : MonoBehaviour {
 		//Start at round 0
 		round = 0;
 		roundStarted = false;
+		bossRoundStarted = false;
 		enemiesKilledThisRound = 0;
 		enemiesSpawnedThisRound = 0;
 
@@ -101,10 +107,13 @@ public class World : MonoBehaviour {
 		theCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
 		playerStats.setNextLvl(theNextLvl);
-		foreach (GameObject pChar in GameObject.FindGameObjectsWithTag("Player"))
+		thePlayers = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject pChar in thePlayers)
 		{
 			pChar.GetComponent<Movement>().newLevelRestart(gameObject);
 		}
+
+		bossDefeated = false;
 
 	}
 	
@@ -118,107 +127,27 @@ public class World : MonoBehaviour {
 		//If we're currently in a round and all of the enemies have been killed for this round... then end the round
 		if (roundStarted && enemiesKilledThisRound >= enemiesSpawnedThisRound)
 		{
-			enemiesKilledThisRound = 0; //So that it only goes into this once
-			//Make sure that the enemies are all destroyed
-			foreach (GameObject leftovers in currentRoundEnemies)
-			{
-				Destroy(leftovers);
-			}
-
-			//Tell the player that the round is over
-			GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
-			foreach (GameObject player in thePlayers)
-			{
-				player.BroadcastMessage("setRoundStatus", false);
-			}
-
-			//Round is over!
-			roundStarted = false;
-			Debug.Log("Round " + round + " survived!!");
-			timeLeftBtwnRound = timeBtwnRound;
-
-			//Destroys all bullets in the level so that player no longer needs to dodge.
-			GameObject[] levelBullets;
-			levelBullets = GameObject.FindGameObjectsWithTag("enemyBullet");
-			foreach (GameObject enBul in levelBullets)
-			{
-				Destroy(enBul);
-			}
-
-			//Spawn something
-			if (Random.Range(0, 4) > 1)
-				Instantiate(minorPickups[Random.Range(0, minorPickups.Length)], new Vector2(9.0f, 0.0f), Quaternion.identity);
-
-
-			//Display the number of hits before the next round
-			countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
-
-			//If the round is over and we have survived x rounds then a new upgrade is spawned
-
-			//When the round is over let the player enter the upgrade lines
-			if (round >= roundsToFirstUpgrade)
-			{
-				//If this is when we first get to it then populate the upgrade lines
-				if (round == roundsToFirstUpgrade)
-					populateUpgradeLines();
-
-				//Always after that let the player enter the upgrade area between rounds
-				upgradeArrow.renderer.enabled = true;
-				foreach (GameObject line in lines)
-				{
-					if (line.tag == "upgradeLines")
-					{
-						line.GetComponent<LineScript>().canEnter = true;
-					}
-				}
-			}
-			//If the player has survived enough rounds to go to the boss area, then open it up!
-			if (round >= roundsToBossArea)
-			{
-				preBossArrow.renderer.enabled = true;
-				bossSkull.renderer.enabled = true;
-
-				foreach (GameObject line in lines)
-				{
-					if (line.tag == "preBossLines" || line.tag == "bossLines")
-					{
-						line.GetComponent<LineScript>().canEnter = true;
-					}
-				}
-
-			}
-			//If the player has survived enough rounds to go to the shop area, then open it up!
-			if (round >= roundsToShopArea)
-			{
-				if (round == roundsToShopArea)
-					populateShopLines();
-
-				shopArrow.renderer.enabled = true;
-				GameObject theEntrance = GameObject.FindGameObjectWithTag("shopEnterLine");
-				theEntrance.GetComponent<LineScript>().canEnter = true;
-
-				//If the entrance is NOT locked then you can go to the shop lines
-				if (!theEntrance.GetComponent<shopEnterLineScript>().getIsLocked())
-				{
-					foreach (GameObject line in lines)
-					{
-						if (line.tag == "shopLines")
-						{
-							line.GetComponent<LineScript>().canEnter = true;
-						}
-					}
-				}
-			}
+			finishRound();
 		}
+
 		//Reset this variable whenever the player goes into the update area
-		if (timeLeftBtwnRound <= 0)
+		if (timeLeftBtwnRound <= 0 && currentLine.tag == "lines")
 		{
-			newRound();
 			timeLeftBtwnRound = timeBtwnRound;
+			newRound();
+		}
+		else if (timeLeftBtwnRound <= 0 && currentLine.tag == "bossLines" && !bossRoundStarted && !bossDefeated)
+		{
+			timeLeftBtwnRound = timeBtwnRound;
+			newBossRound();
+		}
+		else if (timeLeftBtwnRound <= 0 && currentLine.tag == "bossLines" && !bossRoundStarted && bossDefeated)
+		{
+			thePlayers[0].GetComponent<playerStats>().playNewLevel();
 		}
 
 		//If you move away from the main area then reset the counter for the round.
-		if (currentLine.tag != "lines")
+		if (currentLine.tag != "lines" && currentLine.tag != "bossLines")
 		{
 			timeLeftBtwnRound = timeBtwnRound;
 			setCounterInvisible();
@@ -273,20 +202,126 @@ public class World : MonoBehaviour {
 	}
 
 
+
+	public void finishRound()
+	{
+		enemiesKilledThisRound = 0; //So that it only goes into this once
+		//Make sure that the enemies are all destroyed
+		foreach (GameObject leftovers in currentRoundEnemies)
+		{
+			Destroy(leftovers);
+		}
+		
+		//Tell the player that the round is over
+		//			GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in thePlayers)
+		{
+			player.BroadcastMessage("setRoundStatus", false);
+		}
+		
+		//Round is over!
+		roundStarted = false;
+		Debug.Log("Round " + round + " survived!!");
+		timeLeftBtwnRound = timeBtwnRound;
+		
+		//Destroys all bullets in the level so that player no longer needs to dodge.
+		GameObject[] levelBullets;
+		levelBullets = GameObject.FindGameObjectsWithTag("enemyBullet");
+		foreach (GameObject enBul in levelBullets)
+		{
+			Destroy(enBul);
+		}
+		
+		//Spawn something
+		if (Random.Range(0, 4) > 1)
+			Instantiate(minorPickups[Random.Range(0, minorPickups.Length)], new Vector2(9.0f, 0.0f), Quaternion.identity);
+		
+		
+		//Display the number of hits before the next round
+		countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
+		bossCountDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
+		
+		//If the round is over and we have survived x rounds then a new upgrade is spawned
+		
+		//When the round is over let the player enter the upgrade lines
+		if (round >= roundsToFirstUpgrade)
+		{
+			//If this is when we first get to it then populate the upgrade lines
+			if (round == roundsToFirstUpgrade)
+				populateUpgradeLines();
+			
+			//Always after that let the player enter the upgrade area between rounds
+			upgradeArrow.renderer.enabled = true;
+			foreach (GameObject line in lines)
+			{
+				if (line.tag == "upgradeLines")
+				{
+					line.GetComponent<LineScript>().canEnter = true;
+				}
+			}
+		}
+		//If the player has survived enough rounds to go to the boss area, then open it up!
+		if (round >= roundsToBossArea)
+		{
+			preBossArrow.renderer.enabled = true;
+			bossSkull.renderer.enabled = true;
+			
+			foreach (GameObject line in lines)
+			{
+				if (line.tag == "preBossLines" || line.tag == "bossLines")
+				{
+					line.GetComponent<LineScript>().canEnter = true;
+				}
+			}
+			
+		}
+		//If the player has survived enough rounds to go to the shop area, then open it up!
+		if (round >= roundsToShopArea)
+		{
+			if (round == roundsToShopArea)
+				populateShopLines();
+			
+			shopArrow.renderer.enabled = true;
+			GameObject theEntrance = GameObject.FindGameObjectWithTag("shopEnterLine");
+			theEntrance.GetComponent<LineScript>().canEnter = true;
+			
+			//If the entrance is NOT locked then you can go to the shop lines
+			if (!theEntrance.GetComponent<shopEnterLineScript>().getIsLocked())
+			{
+				foreach (GameObject line in lines)
+				{
+					if (line.tag == "shopLines")
+					{
+						line.GetComponent<LineScript>().canEnter = true;
+					}
+				}
+			}
+		}
+	}
+
+	public void finishBossRound()
+	{
+		bossDefeated = true;
+		bossRoundStarted = false;
+		finishRound();
+	}
+
 	//Makes a new round
 	//TODO When we have more enemies and stuff:
 		//Get the LVL number from playerStats and then spawn the correct rounds accordingly
 		//Maybe have this passed a base difficulty which will modify certain stats of spawning
 		//Also depending on the level we will have the world be given a different list of enemy prefabs (maybe similar enemies but different stats)
+
 	void newRound()
 	{
 		//Letting players know that the round has begun
-		GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
+//		GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject player in thePlayers)
 		{
 			player.BroadcastMessage("setRoundStatus", true);
 		}
 
+		//Destroying left over pick up objects... by looking for them in the scene... there's got to be a better way.
 		GameObject[] theMinUpgrades = GameObject.FindGameObjectsWithTag("minorPickup");
 		foreach (GameObject mU in theMinUpgrades)
 		{
@@ -303,6 +338,7 @@ public class World : MonoBehaviour {
 		}
 		upgradeArrow.renderer.enabled = false;
 		preBossArrow.renderer.enabled = false;
+		bossSkull.renderer.enabled = false;
 		shopArrow.renderer.enabled = false;
 
 		//Round things
@@ -315,13 +351,51 @@ public class World : MonoBehaviour {
 		{
 			GameObject e = Instantiate(prefabEnemies[Random.Range(0, prefabEnemies.Count)], new Vector2(0, 0), Quaternion.identity) as GameObject;
 			e.GetComponent<BaseEnemy>().setTheWorld(gameObject);
+			e.GetComponent<BaseEnemy>().isWorldSpawned(true);
 			currentRoundEnemies[i] = e;
 		}
 	}
 
 	void newBossRound()
 	{
+		Debug.Log("IN THE BOSS ROUND");
+		bossRoundStarted = true;
 		//Spawn the boss and restrict player movement to the boss lines.
+
+		//Letting players know that the round has begun and that they can attack
+		foreach (GameObject player in thePlayers)
+		{
+			player.BroadcastMessage("setRoundStatus", true);
+		}
+		
+		//Destroying left over pick up objects... by looking for them in the scene... there's got to be a better way.
+		GameObject[] theMinUpgrades = GameObject.FindGameObjectsWithTag("minorPickup");
+		foreach (GameObject mU in theMinUpgrades)
+		{
+			Destroy(mU);
+		}
+		
+		//Deleting all out of round UI
+		foreach (GameObject line in lines)
+		{
+			if (line.tag != "bossLines")
+			{
+				line.GetComponent<LineScript>().canEnter = false;
+			}
+		}
+
+		upgradeArrow.renderer.enabled = false;
+		preBossArrow.renderer.enabled = false;
+		bossSkull.renderer.enabled = false;
+		shopArrow.renderer.enabled = false;
+
+		//This is so that the empty child gets deleted after the boss is destroyed
+		currentRoundEnemies = new GameObject[1];
+		GameObject e = Instantiate(prefabBossEncounters[Random.Range(0, prefabBossEncounters.Count)], new Vector2(8.0f, -20.0f), Quaternion.identity) as GameObject;
+		currentRoundEnemies[0] = e;
+		e.BroadcastMessage("setTheWorld", gameObject);
+		e.BroadcastMessage("isWorldSpawned", false);
+
 	}
 
 	public void enemyKilled()
@@ -338,11 +412,15 @@ public class World : MonoBehaviour {
 	{
 		//Set the current one invisible
 		countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = false;
+		bossCountDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = false;
 		//decrement
 		timeLeftBtwnRound--;
 		//if we can set this one to visible
 		if (timeLeftBtwnRound >= 0)
+		{
 			countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
+			bossCountDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
+		}	
 		//At end get rid of counter
 		if (timeLeftBtwnRound <= 0)
 		{
@@ -354,6 +432,11 @@ public class World : MonoBehaviour {
 	void setCounterInvisible()
 	{
 		foreach (GameObject number in countDownObj.GetComponent<CountDownScript>().nums)
+		{
+			number.renderer.enabled = false;
+		}
+
+		foreach (GameObject number in bossCountDownObj.GetComponent<CountDownScript>().nums)
 		{
 			number.renderer.enabled = false;
 		}

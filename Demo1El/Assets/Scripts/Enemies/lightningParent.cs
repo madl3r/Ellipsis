@@ -12,9 +12,10 @@ public class lightningParent : BaseEnemy {
 
 	// Use this for initialization
 	void Start () {
-		transform.position = new Vector2(Random.Range(8.0f, 11.0f), 0);
-		speed = Random.Range(-3.0f, -4.5f);
+		if (worldSpawned)
+			transform.position = new Vector2(Random.Range(8.0f, 11.0f), 0);
 
+		speed = Random.Range(-3.0f, -4.5f);
 		carrier1.rigidbody2D.velocity = new Vector2 (speed, 0);
 		carrier2.rigidbody2D.velocity = new Vector2 (speed, 0);
 		lightning.rigidbody2D.velocity = new Vector2 (speed, 0);
@@ -41,14 +42,14 @@ public class lightningParent : BaseEnemy {
 		{
 			//spawn an basic shooty enemy at -4y
 			GameObject e = Instantiate(enemySpawn, new Vector2(deadPos.x, -4.0f), Quaternion.identity) as GameObject;
-			e.GetComponent<BasicShootyEnemy>().isWorldSpawned(false);
+			e.GetComponent<BaseEnemy>().isWorldSpawned(false);
 			e.GetComponent<BaseEnemy>().setTheWorld(dahWorld);
 		}
 		else
 		{
 			//spawn a basic shooty at +4y
 			GameObject e = Instantiate(enemySpawn, new Vector2(deadPos.x, 4.0f), Quaternion.identity) as GameObject;
-			e.GetComponent<BasicShootyEnemy>().isWorldSpawned(false);
+			e.GetComponent<BaseEnemy>().isWorldSpawned(false);
 			e.GetComponent<BaseEnemy>().setTheWorld(dahWorld);
 		}
 

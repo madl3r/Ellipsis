@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Attacks\basicEnemyBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\blackBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\blueBulletScript.cs" />
+     <Compile Include="Assets\Scripts\Attacks\enemySpreadShotScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\greenBounceScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\greenBulletScript.cs" />
      <Compile Include="Assets\Scripts\Attacks\magentaBladeBullet.cs" />
@@ -79,6 +80,7 @@
      <Compile Include="Assets\Scripts\Enemies\HammerSwitchLine.cs" />
      <Compile Include="Assets\Scripts\Enemies\LightningBetweenEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\lightningParent.cs" />
+     <Compile Include="Assets\Scripts\Enemies\spreadShotBoss.cs" />
      <Compile Include="Assets\Scripts\Player\MoveHelperONCE.cs" />
      <Compile Include="Assets\Scripts\Player\Movement.cs" />
      <Compile Include="Assets\Scripts\Player\displayCoins.cs" />
