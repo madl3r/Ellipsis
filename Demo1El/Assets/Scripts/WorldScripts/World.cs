@@ -241,7 +241,15 @@ public class World : MonoBehaviour {
 		countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
 		bossCountDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
 		
-		//If the round is over and we have survived x rounds then a new upgrade is spawned
+
+		//Let the player always re enter the basic lines in between rounds!
+		foreach (GameObject line in lines)
+		{
+			if (line.tag == "lines")
+			{
+				line.GetComponent<LineScript>().canEnter = true;
+			}
+		}
 		
 		//When the round is over let the player enter the upgrade lines
 		if (round >= roundsToFirstUpgrade)
@@ -360,6 +368,7 @@ public class World : MonoBehaviour {
 	{
 		Debug.Log("IN THE BOSS ROUND");
 		bossRoundStarted = true;
+		round++;
 		//Spawn the boss and restrict player movement to the boss lines.
 
 		//Letting players know that the round has begun and that they can attack
