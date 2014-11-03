@@ -119,6 +119,11 @@ public class World : MonoBehaviour {
 		if (roundStarted && enemiesKilledThisRound >= enemiesSpawnedThisRound)
 		{
 			enemiesKilledThisRound = 0; //So that it only goes into this once
+			//Make sure that the enemies are all destroyed
+			foreach (GameObject leftovers in currentRoundEnemies)
+			{
+				Destroy(leftovers);
+			}
 
 			//Tell the player that the round is over
 			GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");

@@ -46,9 +46,7 @@ public class LightningBetweenEnemy : BaseEnemy {
 
 	protected override void OffCameraLeft()
 	{
-		//Should maybe also choose a new line to go onto.
-				transform.position = new Vector2 (11.0f, transform.position.y);
-//		Destroy(gameObject);
+		transform.position = new Vector2 (10.9f, transform.position.y);
 	}
 
 	//Doesn't take damage, so do nothing to HP.

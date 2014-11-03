@@ -35,16 +35,14 @@ public class BoltCarrier : BaseEnemy {
 			//Tell the world that you died.
 			//theParent.GetComponent
 			Debug.Log("KILLING US");
-			theParent.GetComponent<lightningParent>().lightningDie(transform.position.y);
+			theParent.GetComponent<lightningParent>().lightningDie(transform.position);
 			Destroy(gameObject);
 		}
 	}
 
 	protected override void OffCameraLeft()
 	{
-		//Should maybe also choose a new line to go onto.
-				transform.position = new Vector2 (11.0f, transform.position.y);
-//		Destroy(gameObject);
+		transform.position = new Vector2 (11.0f, transform.position.y);
 	}
 
 	protected override void OnTriggerEnter2D(Collider2D other)
