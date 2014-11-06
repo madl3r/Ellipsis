@@ -12,7 +12,7 @@ public class BoltCarrier : BaseEnemy {
 		recentlyDamaged = false;
 		timeBtwnAttacks = 0.5f;
 
-		hp = 2;
+		hp = 3;
 		dmg = 2;
 	}
 	

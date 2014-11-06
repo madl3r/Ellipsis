@@ -5,11 +5,15 @@ public class blackAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 2.0f;
+		defaultAttackSpeed = 4.0f;
+		knockBackPos = -6.25f;
+		knockBackSpeed = -12.0f;
 		if (myPlayer != null)
 		{		
 			myPlayer.GetComponent<playerStats>().setBaseAttackSpd(defaultAttackSpeed);
 			myPlayer.GetComponent<playerStats>().setBullet(bullet);
+			myPlayer.GetComponent<Movement>().setKnockBackPos(knockBackPos);
+			myPlayer.GetComponent<playerStats>().setKnockBack(knockBackSpeed);
 			myPlayer.GetComponent<SpriteRenderer>().color = new Color (0f, 0f, 0f);
 		}
 	}

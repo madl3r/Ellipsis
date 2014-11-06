@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Movement : MonoBehaviour {
 
 
+	private float knockBackPosition;
 	
 	//Touch Control Variables
 	public static float minSwipeDistY = 50;
@@ -44,6 +45,7 @@ public class Movement : MonoBehaviour {
 	//TODO might need to put all of this into a separate method to be called by the world when a new level is loaded.
 	void Start () 
 	{
+		knockBackPosition = -6.25f;
 		//getting this dots original position in the Q.
 		origNumInQ = numInQ;
 		//theYPost defaults to 0
@@ -155,7 +157,7 @@ public class Movement : MonoBehaviour {
 			//TODO Should do an axis for controllers and whatever is needed for touch screens but for now will just do getKeyDown
 
 		//Detecting shooting
-		if ((Input.GetKeyDown("z") || Input.GetKeyDown("space")) && numInQ == 0)
+		if ((Input.GetKey("z") || Input.GetKey("space")) && numInQ == 0)
 		{
 			gameObject.GetComponent<playerStats>().attack();
 		}
@@ -218,6 +220,17 @@ public class Movement : MonoBehaviour {
 //			theWorld.GetComponent<World>().updateCurrentLine(lineTarget);
 		}
 
+		if (numInQ == 0 && transform.position.x <= knockBackPosition)
+		{
+			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x + 3, 0);		
+		}
+
+		if (numInQ == 0 && transform.position.x > -5.9)
+		{
+			rigidbody2D.velocity = new Vector2 (0, 0);
+			transform.position = new Vector2 (-6.0f, transform.position.y);
+		}
+
 		//Locking onto a line
 		if(Mathf.Abs(transform.position.y - theYPos) < 0.05f)
 		transform.position = new Vector2 (transform.position.x, theYPos);
@@ -267,8 +280,13 @@ public class Movement : MonoBehaviour {
 	//This way we get to have dynamic Q size... Not sure if I want that though...
 
 	//Potentially get rid of. Right input will be fore using potions
+
+	//Rcursively going from back player to first in Q switch the players around
 	void switchRight (int attempt)
 	{
+		//Stop the thing from moving in the x direction on switch. The one that ends up in front should just move forward anyways
+		rigidbody2D.velocity = new Vector2(0, rigidbody2D.velocity.y);
+
 		//base case
 		if (attempt > 2)
 		{
@@ -293,7 +311,6 @@ public class Movement : MonoBehaviour {
 			{
 				transform.position = new Vector2 (nextInQ.transform.position.x, nextInQ.transform.position.y);
 			}
-
 			//else if (attempt == 2) move to next in lines temp (because that one will have already have moved)
 			else if (attempt == 2)
 			{
@@ -310,7 +327,7 @@ public class Movement : MonoBehaviour {
 			attempt++;
 
 			//Send message (calling this method) to next in Q
-			nextInQ.SendMessage("switchRight", attempt);
+			nextInQ.GetComponent<Movement>().switchRight(attempt);//SendMessage("switchRight", attempt);
 		}
 
 		//Only want collisions with the first in line... or DO WE?!?
@@ -411,6 +428,11 @@ public class Movement : MonoBehaviour {
 	public void setLineTarget(GameObject trgt)
 	{
 		lineTarget = trgt;
+	}
+
+	public void setKnockBackPos (float kb)
+	{
+		knockBackPosition = kb;
 	}
 
 

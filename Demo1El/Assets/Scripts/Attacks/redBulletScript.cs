@@ -7,7 +7,7 @@ public class redBulletScript : BaseBulletScript {
 	void Start () {
 		
 		dmg = 1 + bnsDmg;
-		bulletSpeed = 8.0f + bnsBulletSpeed;
+		bulletSpeed = 13.0f + bnsBulletSpeed;
 		duration = 4f + bnsDuration;
 		startTime = Time.time;
 

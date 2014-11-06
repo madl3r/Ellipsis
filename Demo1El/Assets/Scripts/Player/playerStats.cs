@@ -21,6 +21,7 @@ public class playerStats : MonoBehaviour {
 
 	//Stats
 	public float baseAttackSpd;
+	private float knockBackSpd;
 	private bool canAttack;
 	private float lastAttack;
 	private float timeBetweenAttacks;
@@ -48,6 +49,8 @@ public class playerStats : MonoBehaviour {
 	private static int keys;
 	
 	void Start () {
+
+		knockBackSpd = -10.0f;
 
 		//Making the player stay between rounds always
 		DontDestroyOnLoad(gameObject);
@@ -134,21 +137,28 @@ public class playerStats : MonoBehaviour {
 			theWorld.GetComponent<World>().gameOver();
 		}
 
+		//flash red on the screen, also give invincibility for a sec... knockback?
+
 	}
 
 
 	//Attack or action method. Depending on status of the game and what kind of line that we're on will do different things
 	public void attack()
 	{
+
+		if (canAttack)
+		{
+			lastAttack = Time.time;
 		//Actually Attacking
 		if (isInRound)
 		{
 			if (canAttack)
 			{
-				lastAttack = Time.time;
+
 				//Debug.Log("SHOOTING " + attackType);
 				GameObject b = Instantiate(theBullet, transform.position, transform.rotation) as GameObject;
 				b.BroadcastMessage("addBonusDmg", bulBnsDmg);
+				gameObject.rigidbody2D.velocity = new Vector2(knockBackSpd, 0);
 				//b.BroadcastMessage("addBonusBulSpeed", bulBnsSpd);
 				//b.BroadcastMessage("addBonusDuration", bulBnsDuration);
 			}
@@ -219,6 +229,8 @@ public class playerStats : MonoBehaviour {
 			theWorld.GetComponent<World>().decrementRoundCount();
 		}
 
+		}
+
 	}
 	
 	//Used for setting the string that is the name of the next lvl. World gives this to us each time a new one is spawned (in each lvl). So each world will have to be given manually the next level that it wants to go to!
@@ -240,6 +252,11 @@ public class playerStats : MonoBehaviour {
 	{
 		baseAttackSpd = spd;
 		updateTimeBetweenAttacks();
+	}
+
+	public void setKnockBack (float kb)
+	{
+		knockBackSpd = kb;
 	}
 
 	//~~~

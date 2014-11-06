@@ -20,7 +20,7 @@ public class BasicShootyEnemy : BaseEnemy {
 			transform.position = new Vector2(Random.Range(4.5f,8.0f), Random.Range(-2, 3)*2);
 
 		theYPos = transform.position.y;
-		hp = 1;
+		hp = 2;
 		dmg = 1;
 		prevMoveTime = Time.time;
 		prevShotTime = Time.time;

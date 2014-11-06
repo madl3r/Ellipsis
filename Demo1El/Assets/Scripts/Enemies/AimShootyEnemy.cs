@@ -16,7 +16,7 @@ public class AimShootyEnemy : BaseEnemy {
 		if (worldSpawned)
 			transform.position = new Vector2(Random.Range(7.0f,8.5f), Random.Range(-2, 3)*2);
 
-		hp = 2;
+		hp = 4;
 		dmg = 1;
 		prevShotTime = Time.time;
 
