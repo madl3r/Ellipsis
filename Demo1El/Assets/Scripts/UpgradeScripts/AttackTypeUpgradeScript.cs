@@ -16,9 +16,10 @@ public class AttackTypeUpgradeScript : BaseUpgrade {
 	void Update () {
 	}
 
-	public override void giveUpgradeToPlayer (GameObject player)
+	public override void giveUpgradeToPlayer (GameObject player, bool shopCalled)
 	{
 		player.GetComponent<playerStats>().setAttackType(attackTypeUp);
-		Destroy(gameObject);
+		if (!shopCalled)
+			Destroy(gameObject);
 	}
 }

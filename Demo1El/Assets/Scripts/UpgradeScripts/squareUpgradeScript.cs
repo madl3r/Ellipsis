@@ -13,10 +13,11 @@ public class squareUpgradeScript : BaseUpgrade {
 	
 	}
 
-	public override void giveUpgradeToPlayer (GameObject player)
+	public override void giveUpgradeToPlayer (GameObject player, bool shopCalled)
 	{
 		player.GetComponent<playerStats>().addSquareUpgrade();
 		player.GetComponent<SpriteRenderer>().sprite = upgradeSprite;
-		Destroy(gameObject);
+		if (!shopCalled)
+			Destroy(gameObject);
 	}
 }

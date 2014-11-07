@@ -13,10 +13,11 @@ public class maxHpUpScript : BaseUpgrade {
 	
 	}
 
-	public override void giveUpgradeToPlayer (GameObject player)
+	public override void giveUpgradeToPlayer (GameObject player, bool shopCalled)
 	{
 		player.GetComponent<playerStats>().addBnsMaxHP();
 		player.GetComponent<SpriteRenderer>().sprite = upgradeSprite;
-		Destroy(gameObject);
+		if (!shopCalled)
+			Destroy(gameObject);
 	}
 }

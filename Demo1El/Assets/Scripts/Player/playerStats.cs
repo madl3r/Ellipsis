@@ -190,7 +190,7 @@ public class playerStats : MonoBehaviour {
 				//if not locked, then get the upgrade
 				else
 				{
-					theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject);
+					theWorld.GetComponent<World>().getCurrentLine().GetComponent<upgradeLineScript>().theUpgrade.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(gameObject, false);
 					//then delete the upgrade that we didn't choose.
 					theWorld.GetComponent<World>().deleteRemainingUpgrades();
 				}

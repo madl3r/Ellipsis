@@ -13,9 +13,10 @@ public class HealScript : BaseUpgrade {
 	
 	}
 
-	public override void giveUpgradeToPlayer (GameObject player)
+	public override void giveUpgradeToPlayer (GameObject player, bool shopCalled)
 	{
 		player.GetComponent<playerStats>().addHP(1);
-		Destroy(gameObject);
+		if (!shopCalled)
+			Destroy(gameObject);
 	}
 }

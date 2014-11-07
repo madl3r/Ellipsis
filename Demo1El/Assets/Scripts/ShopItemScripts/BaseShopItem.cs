@@ -37,7 +37,7 @@ public class BaseShopItem : MonoBehaviour {
 	//gives the player this upgrade, and then is used.
 	public virtual void buyThis(GameObject thePlayer)
 	{
-		theUpgrade.gameObject.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(thePlayer);
+		theUpgrade.gameObject.GetComponent<BaseUpgrade>().giveUpgradeToPlayer(thePlayer, true);
 		Destroy(gameObject);
 	}
 

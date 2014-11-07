@@ -13,9 +13,10 @@ public class durationUpScript : BaseUpgrade {
 	
 	}
 
-	public override void giveUpgradeToPlayer (GameObject player)
+	public override void giveUpgradeToPlayer (GameObject player, bool shopCalled)
 	{
 		player.GetComponent<playerStats>().addBnsBulletDuration(1);
-		Destroy(gameObject);
+		if (!shopCalled)
+			Destroy(gameObject);
 	}
 }

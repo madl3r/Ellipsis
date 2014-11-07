@@ -13,10 +13,11 @@ public class thinUpgradeScripte : BaseUpgrade {
 	
 	}
 
-	public override void giveUpgradeToPlayer (GameObject player)
+	public override void giveUpgradeToPlayer (GameObject player, bool shopCalled)
 	{
 		player.GetComponent<playerStats>().addThinUpgrade();
 		player.GetComponent<SpriteRenderer>().sprite = upgradeSprite;
-		Destroy(gameObject);
+		if (!shopCalled)
+			Destroy(gameObject);
 	}
 }
