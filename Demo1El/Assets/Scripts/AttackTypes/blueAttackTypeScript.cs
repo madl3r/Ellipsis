@@ -5,7 +5,7 @@ public class blueAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 6.0f;
+		defaultAttackSpeed = 5.0f;
 		knockBackPos = -6.15f;
 		knockBackSpeed = -12.5f;
 		if (myPlayer != null)

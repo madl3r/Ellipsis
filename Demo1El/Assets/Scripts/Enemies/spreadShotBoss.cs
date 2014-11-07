@@ -18,7 +18,7 @@ public class spreadShotBoss : BaseEnemy {
 	
 		startingPos = transform.position;
 		theYPos = transform.position.y;
-		hp = 10;
+		hp = 20;
 		dmg = 1;
 		prevMoveTime = Time.time;
 		prevShotTime = Time.time;

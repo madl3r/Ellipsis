@@ -286,6 +286,7 @@ public class Movement : MonoBehaviour {
 	{
 		//Stop the thing from moving in the x direction on switch. The one that ends up in front should just move forward anyways
 		rigidbody2D.velocity = new Vector2(0, rigidbody2D.velocity.y);
+		gameObject.GetComponent<playerStats>().resetAttackTime();
 
 		//base case
 		if (attempt > 2)
@@ -343,6 +344,10 @@ public class Movement : MonoBehaviour {
 
 	void switchLeft (int attempt)
 	{
+		//Stop the thing from moving in the x direction on switch. The one that ends up in front should just move forward anyways
+		rigidbody2D.velocity = new Vector2(0, rigidbody2D.velocity.y);
+		gameObject.GetComponent<playerStats>().resetAttackTime();
+
 		//Same as above but negative
 		
 		if (attempt > 2)

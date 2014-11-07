@@ -11,7 +11,7 @@ public class magentaBulletParent : attackTypeScript {
 		lifeTime = 3.5f;
 		startTime = Time.time;
 
-		transform.position = new Vector2 (transform.position.x + 0.5f, transform.position.y);
+		transform.position = new Vector2 (transform.position.x + 0.0f, transform.position.y);
 	}
 	
 	// Update is called once per frame

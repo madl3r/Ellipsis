@@ -17,7 +17,7 @@ public class redBulletScript : BaseBulletScript {
 		// sqrt(v^2 - x^2) = sqrt(y^2)
 
 		//Choosing a random speed for the xSpeed
-		float xSpeed = Random.Range((12.5f/13.0f) * bulletSpeed, bulletSpeed);
+		float xSpeed = Random.Range((12.75f/13.0f) * bulletSpeed, bulletSpeed);
 		//Now setting the ySpeed based on the random xSpeed (should also randomize if the y it pos or negative
 		float negOrNot;
 		if (Random.Range(0, 2) == 0)

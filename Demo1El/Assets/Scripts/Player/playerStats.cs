@@ -158,7 +158,7 @@ public class playerStats : MonoBehaviour {
 				//Debug.Log("SHOOTING " + attackType);
 				GameObject b = Instantiate(theBullet, transform.position, transform.rotation) as GameObject;
 				b.BroadcastMessage("addBonusDmg", bulBnsDmg);
-				gameObject.rigidbody2D.velocity = new Vector2(knockBackSpd, 0);
+				gameObject.rigidbody2D.velocity = new Vector2(knockBackSpd, 0);//Random.Range(-20.0f, 20.01f));
 				//b.BroadcastMessage("addBonusBulSpeed", bulBnsSpd);
 				//b.BroadcastMessage("addBonusDuration", bulBnsDuration);
 			}
@@ -482,6 +482,11 @@ public class playerStats : MonoBehaviour {
 	public int getLevelNumber()
 	{
 		return levelNumber;
+	}
+
+	public void resetAttackTime()
+	{
+		lastAttack = Time.time;
 	}
 
 

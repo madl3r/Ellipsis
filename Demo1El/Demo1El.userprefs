@@ -1,16 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/playerStats.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/Movement.cs">
     <Files>
       <File FileName="Assets/Scripts/WorldScripts/World.cs" Line="370" Column="27" />
-      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="118" Column="4" />
+      <File FileName="Assets/Scripts/Player/playerStats.cs" Line="152" Column="23" />
       <File FileName="Assets/Scripts/Enemies/BaseEnemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemies/BasicShootyEnemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Player/Movement.cs" Line="223" Column="65" />
-      <File FileName="Assets/Scripts/Attacks/blackBulletScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/AttackTypes/attackTypeScript.cs" Line="8" Column="33" />
-      <File FileName="Assets/Scripts/AttackTypes/blackAttackTypeScript.cs" Line="9" Column="23" />
-      <File FileName="Assets/Scripts/AttackTypes/magentaAttackTypeScript.cs" Line="9" Column="23" />
+      <File FileName="Assets/Scripts/Enemies/BasicShootyEnemy.cs" Line="23" Column="9" />
+      <File FileName="Assets/Scripts/Player/Movement.cs" Line="236" Column="68" />
+      <File FileName="Assets/Scripts/AttackTypes/attackTypeScript.cs" Line="9" Column="33" />
+      <File FileName="Assets/Scripts/AttackTypes/tealAttackTypeScript.cs" Line="10" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

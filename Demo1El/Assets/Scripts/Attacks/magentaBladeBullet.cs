@@ -25,7 +25,7 @@ public class magentaBladeBullet : BaseBulletScript {
 		bulletSpeed = 13.0f + bnsBulletSpeed;
 
 		//Choosing a random speed for the xSpeed
-		xSpeed = Random.Range((12.0f/13.0f) * bulletSpeed, bulletSpeed);
+		xSpeed = Random.Range((12.75f/13.0f) * bulletSpeed, bulletSpeed);
 		//Now setting the ySpeed based on the random xSpeed (should also randomize if the y it pos or negative
 		float negOrNot;
 		if (Random.Range(0, 2) == 0)
@@ -83,7 +83,7 @@ public class magentaBladeBullet : BaseBulletScript {
 		{
 			theHit.SendMessage("takeDamage", dmg);
 		}
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 	
 	void OnTriggerEnter2D(Collider2D other)
@@ -95,11 +95,11 @@ public class magentaBladeBullet : BaseBulletScript {
 			Destroy(gameObject);
 			//Make noise and some effect
 		}
-		//if we collided with a bullet, have the bullet deal damage to us and then die
-		if (other.gameObject.tag == "enemyBullet")
-		{
-			other.gameObject.SendMessage("dealDamage", gameObject);
-			Destroy(gameObject);
-		}
+//		//if we collided with a bullet, have the bullet deal damage to us and then die
+//		if (other.gameObject.tag == "enemyBullet")
+//		{
+//			other.gameObject.SendMessage("dealDamage", gameObject);
+//			Destroy(gameObject);
+//		}
 	}
 }

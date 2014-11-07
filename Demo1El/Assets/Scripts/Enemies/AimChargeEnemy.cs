@@ -32,8 +32,8 @@ public class AimChargeEnemy : BaseEnemy {
 		recentlyDamaged = false;
 		timeBtwnAttacks = Random.Range(0.5f, 1.5f);
 		timeBtwnDamage = 0.5f;
-		hp = 4;
-		dmg = 3;
+		hp = 3;
+		dmg = 2;
 		prevShotTime = Time.time;
 		attacking = false;
 

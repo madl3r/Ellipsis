@@ -33,6 +33,21 @@ public class HammerEnemy : BaseEnemy {
 		transform.position = new Vector2 (11.0f, transform.position.y);
 	}
 
+	protected override void takeDamage(int dmg)
+	{
+		hp -= dmg;
+
+		//knockback
+		transform.position = new Vector2(transform.position.x + 0.2f, transform.position.y);
+
+		if (hp <= 0)
+		{
+			//Tell the world that you died.
+			dahWorld.GetComponent<World>().enemyKilled();
+			Destroy(gameObject);
+		}
+	}
+
 	protected override void OnTriggerEnter2D(Collider2D other)
 	{
 		//if we're hitting a player, and we haven't recently damaged them then deal damage.
