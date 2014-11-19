@@ -7,7 +7,7 @@ public class redBulletScript : BaseBulletScript {
 	void Start () {
 		
 		dmg = 1 + bnsDmg;
-		bulletSpeed = 13.0f + bnsBulletSpeed;
+		bulletSpeed = 2.0f + bnsBulletSpeed;
 		duration = 4f + bnsDuration;
 		startTime = Time.time;
 
@@ -17,7 +17,7 @@ public class redBulletScript : BaseBulletScript {
 		// sqrt(v^2 - x^2) = sqrt(y^2)
 
 		//Choosing a random speed for the xSpeed
-		float xSpeed = Random.Range((12.75f/13.0f) * bulletSpeed, bulletSpeed);
+		float xSpeed = Random.Range((12.9f/13.0f) * bulletSpeed, bulletSpeed);
 		//Now setting the ySpeed based on the random xSpeed (should also randomize if the y it pos or negative
 		float negOrNot;
 		if (Random.Range(0, 2) == 0)
@@ -51,8 +51,10 @@ public class redBulletScript : BaseBulletScript {
 	{
 		if (theHit.tag == "enemy")
 		{
+			Debug.Log("RED BULLET HITTING ENEMY!!!");
 			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
+//			hitting enemy!
 		}
 		else if (theHit.tag == "enemyBullet")
 		{
@@ -60,4 +62,11 @@ public class redBulletScript : BaseBulletScript {
 		}
 
 	}
+
+	protected void OnTriggerEnter2D(Collider2D other)
+	{
+		dealDamage(other.gameObject);
+	}
+
+
 }

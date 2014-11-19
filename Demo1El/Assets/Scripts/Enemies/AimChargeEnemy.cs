@@ -54,7 +54,8 @@ public class AimChargeEnemy : BaseEnemy {
 		//Look at the player
 		if (playerToLookAt != null && !attacking)
 		{
-			transform.LookAt(playerToLookAt.transform.position);
+			//transform.LookAt(playerToLookAt.transform.position);
+			transform.LookAt(new Vector2 (-6.0f, playerToLookAt.transform.position.y));
 			transform.Rotate(eulerAngleOffset, Space.Self);
 		}
 		

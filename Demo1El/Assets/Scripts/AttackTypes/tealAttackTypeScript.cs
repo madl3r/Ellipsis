@@ -5,7 +5,7 @@ public class tealAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 4.5f;
+		defaultAttackSpeed = 3.5f;
 		knockBackPos = -6.1f;
 		knockBackSpeed = -10.0f;
 		if (myPlayer != null)

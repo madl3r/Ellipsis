@@ -22,6 +22,8 @@ public class World : MonoBehaviour {
 	public GameObject preBossArrow;
 	public GameObject bossSkull;
 	public GameObject shopArrow;
+	
+	
 	//The camera for the scene because this script will be controling it.
 	public GameObject theCamera;
 	public string theNextLvl;
@@ -58,6 +60,7 @@ public class World : MonoBehaviour {
 	int roundsToShopArea;
 	public GameObject keyHolePrefab;
 	//Count down stuff
+	public GameObject theLvlRoundCounter;
 	public GameObject countDownObj;
 	public GameObject bossCountDownObj;
 	private bool roundStarted;
@@ -211,7 +214,7 @@ public class World : MonoBehaviour {
 		{
 			Destroy(leftovers);
 		}
-		
+
 		//Tell the player that the round is over
 		//			GameObject[] thePlayers = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject player in thePlayers)
@@ -240,7 +243,9 @@ public class World : MonoBehaviour {
 		//Display the number of hits before the next round
 		countDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
 		bossCountDownObj.GetComponent<CountDownScript>().nums[timeLeftBtwnRound].renderer.enabled = true;
-		
+		//theLvlRoundCounter.renderer.enabled = true;
+		theLvlRoundCounter.GetComponent<lvlRoundCounter>().updateCounter();
+
 
 		//Let the player always re enter the basic lines in between rounds!
 		foreach (GameObject line in lines)
@@ -348,6 +353,7 @@ public class World : MonoBehaviour {
 		preBossArrow.renderer.enabled = false;
 		bossSkull.renderer.enabled = false;
 		shopArrow.renderer.enabled = false;
+		//theLvlRoundCounter.renderer.enabled = false;
 
 		//Round things
 		roundStarted = true;
@@ -454,6 +460,11 @@ public class World : MonoBehaviour {
 	public GameObject getCurrentLine()
 	{
 		return currentLine;
+	}
+
+	public int getRoundNum()
+	{
+		return round;
 	}
 
 	//Populates all of the base upgrade lines that start out there

@@ -5,7 +5,7 @@ public class blackAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 4.0f;
+		defaultAttackSpeed = 3.0f;
 		knockBackPos = -6.25f;
 		knockBackSpeed = -12.0f;
 		if (myPlayer != null)

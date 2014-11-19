@@ -5,7 +5,7 @@ public class greenAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 3.0f;
+		defaultAttackSpeed = 2.0f;
 		knockBackPos = -6.1f;
 		knockBackSpeed = 0.0f;
 		if (myPlayer != null)

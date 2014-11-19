@@ -17,7 +17,7 @@ public class BaseUpgrade : MonoBehaviour {
 	
 	}
 
-	public virtual void giveUpgradeToPlayer (GameObject player, bool calledSelf)
+	public virtual void giveUpgradeToPlayer (GameObject player, bool shopCalled)
 	{
 
 	}

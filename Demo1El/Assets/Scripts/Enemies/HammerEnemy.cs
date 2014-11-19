@@ -17,7 +17,7 @@ public class HammerEnemy : BaseEnemy {
 		timeBtwnAttacks = 0.5f;
 		hp = 4;
 		dmg = 2;
-		rigidbody2D.velocity = new Vector2 (Random.Range(-12.0f, -8.99f), 0);
+		rigidbody2D.velocity = new Vector2 (-4.0f, 0);;//new Vector2 (Random.Range(-12.0f, -8.99f), 0);
 	}
 	
 	// Update is called once per frame
@@ -50,6 +50,9 @@ public class HammerEnemy : BaseEnemy {
 
 	protected override void OnTriggerEnter2D(Collider2D other)
 	{
+
+//		Debug.Log("HAMMER ~~~~~~~ HIT");
+
 		//if we're hitting a player, and we haven't recently damaged them then deal damage.
 		if (other.gameObject.tag == "Player" && !recentlyDamaged)
 		{
@@ -61,11 +64,12 @@ public class HammerEnemy : BaseEnemy {
 			attackTime = Time.time;
 			//Make noise and some effect
 		}
-		if (other.gameObject.tag == "bullet")
-		{
-			//Debug.Log("HIT BY A BULLET");
-			other.gameObject.SendMessage("dealDamage", gameObject);
-		}
+//		if (other.gameObject.tag == "bullet")
+//		{
+//			Debug.Log("HAMMER HIT BY BULLET");
+//			//Debug.Log("HIT BY A BULLET");
+//			other.gameObject.SendMessage("dealDamage", gameObject);
+//		}
 	}
 	
 

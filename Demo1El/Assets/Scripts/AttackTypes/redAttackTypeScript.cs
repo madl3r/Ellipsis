@@ -5,7 +5,7 @@ public class redAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 3.0f;
+		defaultAttackSpeed = 2.0f;
 		knockBackPos = -6.5f;
 		knockBackSpeed = -15.0f;
 		if (myPlayer != null)

@@ -28,6 +28,9 @@ public class playerStats : MonoBehaviour {
 
 	private static int maxHP;
 	private static int hp;
+	private static bool recentlyDamaged;
+	private static float invulnTime;
+	private static float timeOfHit;
 
 	//Bonuses/upgrades
 	public GameObject attackType;
@@ -49,6 +52,8 @@ public class playerStats : MonoBehaviour {
 	private static int keys;
 	
 	void Start () {
+
+		invulnTime = 0.5f;
 
 		knockBackSpd = -10.0f;
 
@@ -96,6 +101,9 @@ public class playerStats : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (recentlyDamaged && ((Time.time - timeOfHit) > invulnTime))
+			recentlyDamaged = false;
+
 		//Checking if the player can attack again.
 		if (Time.time - lastAttack > timeBetweenAttacks)
 		{
@@ -115,19 +123,25 @@ public class playerStats : MonoBehaviour {
 	//Method for taking damage
 	void takeDamage (int dmg)
 	{
-		// if we have a shield then take no damage and get rid of the upgrade
-		if (hasShield)
-		{
-			//no damage taken
-			hasShield = false;
-			//Reset the shape back to circle
-			gameObject.GetComponent<SpriteRenderer>().sprite = defaultShape;
-		}
-		//otherwise proceed as normal
-		else
-			hp -= dmg;
 
-		//Redisplay the HP with new values.
+		if (!recentlyDamaged)
+		{
+			recentlyDamaged = true;
+			timeOfHit = Time.time;
+			// if we have a shield then take no damage and get rid of the upgrade
+			if (hasShield)
+			{
+				//no damage taken
+				hasShield = false;
+				//Reset the shape back to circle
+				gameObject.GetComponent<SpriteRenderer>().sprite = defaultShape;
+			}
+			//otherwise proceed as normal
+			else
+				hp -= dmg;
+
+		}
+			//Redisplay the HP with new values.
 		HPUI.GetComponent<displayHP>().showHearts(hp, maxHP);
 
 		//if HP is less than or = zero... then gg
@@ -154,13 +168,9 @@ public class playerStats : MonoBehaviour {
 		{
 			if (canAttack)
 			{
-
-				//Debug.Log("SHOOTING " + attackType);
 				GameObject b = Instantiate(theBullet, transform.position, transform.rotation) as GameObject;
 				b.BroadcastMessage("addBonusDmg", bulBnsDmg);
 				gameObject.rigidbody2D.velocity = new Vector2(knockBackSpd, 0);//Random.Range(-20.0f, 20.01f));
-				//b.BroadcastMessage("addBonusBulSpeed", bulBnsSpd);
-				//b.BroadcastMessage("addBonusDuration", bulBnsDuration);
 			}
 		}
 		//Counting down to next round
@@ -168,6 +178,15 @@ public class playerStats : MonoBehaviour {
 		{
 			//count down to next round
 			theWorld.GetComponent<World>().decrementRoundCount();
+			
+			//For testing weapons between rounds
+//			if (canAttack)
+//			{
+//					
+//				GameObject b = Instantiate(theBullet, transform.position, transform.rotation) as GameObject;
+//				b.BroadcastMessage("addBonusDmg", bulBnsDmg);
+//				gameObject.rigidbody2D.velocity = new Vector2(knockBackSpd, 0);//Random.Range(-20.0f, 20.01f));
+//			}
 		}
 		//getting upgrade
 		else if (theWorld.GetComponent<World>().getCurrentLine().tag == "upgradeLines")
@@ -480,6 +499,11 @@ public class playerStats : MonoBehaviour {
 	}
 
 	public int getLevelNumber()
+	{
+		return levelNumber;
+	}
+
+	public static int staticGetLvlNum()
 	{
 		return levelNumber;
 	}

@@ -6,7 +6,7 @@
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
 -define:UNITY_4_5_5
 -define:UNITY_4_5
--define:UNITY_STANDALONE_WIN
+-define:UNITY_STANDALONE_OSX
 -define:ENABLE_MICROPHONE
 -define:ENABLE_TEXTUREID_MAP
 -define:ENABLE_UNITYEVENTS
@@ -30,6 +30,7 @@
 -define:ENABLE_CACHING
 -define:ENABLE_CLOTH
 -define:ENABLE_2D_PHYSICS
+-define:ENABLE_GAMECENTER
 -define:ENABLE_SHADOWS
 -define:ENABLE_AUDIO
 -define:ENABLE_NAVMESH_CARVING
@@ -99,6 +100,7 @@
 'Assets/Scripts/WorldScripts/OffCameraRightScript.cs'
 'Assets/Scripts/WorldScripts/World.cs'
 'Assets/Scripts/WorldScripts/backgroundColorScript.cs'
+'Assets/Scripts/WorldScripts/lvlRoundCounter.cs'
 'Assets/Scripts/WorldScripts/pauseMenuGUI.cs'
 'Assets/Scripts/WorldScripts/shopEnterLineScript.cs'
 'Assets/Scripts/WorldScripts/shopLinesScript.cs'

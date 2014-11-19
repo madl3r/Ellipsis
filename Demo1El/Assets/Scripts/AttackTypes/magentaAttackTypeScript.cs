@@ -5,7 +5,7 @@ public class magentaAttackTypeScript : attackTypeScript {
 
 	// Use this for initialization
 	void Start () {
-		defaultAttackSpeed = 3.0f;
+		defaultAttackSpeed = 4.0f;
 		knockBackPos = -6.5f;
 		knockBackSpeed = -14.0f;
 		if (myPlayer != null)

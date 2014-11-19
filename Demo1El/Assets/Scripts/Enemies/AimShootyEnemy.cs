@@ -32,7 +32,8 @@ public class AimShootyEnemy : BaseEnemy {
 		//Look at the player
 		if (playerToLookAt != null)
 		{
-			transform.LookAt(playerToLookAt.transform.position);
+			//transform.LookAt(playerToLookAt.transform.position);
+			transform.LookAt(new Vector2 (-6.0f, playerToLookAt.transform.position.y));
 			transform.Rotate(eulerAngleOffset, Space.Self);
 		}
 

@@ -18,4 +18,11 @@ public class blackBulletScript : BaseBulletScript {
 		if (transform.position.x > 30)
 			Destroy(gameObject);
 	}
+
+	protected void OnTriggerEnter2D(Collider2D other)
+	{
+		dealDamage(other.gameObject);
+	}
+
+
 }
