@@ -18,13 +18,13 @@ public class BaseEnemy : MonoBehaviour {
 	
 	}
 
-	protected virtual void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.gameObject.tag == "bullet")
-		{
-			other.gameObject.SendMessage("dealDamage", gameObject);
-		}
-	}
+//	protected virtual void OnTriggerEnter2D(Collider2D other)
+//	{
+//		if (other.gameObject.tag == "bullet")
+//		{
+//			other.gameObject.SendMessage("dealDamage", gameObject);
+//		}
+//	}
 
 	protected virtual void attack()
 	{

@@ -21,7 +21,7 @@ public class tealBulletScript : BaseBulletScript {
 	
 	protected override void dealDamage(GameObject theHit)
 	{
-		if (theHit.tag == "player" || theHit.tag == "enemy")
+		if (theHit.tag == "enemy")
 		{
 			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
@@ -31,9 +31,10 @@ public class tealBulletScript : BaseBulletScript {
 		{
 			//Destory the bullet
 			Destroy(theHit);
+			Destroy(gameObject);
 		}
 		//I think it's too OP if it just pierces bullets... so for now it always dies.
-		Destroy(gameObject);
+
 		
 	}
 

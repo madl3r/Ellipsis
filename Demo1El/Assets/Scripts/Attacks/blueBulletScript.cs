@@ -35,7 +35,7 @@ public class blueBulletScript : BaseBulletScript {
 		{
 			rigidbody2D.velocity = new Vector2 (-bulletSpeed * 1.25f, 0);
 			//Now it needs to act like an enemy bullet as well as a player bullet.
-			gameObject.GetComponent<Collider2D>().isTrigger = true;
+		//	gameObject.GetComponent<Collider2D>().isTrigger = true;
 		}
 	}
 
@@ -48,27 +48,42 @@ public class blueBulletScript : BaseBulletScript {
 	//Slightly overriden dealDamage method, this gun never dies on any traditional contact.
 	protected override void dealDamage(GameObject theHit)
 	{
-		if (theHit.tag == "player" || theHit.tag == "enemy")
+		if (theHit.tag == "enemy")
 		{
 			theHit.SendMessage("takeDamage", dmg);
 		}
-	}
 
-	void OnTriggerEnter2D(Collider2D other)
-	{
 		//if we collided with a player, make that player take damage.
-		if (other.gameObject.tag == "Player" && (Time.time - theStartTime) > playerDeadlyTime)
+		if (theHit.tag == "Player" && (Time.time - theStartTime) > playerDeadlyTime)
 		{
-			other.gameObject.SendMessage("takeDamage", dmg);
+			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 			//Make noise and some effect
 		}
 		//if we collided with a bullet, have the bullet deal damage to us.
 		//This is incase some enemy bullet is supposed to totally destory all things it hits.
-		if (other.gameObject.tag == "bullet")
-		{
-			other.gameObject.SendMessage("dealDamage", gameObject);
-		}
+		//if (other.gameObject.tag == "bullet")
+		//{
+		//	other.gameObject.SendMessage("dealDamage", gameObject);
+		//}
+
 	}
-	
+
+//	protected override void OnTriggerEnter2D(Collider2D other)
+//	{
+//		//if we collided with a player, make that player take damage.
+//		if (other.gameObject.tag == "Player" && (Time.time - theStartTime) > playerDeadlyTime)
+//		{
+//			other.gameObject.SendMessage("takeDamage", dmg);
+//			Destroy(gameObject);
+//			//Make noise and some effect
+//		}
+//		//if we collided with a bullet, have the bullet deal damage to us.
+//		//This is incase some enemy bullet is supposed to totally destory all things it hits.
+//		if (other.gameObject.tag == "bullet")
+//		{
+//			other.gameObject.SendMessage("dealDamage", gameObject);
+//		}
+//	}
+//	
 }

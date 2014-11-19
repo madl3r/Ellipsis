@@ -55,10 +55,10 @@ public class enemySpreadShotScript : BaseBulletScript {
 			//Make noise and some effect
 		}
 		//If we hit another bullet we tell them to damage to us (this bullet). This might result in this bullet being destroyed.
-		if (other.gameObject.tag == "bullet")
-		{
-			other.gameObject.SendMessage("dealDamage", gameObject);
-		}
+		//if (other.gameObject.tag == "bullet")
+		//{
+		//	other.gameObject.SendMessage("dealDamage", gameObject);
+		//}
 	}
 
 }

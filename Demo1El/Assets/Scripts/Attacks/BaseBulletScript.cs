@@ -61,4 +61,9 @@ public class BaseBulletScript : MonoBehaviour{
 		Destroy(gameObject);
 	}
 
+	protected virtual void OnTriggerEnter2D(Collider2D other)
+	{
+		dealDamage(other.gameObject);
+	}
+
 }

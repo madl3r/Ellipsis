@@ -61,4 +61,15 @@ public class yellowBulletScript : BaseBulletScript {
 		}
 	}
 
+	protected void OnTriggerStay2D(Collider2D other)
+	{
+		dealDamage(other.gameObject);
+	}
+	
+	protected void OnTriggerExit2D(Collider2D other)
+	{
+		dealDamage(other.gameObject);
+	}
+
+
 }

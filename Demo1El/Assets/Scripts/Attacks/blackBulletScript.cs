@@ -19,10 +19,4 @@ public class blackBulletScript : BaseBulletScript {
 			Destroy(gameObject);
 	}
 
-	protected void OnTriggerEnter2D(Collider2D other)
-	{
-		dealDamage(other.gameObject);
-	}
-
-
 }

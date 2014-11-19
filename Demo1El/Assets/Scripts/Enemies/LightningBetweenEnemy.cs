@@ -22,7 +22,7 @@ public class LightningBetweenEnemy : BaseEnemy {
 		
 	}
 
-	protected override void OnTriggerEnter2D(Collider2D other)
+	protected void OnTriggerEnter2D(Collider2D other)
 	{
 		Debug.Log("DIS SHIT IS GETTIN HIT");
 		//if we're hitting a player, and we haven't recently damaged them then deal damage.

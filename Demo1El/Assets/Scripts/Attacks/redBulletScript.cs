@@ -7,7 +7,7 @@ public class redBulletScript : BaseBulletScript {
 	void Start () {
 		
 		dmg = 1 + bnsDmg;
-		bulletSpeed = 2.0f + bnsBulletSpeed;
+		bulletSpeed = 12.0f + bnsBulletSpeed;
 		duration = 4f + bnsDuration;
 		startTime = Time.time;
 
@@ -62,11 +62,15 @@ public class redBulletScript : BaseBulletScript {
 		}
 
 	}
-
-	protected void OnTriggerEnter2D(Collider2D other)
+	
+	protected void OnTriggerStay2D(Collider2D other)
 	{
 		dealDamage(other.gameObject);
 	}
 
+	protected void OnTriggerExit2D(Collider2D other)
+	{
+		dealDamage(other.gameObject);
+	}
 
 }

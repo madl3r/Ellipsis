@@ -36,6 +36,7 @@ public class greenBounceScript : BaseBulletScript{
 			b.BroadcastMessage("addBonusBulSpeed", bnsBulletSpeed);
 			b.BroadcastMessage("addBonusDuration", bnsDuration);
 			Destroy(theHit);
+			Destroy(gameObject);
 		}
 
 		//Getting rid of this for now for slight buff.

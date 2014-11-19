@@ -12,7 +12,7 @@ public class BoltCarrier : BaseEnemy {
 		recentlyDamaged = false;
 		timeBtwnAttacks = 0.5f;
 
-		hp = 3;
+		hp = 2;
 		dmg = 2;
 	}
 	
@@ -45,7 +45,7 @@ public class BoltCarrier : BaseEnemy {
 		transform.position = new Vector2 (11.0f, transform.position.y);
 	}
 
-	protected override void OnTriggerEnter2D(Collider2D other)
+	protected void OnTriggerEnter2D(Collider2D other)
 	{
 
 

@@ -32,9 +32,9 @@ public class aimedEnemyBullet : BaseBulletScript {
 			//Make noise and some effect
 		}
 		//If it hits a bullet, deal damage to that bullet... but don't die yourself.
-		if (other.gameObject.tag == "bullet")
-		{
-			other.gameObject.SendMessage("dealDamage", gameObject);
-		}
+//		if (other.gameObject.tag == "bullet")
+//		{
+//			other.gameObject.SendMessage("dealDamage", gameObject);
+//		}
 	}
 }

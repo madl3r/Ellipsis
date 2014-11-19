@@ -79,27 +79,43 @@ public class magentaBladeBullet : BaseBulletScript {
 	//Need to override this if you want the bullet to destroy bullets that come against you
 	protected override void dealDamage(GameObject theHit)
 	{
-		if (theHit.tag == "player" || theHit.tag == "enemy")
+		if (theHit.tag == "enemy")
 		{
 			theHit.SendMessage("takeDamage", dmg);
 		}
-		//Destroy(gameObject);
-	}
-	
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		//if we collided with a player, make that player take damage.
-		if (other.gameObject.tag == "Player" && (Time.time - theStartTime) > playerDeadlyTime)
+		if (theHit.tag == "Player" && (Time.time - theStartTime) > playerDeadlyTime)
 		{
-			other.gameObject.SendMessage("takeDamage", dmg);
+			theHit.SendMessage("takeDamage", dmg);
 			Destroy(gameObject);
 			//Make noise and some effect
 		}
-//		//if we collided with a bullet, have the bullet deal damage to us and then die
-//		if (other.gameObject.tag == "enemyBullet")
-//		{
-//			other.gameObject.SendMessage("dealDamage", gameObject);
-//			Destroy(gameObject);
-//		}
+		//Destroy(gameObject);
 	}
+
+//	protected void OnTriggerStay2D(Collider2D other)
+//	{
+//		dealDamage(other.gameObject);
+//	}
+	
+	protected void OnTriggerExit2D(Collider2D other)
+	{
+		dealDamage(other.gameObject);
+	}
+	
+//	void OnTriggerEnter2D(Collider2D other)
+//	{
+//		//if we collided with a player, make that player take damage.
+//		if (other.gameObject.tag == "Player" && (Time.time - theStartTime) > playerDeadlyTime)
+//		{
+//			other.gameObject.SendMessage("takeDamage", dmg);
+//			Destroy(gameObject);
+//			//Make noise and some effect
+//		}
+////		//if we collided with a bullet, have the bullet deal damage to us and then die
+////		if (other.gameObject.tag == "enemyBullet")
+////		{
+////			other.gameObject.SendMessage("dealDamage", gameObject);
+////			Destroy(gameObject);
+////		}
+//	}
 }

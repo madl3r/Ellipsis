@@ -85,7 +85,7 @@ public class AimChargeEnemy : BaseEnemy {
 
 	}
 
-	protected override void OnTriggerEnter2D(Collider2D other)
+	protected void OnTriggerEnter2D(Collider2D other)
 	{
 		//if we're hitting a player, and we haven't recently damaged them then deal damage.
 		if (other.gameObject.tag == "Player" && !recentlyDamaged)
@@ -97,11 +97,11 @@ public class AimChargeEnemy : BaseEnemy {
 			attackTime = Time.time;
 			//Make noise and some effect
 		}
-		if (other.gameObject.tag == "bullet")
-		{
-			//Debug.Log("HIT BY A BULLET");
-			other.gameObject.SendMessage("dealDamage", gameObject);
-		}
+//		if (other.gameObject.tag == "bullet")
+//		{
+//			//Debug.Log("HIT BY A BULLET");
+//			other.gameObject.SendMessage("dealDamage", gameObject);
+//		}
 	}
 
 }

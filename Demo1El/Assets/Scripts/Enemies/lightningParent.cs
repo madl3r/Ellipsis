@@ -57,7 +57,7 @@ public class lightningParent : BaseEnemy {
 		Destroy(gameObject);
 	}
 
-	protected override void OnTriggerEnter2D(Collider2D other)
+	protected void OnTriggerEnter2D(Collider2D other)
 	{
 		//Do nothing... I guess parents get hit too when their kids are hit 
 		;
