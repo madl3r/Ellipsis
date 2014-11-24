@@ -6,8 +6,9 @@ public class HammerEnemy : BaseEnemy {
 	private bool recentlyDamaged;
 	private float attackTime;
 	private float timeBtwnAttacks;
+
 	// Use this for initialization
-	void Start () {
+	protected override void Start () {
 
 		//Spawn position start
 		if (worldSpawned)
@@ -18,6 +19,8 @@ public class HammerEnemy : BaseEnemy {
 		hp = 4;
 		dmg = 2;
 		rigidbody2D.velocity = new Vector2 (Random.Range(-12.0f, -4.99f), 0);
+	
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -35,8 +38,9 @@ public class HammerEnemy : BaseEnemy {
 
 	protected override void takeDamage(int dmg)
 	{
+		
 		hp -= dmg;
-
+		anim.SetTrigger("TakingDamage");
 		//knockback
 		transform.position = new Vector2(transform.position.x + 0.2f, transform.position.y);
 

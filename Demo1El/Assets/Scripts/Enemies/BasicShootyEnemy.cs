@@ -24,6 +24,8 @@ public class BasicShootyEnemy : BaseEnemy {
 		dmg = 1;
 		prevMoveTime = Time.time;
 		prevShotTime = Time.time;
+
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame

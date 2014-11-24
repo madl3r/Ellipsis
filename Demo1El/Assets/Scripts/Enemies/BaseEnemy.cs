@@ -8,9 +8,13 @@ public class BaseEnemy : MonoBehaviour {
 	protected bool worldSpawned = false;
 	protected GameObject dahWorld;
 
+	protected Animator anim;
+
 	// Use this for initialization
-	void Start () {
-	
+	protected virtual void Start () {
+
+		anim = GetComponent<Animator>();
+
 	}
 	
 	// Update is called once per frame
@@ -33,6 +37,7 @@ public class BaseEnemy : MonoBehaviour {
 	
 	protected virtual void takeDamage(int dmg)
 	{
+		anim.SetTrigger("TakeDamage");
 		hp -= dmg;
 		
 		if (hp <= 0)

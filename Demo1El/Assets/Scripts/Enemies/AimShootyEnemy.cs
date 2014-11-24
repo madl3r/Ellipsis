@@ -24,6 +24,8 @@ public class AimShootyEnemy : BaseEnemy {
 		eulerAngleOffset = new Vector3(0, 90, 0);
 
 		playerToLookAt = GameObject.FindGameObjectWithTag("Player");
+
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame

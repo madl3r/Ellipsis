@@ -42,6 +42,8 @@ public class AimChargeEnemy : BaseEnemy {
 
 		//Getting the player to look at... is there a better way to do this than to use find?
 		playerToLookAt = GameObject.FindGameObjectWithTag("Player");
+	
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
